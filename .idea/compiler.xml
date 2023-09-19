@@ -9,8 +9,5 @@
         <module name="Management_Of_Non-Communicable_Diseases" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Management_Of_Non-Communicable_Diseases" target="20" />
-    </bytecodeTargetLevel>
   </component>
 </project>
