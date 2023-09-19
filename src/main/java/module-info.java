@@ -4,7 +4,7 @@ module com.devteam.management_of_noncommunicable_diseases {
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
-    requires validatorfx;
+
     requires org.kordamp.bootstrapfx.core;
 
     opens com.devteam.management_of_noncommunicable_diseases to javafx.fxml;
