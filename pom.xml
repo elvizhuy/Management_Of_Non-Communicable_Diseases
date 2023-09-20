@@ -86,7 +86,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.devteam.management_of_noncommunicable_diseases/com.devteam.management_of_noncommunicable_diseases.HelloApplication
+                                com.devteam.management_of_noncommunicable_diseases/com.devteam.management_of_noncommunicable_diseases.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
