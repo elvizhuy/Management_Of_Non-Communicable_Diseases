@@ -6,6 +6,7 @@ module com.devteam.management_of_noncommunicable_diseases {
     requires com.dlsc.formsfx;
 
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
     opens com.devteam.management_of_noncommunicable_diseases to javafx.fxml;
     exports com.devteam.management_of_noncommunicable_diseases;
