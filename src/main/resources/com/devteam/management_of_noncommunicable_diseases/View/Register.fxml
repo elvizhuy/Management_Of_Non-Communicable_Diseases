@@ -54,7 +54,10 @@
                   <Font size="16.0" />
                </font>
             </PasswordField>
-                <Button fx:id="registerBtn" layoutX="124.0" layoutY="447.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="363.0" stylesheets="@Style/LoginCss.css" text="Sign Up" />
+                <Button fx:id="registerBtn" layoutX="124.0" layoutY="447.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="363.0" style="-fx-background-color: -fx-primary-color;" stylesheets="@Style/LoginCss.css" text="Sign Up">
+               <font>
+                  <Font size="11.0" />
+               </font></Button>
                 <Hyperlink layoutX="355.0" layoutY="482.0" prefHeight="24.0" prefWidth="147.0" text="Already have an account?" />
             </children>
         </AnchorPane>
