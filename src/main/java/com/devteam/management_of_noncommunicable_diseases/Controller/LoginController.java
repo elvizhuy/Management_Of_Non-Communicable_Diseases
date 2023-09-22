@@ -43,11 +43,9 @@ public class LoginController implements Initializable {
                     "Nhập mật khẩu");
             return;
         }
-
+        SelectLogin selectLogin = new SelectLogin();
         String username = userField.getText();
         String password = passField.getText();
-
-        SelectLogin selectLogin = new SelectLogin();
         boolean flag = selectLogin.validate(username, password);
 
         if (!flag) {
