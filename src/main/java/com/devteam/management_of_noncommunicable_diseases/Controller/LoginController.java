@@ -74,11 +74,11 @@ public class LoginController implements Initializable {
         alert.show();
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ExitBtn.setOnMouseClicked(event -> {
             System.exit(0);
         });
     }
+
 }
