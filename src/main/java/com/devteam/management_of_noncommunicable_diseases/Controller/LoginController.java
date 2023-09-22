@@ -17,7 +17,7 @@ public class LoginController {
     @FXML
     private Button btnLogin;
     @FXML
-    private PasswordField passwordField;
+    private PasswordField passField;
     @FXML
     private TextField userField;
 
@@ -27,21 +27,21 @@ public class LoginController {
         Window owner = btnLogin.getScene().getWindow();
 
         System.out.println(userField.getText());
-        System.out.println(passwordField.getText());
+        System.out.println(passField.getText());
 
         if (userField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Nhập tên");
             return;
         }
-        if (passwordField.getText().isEmpty()) {
+        if (passField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Nhập mật khẩu");
             return;
         }
 
         String username = userField.getText();
-        String password = passwordField.getText();
+        String password = passField.getText();
 
         SelectLogin selectLogin = new SelectLogin();
         boolean flag = selectLogin.validate(username, password);
