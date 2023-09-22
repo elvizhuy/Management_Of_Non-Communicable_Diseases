@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class SelectLogin {
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mon_cda";
     private static final String DATABASE_USERNAME = "root";
-    private static final String DATABASE_PASSWORD = "";
+    private static final String DATABASE_PASSWORD = "Huynn@0908";
     private static final String SELECT_QUERY = "SELECT user_name,password FROM accounts WHERE user_name = ? and password = ?";
     public boolean validate(String username, String password) throws SQLException {
 

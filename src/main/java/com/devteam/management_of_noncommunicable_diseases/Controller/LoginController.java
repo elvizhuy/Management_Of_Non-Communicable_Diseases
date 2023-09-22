@@ -14,7 +14,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class LoginController implements Initializable,InfoBox,ShowAlert {
     @FXML
     private ImageView btnCloseLogin;
     @FXML
@@ -34,12 +34,12 @@ public class LoginController implements Initializable {
         System.out.println(passField.getText());
 
         if (userField.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Nhập tên");
             return;
         }
         if (passField.getText().isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Nhập mật khẩu");
             return;
         }
@@ -49,27 +49,10 @@ public class LoginController implements Initializable {
         boolean flag = selectLogin.validate(username, password);
 
         if (!flag) {
-            infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
+            InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
         } else {
-            infoBox("Đăng nhập thành công!", null, "Thành Công");
+            InfoBox.infoBox("Đăng nhập thành công!", null, "Thành Công");
         }
-    }
-
-    public static void infoBox(String infoMessage, String headerText, String title) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText(infoMessage);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.showAndWait();
-    }
-
-    private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.initOwner(owner);
-        alert.show();
     }
 
     @Override
