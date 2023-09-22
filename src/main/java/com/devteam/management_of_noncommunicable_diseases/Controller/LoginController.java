@@ -2,6 +2,7 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -9,9 +10,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Window;
 
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
     @FXML
     private ImageView btnCloseLogin;
     @FXML
@@ -20,10 +23,11 @@ public class LoginController {
     private PasswordField passField;
     @FXML
     private TextField userField;
+    @FXML
+    private ImageView ExitBtn;
 
     @FXML
     protected void login(ActionEvent event) throws SQLException, SQLException {
-      
         Window owner = btnLogin.getScene().getWindow();
 
         System.out.println(userField.getText());
@@ -70,4 +74,11 @@ public class LoginController {
         alert.show();
     }
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ExitBtn.setOnMouseClicked(event -> {
+            System.exit(0);
+        });
+    }
 }
