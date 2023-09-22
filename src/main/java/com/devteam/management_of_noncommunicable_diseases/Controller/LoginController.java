@@ -23,7 +23,7 @@ public class LoginController {
 
     @FXML
     protected void login(ActionEvent event) throws SQLException, SQLException {
-
+      
         Window owner = btnLogin.getScene().getWindow();
 
         System.out.println(userField.getText());
