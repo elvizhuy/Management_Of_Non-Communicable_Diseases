@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fitHeight="711.0" fitWidth="1017.0" layoutX="-14.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Image/LoginBack4.png" />
+            </image>
+        </ImageView>
+        <AnchorPane focusTraversable="true" layoutX="180.0" layoutY="81.0" prefHeight="528.0" prefWidth="586.0" style="-fx-background-color: white;" stylesheets="@Style/LoginCss.css">
+            <children>
+                <Text fill="#000000a5" layoutX="78.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register Here" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="23.0" />
+                    </font>
+                </Text>
+              <ImageView fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                  <image>
+                      <Image url="@Image/close2.png" />
+                  </image>
+              </ImageView>
+                <ImageView fitHeight="106.0" fitWidth="125.0" layoutX="253.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Image/icon2.jpeg" />
+                    </image>
+                </ImageView>
+            <TextField fx:id="fullName" layoutX="124.0" layoutY="157.0" prefHeight="25.0" prefWidth="363.0" promptText="Full Name" stylesheets="@Style/LoginCss.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="userName" layoutX="124.0" layoutY="217.0" prefHeight="25.0" prefWidth="363.0" promptText="Usernane" stylesheets="@Style/LoginCss.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="email" layoutX="124.0" layoutY="275.0" prefHeight="38.0" prefWidth="363.0" promptText="Email" stylesheets="@Style/LoginCss.css">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="password" layoutX="124.0" layoutY="331.0" prefHeight="37.0" prefWidth="363.0" promptText="Password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </PasswordField>
+            <PasswordField fx:id="confirmPassword" layoutX="124.0" layoutY="388.0" prefHeight="37.0" prefWidth="363.0" promptText="Confirm Password">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </PasswordField>
+                <Button fx:id="registerBtn" layoutX="124.0" layoutY="447.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="363.0" stylesheets="@Style/LoginCss.css" text="Sign Up" />
+                <Hyperlink layoutX="355.0" layoutY="482.0" prefHeight="24.0" prefWidth="147.0" text="Already have an account?" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
