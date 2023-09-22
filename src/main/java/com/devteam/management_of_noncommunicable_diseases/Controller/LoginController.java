@@ -51,7 +51,7 @@ public class LoginController implements Initializable {
         if (!flag) {
             infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
         } else {
-            infoBox("Đăng nhập thành công!", null, "Thất Bại");
+            infoBox("Đăng nhập thành công!", null, "Thành Công");
         }
     }
 
