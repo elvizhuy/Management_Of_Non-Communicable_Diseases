@@ -9,8 +9,8 @@ public class SelectLogin {
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/MON_CDA";
     private static final String DATABASE_USERNAME = "root";
     private static final String DATABASE_PASSWORD = "";
-    private static final String SELECT_QUERY = "SELECT email,password FROM users WHERE email_id = ? and password = ?";
-    public boolean validate(String emailId, String password) throws SQLException {
+    private static final String SELECT_QUERY = "SELECT username,password FROM users WHERE username = ? and password = ?";
+    public boolean validate(String username, String password) throws SQLException {
 
         // Establishing a Connection
         try (Connection connection = DriverManager
@@ -18,7 +18,7 @@ public class SelectLogin {
 
              // Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY)) {
-            preparedStatement.setString(1, emailId);
+            preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
 
             System.out.println(preparedStatement);
