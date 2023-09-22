@@ -22,8 +22,8 @@ public class LoginController {
     private TextField userField;
 
     @FXML
-    public void Login(ActionEvent event) throws SQLException, SQLException {
-
+    protected void login(ActionEvent event) throws SQLException, SQLException {
+      
         Window owner = btnLogin.getScene().getWindow();
 
         System.out.println(userField.getText());
@@ -69,4 +69,5 @@ public class LoginController {
         alert.initOwner(owner);
         alert.show();
     }
+
 }

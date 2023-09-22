@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="996.0" type="AnchorPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.LoginController">
+
    <children>
       <ImageView fitHeight="711.0" fitWidth="1017.0" layoutX="-14.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -28,7 +29,7 @@
                <font>
                   <Font size="16.0" />
                </font></PasswordField>
-            <Button fx:id="btnLogin" layoutX="33.0" layoutY="391.0" mnemonicParsing="false" onAction="" prefHeight="25.0" prefWidth="363.0" stylesheets="@Style/LoginCss.css" text="Login" />
+            <Button fx:id="btnLogin" layoutX="33.0" layoutY="391.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="363.0" stylesheets="@Style/LoginCss.css" text="Login" />
             <CheckBox layoutX="33.0" layoutY="354.0" mnemonicParsing="false" text="Keep me logged in" />
             <Hyperlink layoutX="305.0" layoutY="351.0" prefHeight="23.0" prefWidth="124.0" text="Forgot Password ?" />
             <TextField fx:id="userField" layoutX="36.0" layoutY="243.0" prefHeight="25.0" prefWidth="363.0" promptText="Username" stylesheets="@Style/LoginCss.css">
@@ -44,4 +45,4 @@
          </image>
       </ImageView>
    </children>
-</AnchorPane>
+</fx:root>
