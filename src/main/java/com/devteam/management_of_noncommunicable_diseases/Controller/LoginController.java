@@ -14,12 +14,10 @@ import java.sql.SQLException;
 public class LoginController {
     @FXML
     private ImageView btnCloseLogin;
-
     @FXML
     private Button btnLogin;
     @FXML
     private PasswordField passwordField;
-
     @FXML
     private TextField userField;
 
@@ -33,12 +31,12 @@ public class LoginController {
 
         if (userField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter your username");
+                    "Nhập tên");
             return;
         }
         if (passwordField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter a password");
+                    "Nhập mật khẩu");
             return;
         }
 
@@ -49,27 +47,26 @@ public class LoginController {
         boolean flag = selectLogin.validate(username, password);
 
         if (!flag) {
-            infoBox("Please enter correct Username and Password", null, "Failed");
+            infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
         } else {
-            infoBox("Login Successful!", null, "Failed");
+            infoBox("Đăng nhập thành công!", null, "Thất Bại");
         }
     }
-        public static void infoBox(String infoMessage, String headerText, String title) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setContentText(infoMessage);
-            alert.setTitle(title);
-            alert.setHeaderText(headerText);
-            alert.showAndWait();
-        }
 
-        private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-            Alert alert = new Alert(alertType);
-            alert.setTitle(title);
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.initOwner(owner);
-            alert.show();
-        }
+    public static void infoBox(String infoMessage, String headerText, String title) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText(infoMessage);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.showAndWait();
+    }
 
-
+    private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.initOwner(owner);
+        alert.show();
+    }
 }
