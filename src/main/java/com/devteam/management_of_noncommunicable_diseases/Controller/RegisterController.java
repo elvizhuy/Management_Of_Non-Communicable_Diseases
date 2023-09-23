@@ -2,10 +2,15 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Window;
+
+import java.sql.SQLException;
+import java.util.Objects;
 
 public class RegisterController {
     @FXML
@@ -27,8 +32,42 @@ public class RegisterController {
     private TextField fullName;
 
     @FXML
-    protected void Register (ActionEvent event) {
+    protected void Register (ActionEvent event) throws SQLException {
+        String INSERT_QUERY = "INSERT into accounts (user_name,password) VALUES (?, ?)";
+        String SELECT_QUERY = "SELECT user_name FROM accounts WHERE user_name = ?";
+        Window owner = registerBtn.getScene().getWindow();
 
+        System.out.println(userName.getText());
+        System.out.println(password.getText());
+        System.out.println(confirmPassword.getText());
+
+        if (userName.getText().isEmpty()) {
+            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Nhập tên");
+            return;
+        }
+        if (password.getText().isEmpty()) {
+            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Nhập mật khẩu");
+            return;
+        }
+
+        if (!Objects.equals(password.getText(), confirmPassword.getText())) {
+            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Mật khẩu không khớp");
+            return;
+        }
+
+        JdbcDaoLoginRegister jdbcDaoLoginRegister = new JdbcDaoLoginRegister();
+        String username = userName.getText();
+        String pass = password.getText();
+        boolean flag = jdbcDaoLoginRegister.validateDuplicateName(username,SELECT_QUERY);
+
+        if (!flag) {
+            InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
+        } else {
+            jdbcDaoLoginRegister.insertRecord(username, pass,INSERT_QUERY);
+        }
     }
 
 }
