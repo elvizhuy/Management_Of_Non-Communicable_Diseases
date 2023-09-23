@@ -14,7 +14,7 @@
         </ImageView>
         <AnchorPane focusTraversable="true" layoutX="180.0" layoutY="81.0" prefHeight="528.0" prefWidth="586.0" style="-fx-background-color: white;" stylesheets="@Style/LoginCss.css">
             <children>
-                <Text fill="#000000a5" layoutX="78.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register Here" textAlignment="CENTER">
+                <Text fill="#000000a5" layoutX="124.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đăng Ký Tại Đây" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="23.0" />
                     </font>
@@ -24,17 +24,17 @@
                       <Image url="@Image/close2.png" />
                   </image>
               </ImageView>
-                <ImageView fitHeight="106.0" fitWidth="125.0" layoutX="253.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="106.0" fitWidth="125.0" layoutX="378.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@Image/icon2.jpeg" />
                     </image>
                 </ImageView>
-            <TextField fx:id="fullName" layoutX="124.0" layoutY="157.0" prefHeight="25.0" prefWidth="363.0" promptText="Full Name" stylesheets="@Style/LoginCss.css">
+            <TextField fx:id="fullName" layoutX="124.0" layoutY="157.0" prefHeight="25.0" prefWidth="363.0" promptText="Họ và tên" stylesheets="@Style/LoginCss.css">
                <font>
                   <Font size="16.0" />
                </font>
             </TextField>
-            <TextField fx:id="userName" layoutX="124.0" layoutY="217.0" prefHeight="25.0" prefWidth="363.0" promptText="Usernane" stylesheets="@Style/LoginCss.css">
+            <TextField fx:id="userName" layoutX="124.0" layoutY="217.0" prefHeight="25.0" prefWidth="363.0" promptText="Tên đăng nhập" stylesheets="@Style/LoginCss.css">
                <font>
                   <Font size="16.0" />
                </font>
@@ -44,22 +44,27 @@
                   <Font size="16.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="password" layoutX="124.0" layoutY="331.0" prefHeight="37.0" prefWidth="363.0" promptText="Password">
+            <PasswordField fx:id="password" layoutX="124.0" layoutY="331.0" prefHeight="37.0" prefWidth="363.0" promptText="Mật khẩu">
                <font>
                   <Font size="16.0" />
                </font>
             </PasswordField>
-            <PasswordField fx:id="confirmPassword" layoutX="124.0" layoutY="388.0" prefHeight="37.0" prefWidth="363.0" promptText="Confirm Password">
+            <PasswordField fx:id="confirmPassword" layoutX="124.0" layoutY="388.0" prefHeight="37.0" prefWidth="363.0" promptText="Xác nhận mật khẩu">
                <font>
                   <Font size="16.0" />
                </font>
             </PasswordField>
-                <Button fx:id="registerBtn" layoutX="124.0" layoutY="447.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="363.0" style="-fx-background-color: -fx-primary-color;" stylesheets="@Style/LoginCss.css" text="Sign Up">
+                <Button fx:id="registerBtn" layoutX="124.0" layoutY="447.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="363.0" style="-fx-background-color: -fx-primary-color;" stylesheets="@Style/LoginCss.css" text="Đăng ký">
                <font>
                   <Font size="11.0" />
                </font></Button>
-                <Hyperlink layoutX="355.0" layoutY="482.0" prefHeight="24.0" prefWidth="147.0" text="Already have an account?" />
+                <Hyperlink layoutX="387.0" layoutY="484.0" prefHeight="24.0" prefWidth="147.0" text="Đã có tài khoản?" textAlignment="CENTER" />
             </children>
         </AnchorPane>
+        <ImageView fx:id="ExitBtn" fitHeight="23.0" fitWidth="21.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+            <image>
+                <Image url="@Image/close2.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>
