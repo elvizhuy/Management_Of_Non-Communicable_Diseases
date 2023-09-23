@@ -28,6 +28,7 @@ public class LoginController implements Initializable,InfoBox,ShowAlert {
 
     @FXML
     protected void login(ActionEvent event) throws SQLException, SQLException {
+        String SELECT_QUERY = "SELECT user_name,password FROM accounts WHERE user_name = ? and password = ?";
         Window owner = btnLogin.getScene().getWindow();
 
         System.out.println(userField.getText());
@@ -43,10 +44,10 @@ public class LoginController implements Initializable,InfoBox,ShowAlert {
                     "Nhập mật khẩu");
             return;
         }
-        JdbcDao jdbcDao = new JdbcDao();
+        JdbcDaoLoginRegister jdbcDaoLoginRegister = new JdbcDaoLoginRegister();
         String username = userField.getText();
         String password = passField.getText();
-        boolean flag = jdbcDao.validate(username, password);
+        boolean flag = jdbcDaoLoginRegister.validate(username, password,SELECT_QUERY);
 
         if (!flag) {
             InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
