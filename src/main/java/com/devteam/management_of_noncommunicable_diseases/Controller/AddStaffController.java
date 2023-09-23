@@ -20,18 +20,18 @@ public class AddStaffController {
         String SELECT_FROM_DEPARTMENT_FACILITIES = "SELECT id FROM department_facilities WHERE facility_id = ?,department_id = ?";
         String INSERT_DEPARTMENT_FACILITIES_INTO_STAFF_QUERY = "INSERT INTO staffs (department_facilities_id) VALUES (?)";
 
-        String userName = user_name.getText();
-        String passWord = pass_word.getText();
-        String jobCode = job_code.getText();
-        String position = Position.getText();
-        String firstName = first_name.getText();
-        String lastName = last_name.getText();
-        String email = Email.getText();
-        String idNumber = id_number.getText();
-        String phoneNumber = phone_number.getText();
-        String startWork = start_work.getText();
-        int facilityId = facility_id.getInt();
-        int departmentId = department_id.getInt();
+//        String userName = user_name.getText();
+//        String passWord = pass_word.getText();
+//        String jobCode = job_code.getText();
+//        String position = Position.getText();
+//        String firstName = first_name.getText();
+//        String lastName = last_name.getText();
+//        String email = Email.getText();
+//        String idNumber = id_number.getText();
+//        String phoneNumber = phone_number.getText();
+//        String startWork = start_work.getText();
+//        int facilityId = facility_id.getInt();
+//        int departmentId = department_id.getInt();
         int departmentFacilityId = 0;
     }
 }

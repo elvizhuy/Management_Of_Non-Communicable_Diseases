@@ -21,9 +21,6 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
     private ImageView ExitBtn;
 
     @FXML
-    private ImageView ExitBtn;
-
-    @FXML
     private Button registerBtn;
 
     @FXML
@@ -40,7 +37,7 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
 
     @FXML
     protected void Register (ActionEvent event) throws SQLException {
-        String INSERT_QUERY = "INSERT into accounts (user_name,password) VALUES (?, ?)";
+        String INSERT_QUERY = "INSERT INTO accounts (user_name,password) VALUES (?, ?)";
         String SELECT_QUERY = "SELECT user_name FROM accounts WHERE user_name = ?";
         Window owner = registerBtn.getScene().getWindow();
 
@@ -79,7 +76,7 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
         if (!flag) {
             InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập của bạn", null, "Thất Bại");
         } else {
-            jdbcDaoLoginRegister.insertRecord(username, pass,INSERT_QUERY);
+            jdbcDaoLoginRegister.insertRecord(username,pass,INSERT_QUERY);
         }
     }
 
