@@ -62,7 +62,7 @@ public class JdbcDaoLoginRegister implements SQLException{
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             System.out.println(preparedStatement);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
         } catch (java.sql.SQLException e) {
             SQLException.printSQLException(e);
