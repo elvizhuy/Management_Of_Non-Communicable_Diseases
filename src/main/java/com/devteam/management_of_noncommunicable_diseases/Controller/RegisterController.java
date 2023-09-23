@@ -52,6 +52,12 @@ public class RegisterController {
             return;
         }
 
+        if (confirmPassword.getText().isEmpty()) {
+            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Yêu cầu xác nhận mật khẩu");
+            return;
+        }
+
         if (!Objects.equals(password.getText(), confirmPassword.getText())) {
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Mật khẩu không khớp");
