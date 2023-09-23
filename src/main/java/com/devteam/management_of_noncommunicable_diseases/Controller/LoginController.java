@@ -43,10 +43,10 @@ public class LoginController implements Initializable,InfoBox,ShowAlert {
                     "Nhập mật khẩu");
             return;
         }
-        SelectLogin selectLogin = new SelectLogin();
+        JdbcDao jdbcDao = new JdbcDao();
         String username = userField.getText();
         String password = passField.getText();
-        boolean flag = selectLogin.validate(username, password);
+        boolean flag = jdbcDao.validate(username, password);
 
         if (!flag) {
             InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
