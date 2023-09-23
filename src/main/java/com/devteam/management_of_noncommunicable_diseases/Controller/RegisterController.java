@@ -9,12 +9,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Window;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class RegisterController implements InfoBox,ShowAlert {
     @FXML
-    private ImageView btnCloseLogin;
+    private ImageView ExitBtn;
 
     @FXML
     private Button registerBtn;
@@ -75,5 +77,9 @@ public class RegisterController implements InfoBox,ShowAlert {
             jdbcDaoLoginRegister.insertRecord(username, pass,INSERT_QUERY);
         }
     }
-
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ExitBtn.setOnMouseClicked(event -> {
+            System.exit(0);
+        });
+    }
 }
