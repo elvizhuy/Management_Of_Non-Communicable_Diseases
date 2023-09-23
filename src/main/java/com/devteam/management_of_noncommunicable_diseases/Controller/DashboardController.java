@@ -1,5 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,55 +17,62 @@ import java.util.ResourceBundle;
 public class DashboardController implements Initializable {
 
     @FXML
-    private Label Menu;
+    private ImageView ExitBtn;
 
     @FXML
-    private Label MenuClose;
+    private ImageView menuBtn;
 
     @FXML
-    private ImageView exitBtn;
+    private AnchorPane pane1;
 
     @FXML
-    private AnchorPane sidebar;
+    private AnchorPane pane2;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        exitBtn.setOnMouseClicked(event -> {
+        ExitBtn.setOnMouseClicked(event -> {
             System.exit(0);
         });
-        sidebar.setTranslateX(-176);
-        Menu.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(sidebar);
 
-            slide.setToX(0);
-            slide.play();
+        pane1.setVisible(false);
 
-            sidebar.setTranslateX(-176);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), pane1);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.play();
 
-            slide.setOnFinished((ActionEvent e) -> {
-                Menu.setVisible(false);
-                MenuClose.setVisible(true);
-            });
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), pane2);
+        translateTransition.setByX(-900);
+        translateTransition.play();
+
+        menuBtn.setOnMouseClicked(event -> {
+            pane1.setVisible(true);
+
+            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(0.5), pane1);
+            fadeTransition.setFromValue(0);
+            fadeTransition.setToValue(0.15);
+            fadeTransition.play();
+
+            TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(0.5), pane2);
+            translateTransition.setByX(+900);
+            translateTransition.play();
         });
 
-        MenuClose.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(sidebar);
+        pane1.setOnMouseClicked(event -> {
+            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(0.5), pane1);
+            fadeTransition.setFromValue(0.15);
+            fadeTransition.setToValue(0);
+            fadeTransition.play();
 
-            slide.setToX(-176);
-            slide.play();
-
-            sidebar.setTranslateX(0);
-
-            slide.setOnFinished((ActionEvent e) -> {
-                Menu.setVisible(true);
-                MenuClose.setVisible(false);
+            fadeTransition2.setOnFinished(event1 -> {
+                pane1.setVisible(false);
             });
+
+            TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(0.5), pane2);
+            translateTransition.setByX(-900);
+            translateTransition.play();
         });
     }
 }

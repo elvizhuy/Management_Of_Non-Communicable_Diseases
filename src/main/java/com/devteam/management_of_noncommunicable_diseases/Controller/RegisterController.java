@@ -1,5 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,14 +9,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable,InfoBox,ShowAlert {
+
+    @FXML
+    private AnchorPane registerView;
 
     @FXML
     private ImageView ExitBtn;
@@ -80,6 +86,12 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
             InfoBox.infoBox("Đăng ký thành công", null, "Thành Công");
         }
     }
+
+    @FXML
+    void onSwitchToLogin(ActionEvent event) throws IOException {
+        new SceneSwitch(registerView, "View/Login.fxml");
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
