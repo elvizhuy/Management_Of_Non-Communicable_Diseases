@@ -1,5 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,8 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -25,9 +28,11 @@ public class LoginController implements Initializable,InfoBox,ShowAlert {
     private TextField userField;
     @FXML
     private ImageView ExitBtn;
+    @FXML
+    private AnchorPane loginView;
 
     @FXML
-    protected void login(ActionEvent event) throws SQLException, SQLException {
+    protected void login(ActionEvent event) throws SQLException, SQLException, IOException {
         String SELECT_QUERY = "SELECT user_name,password FROM accounts WHERE user_name = ? and password = ?";
         Window owner = btnLogin.getScene().getWindow();
 
@@ -53,7 +58,13 @@ public class LoginController implements Initializable,InfoBox,ShowAlert {
             InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
         } else {
             InfoBox.infoBox("Đăng nhập thành công!", null, "Thành Công");
+            new SceneSwitch(loginView, "View/Dashboard.fxml");
         }
+    }
+
+    @FXML
+    void switchToRegister(ActionEvent event) throws IOException {
+        new SceneSwitch(loginView, "View/Register.fxml");
     }
 
     @Override

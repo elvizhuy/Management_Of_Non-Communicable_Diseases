@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.RegisterController">
+<AnchorPane fx:id="registerView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="996.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.RegisterController">
     <children>
         <ImageView fitHeight="711.0" fitWidth="1017.0" layoutX="-14.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -63,7 +63,7 @@
                <font>
                   <Font size="11.0" />
                </font></Button>
-                <Hyperlink layoutX="387.0" layoutY="484.0" prefHeight="24.0" prefWidth="147.0" text="Đã có tài khoản?" textAlignment="CENTER" />
+                <Hyperlink layoutX="387.0" layoutY="484.0" onAction="#onSwitchToLogin" prefHeight="24.0" prefWidth="147.0" text="Đã có tài khoản?" textAlignment="CENTER" />
             </children>
         </AnchorPane>
         <ImageView fx:id="ExitBtn" fitHeight="23.0" fitWidth="21.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
