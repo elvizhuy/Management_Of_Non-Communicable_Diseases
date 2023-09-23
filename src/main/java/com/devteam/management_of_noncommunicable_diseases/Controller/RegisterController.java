@@ -16,6 +16,10 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable,InfoBox,ShowAlert {
+
+    @FXML
+    private ImageView ExitBtn;
+
     @FXML
     private ImageView ExitBtn;
 
@@ -78,6 +82,7 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
             jdbcDaoLoginRegister.insertRecord(username, pass,INSERT_QUERY);
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ExitBtn.setOnMouseClicked(event -> {
