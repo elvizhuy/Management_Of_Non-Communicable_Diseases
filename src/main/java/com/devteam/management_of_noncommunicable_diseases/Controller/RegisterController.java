@@ -46,7 +46,7 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
         String INSERT_QUERY = "INSERT INTO accounts (user_name,password) VALUES (?, ?)";
         String SELECT_QUERY = "SELECT user_name FROM accounts WHERE user_name = ?";
         Window owner = registerBtn.getScene().getWindow();
-
+        MD5 md5 = new MD5();
         System.out.println(userName.getText());
         System.out.println(password.getText());
         System.out.println(confirmPassword.getText());
@@ -77,12 +77,13 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
         JdbcDaoLoginRegister jdbcDaoLoginRegister = new JdbcDaoLoginRegister();
         String username = userName.getText();
         String pass = password.getText();
+        String encodePassword = md5.encode(pass);
         boolean flag = jdbcDaoLoginRegister.validateDuplicatedName(username,SELECT_QUERY);
 
         if (!flag) {
             InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập của bạn", null, "Thất Bại");
         } else {
-            jdbcDaoLoginRegister.insertRecord(username,pass,INSERT_QUERY);
+            jdbcDaoLoginRegister.insertRecord(username,encodePassword,INSERT_QUERY);
             InfoBox.infoBox("Đăng ký thành công", null, "Thành Công");
         }
     }
