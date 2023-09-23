@@ -67,7 +67,7 @@ public class RegisterController {
         JdbcDaoLoginRegister jdbcDaoLoginRegister = new JdbcDaoLoginRegister();
         String username = userName.getText();
         String pass = password.getText();
-        boolean flag = jdbcDaoLoginRegister.validateDuplicateName(username,SELECT_QUERY);
+        boolean flag = jdbcDaoLoginRegister.validateDuplicatedName(username,SELECT_QUERY);
 
         if (!flag) {
             InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập của bạn", null, "Thất Bại");
