@@ -30,7 +30,7 @@ public class JdbcDaoLoginRegister implements SQLException{
         return false;
     }
 
-    public boolean validateDuplicateName(String username,String QUERY) throws java.sql.SQLException {
+    public boolean validateDuplicatedName(String username,String QUERY) throws java.sql.SQLException {
         String existingName;
         try {
             connection = DBConnection.open();
