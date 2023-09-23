@@ -12,7 +12,7 @@ import javafx.stage.Window;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class RegisterController {
+public class RegisterController implements InfoBox,ShowAlert {
     @FXML
     private ImageView btnCloseLogin;
 
