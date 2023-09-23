@@ -2,6 +2,7 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class RegisterController implements InfoBox,ShowAlert {
+public class RegisterController implements Initializable,InfoBox,ShowAlert {
     @FXML
     private ImageView ExitBtn;
 
@@ -77,6 +78,7 @@ public class RegisterController implements InfoBox,ShowAlert {
             jdbcDaoLoginRegister.insertRecord(username, pass,INSERT_QUERY);
         }
     }
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ExitBtn.setOnMouseClicked(event -> {
             System.exit(0);
