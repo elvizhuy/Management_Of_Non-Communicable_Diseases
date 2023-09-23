@@ -64,7 +64,7 @@ public class RegisterController {
         boolean flag = jdbcDaoLoginRegister.validateDuplicateName(username,SELECT_QUERY);
 
         if (!flag) {
-            InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
+            InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập của bạn", null, "Thất Bại");
         } else {
             jdbcDaoLoginRegister.insertRecord(username, pass,INSERT_QUERY);
         }
