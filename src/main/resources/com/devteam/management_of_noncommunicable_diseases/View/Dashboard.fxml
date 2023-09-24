@@ -7,16 +7,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1170.0"  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.DashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1170.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.DashboardController">
    <children>
       <AnchorPane layoutX="7.0" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #0f2c38;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ImageView fx:id="ExitBtn" fitHeight="32.0" fitWidth="23.0" layoutX="1133.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ExitBtn" fitHeight="32.0" fitWidth="23.0" layoutX="1133.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@Image/close.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="menuBtn" fitHeight="38.0" fitWidth="32.0" layoutX="8.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="menuBtn" fitHeight="38.0" fitWidth="32.0" layoutX="8.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@IconDashboard/dashboard.png" />
                </image>
