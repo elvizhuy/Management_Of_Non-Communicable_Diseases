@@ -1,16 +1,14 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
 import com.devteam.management_of_noncommunicable_diseases.Controller.ShowAlert;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
 import java.util.Objects;
 
-public class Staffs {
+public class Staff {
     String userName;
     String firstName;
     String lastName;
@@ -103,11 +101,11 @@ public class Staffs {
         this.jobCode = jobCode;
     }
 
-    public Staffs() {
+    public Staff() {
 
     }
 
-    public Staffs(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String jobCode) {
+    public Staff(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String jobCode) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;

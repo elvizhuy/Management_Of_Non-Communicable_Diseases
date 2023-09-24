@@ -1,15 +1,9 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
-import com.devteam.management_of_noncommunicable_diseases.Model.Staffs;
+import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Window;
-
-import java.sql.SQLException;
-import java.util.Objects;
 
 public class AddStaffController{
     @FXML
@@ -33,7 +27,7 @@ public class AddStaffController{
 
     @FXML
     protected void addNewStaff(ActionEvent event) {
-        Staffs staff = new Staffs();
+        Staff staff = new Staff();
         String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";
         String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,position,first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
         String SELECT_JOB_CODE_QUERY = "SELECT id FROM job_codes";

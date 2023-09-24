@@ -29,9 +29,7 @@ public class JdbcDaoLoginRegister implements SQLException{
                     return true;
                 }
             }
-//            if (resultSet.next()) {
-//                return true;
-//            }
+
         } catch (java.sql.SQLException e) {
             SQLException.printSQLException(e);
         } finally {
