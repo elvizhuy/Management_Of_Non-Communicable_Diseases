@@ -83,9 +83,9 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
         if (!flag) {
             InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập của bạn", null, "Thất Bại");
         } else {
-            new SceneSwitch(registerView, "View/Dashboard.fxml");
             jdbcDaoLoginRegister.insertRecord(username,encodePassword,INSERT_QUERY);
             InfoBox.infoBox("Đăng ký thành công", null, "Thành Công");
+            new SceneSwitch(registerView, "View/Dashboard.fxml");
         }
     }
 
