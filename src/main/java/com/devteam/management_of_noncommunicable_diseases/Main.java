@@ -14,7 +14,7 @@ public class Main extends Application {
     double x,y = 0;
     @Override
     public void start(Stage stage) throws IOException, Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View/Register.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View/Dashboard.fxml")));
         stage.initStyle(StageStyle.TRANSPARENT);
 
         root.setOnMousePressed(event -> {
