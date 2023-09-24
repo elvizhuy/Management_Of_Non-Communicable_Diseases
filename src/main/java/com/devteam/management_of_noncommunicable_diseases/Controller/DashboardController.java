@@ -23,10 +23,7 @@ public class DashboardController implements Initializable {
     private ImageView menuBtn;
 
     @FXML
-    private AnchorPane pane1;
-
-    @FXML
-    private AnchorPane pane2;
+    private AnchorPane pane1, pane2;
 
 
     @Override
@@ -44,35 +41,36 @@ public class DashboardController implements Initializable {
         fadeTransition.play();
 
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), pane2);
-        translateTransition.setByX(-900);
+        translateTransition.setByX(-600);
         translateTransition.play();
 
         menuBtn.setOnMouseClicked(event -> {
+
             pane1.setVisible(true);
 
-            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(0.5), pane1);
-            fadeTransition.setFromValue(0);
-            fadeTransition.setToValue(0.15);
-            fadeTransition.play();
+            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), pane1);
+            fadeTransition1.setFromValue(0);
+            fadeTransition1.setToValue(0.15);
+            fadeTransition1.play();
 
-            TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(0.5), pane2);
-            translateTransition.setByX(+900);
-            translateTransition.play();
+            TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), pane2);
+            translateTransition1.setByX(+600);
+            translateTransition1.play();
         });
 
         pane1.setOnMouseClicked(event -> {
-            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(0.5), pane1);
-            fadeTransition.setFromValue(0.15);
-            fadeTransition.setToValue(0);
-            fadeTransition.play();
+            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), pane1);
+            fadeTransition1.setFromValue(0.15);
+            fadeTransition1.setToValue(0);
+            fadeTransition1.play();
 
-            fadeTransition2.setOnFinished(event1 -> {
+            fadeTransition1.setOnFinished(event1 -> {
                 pane1.setVisible(false);
             });
 
-            TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(0.5), pane2);
-            translateTransition.setByX(-900);
-            translateTransition.play();
+            TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), pane2);
+            translateTransition1.setByX(-600);
+            translateTransition1.play();
         });
     }
 }

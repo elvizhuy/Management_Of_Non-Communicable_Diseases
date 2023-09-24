@@ -42,7 +42,7 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
     private TextField fullName;
 
     @FXML
-    protected void Register (ActionEvent event) throws SQLException {
+    protected void Register (ActionEvent event) throws SQLException, IOException {
         String INSERT_QUERY = "INSERT INTO accounts (user_name,password) VALUES (?, ?)";
         String SELECT_QUERY = "SELECT user_name FROM accounts WHERE user_name = ?";
         Window owner = registerBtn.getScene().getWindow();
@@ -83,6 +83,7 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
             InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập của bạn", null, "Thất Bại");
         } else {
             jdbcDaoLoginRegister.insertRecord(username,pass,INSERT_QUERY);
+            new SceneSwitch(registerView, "View/Dashboard.fxml");
         }
     }
 

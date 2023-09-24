@@ -8,12 +8,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
     double x,y = 0;
     @Override
     public void start(Stage stage) throws IOException, Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("View/Dashboard.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View/Register.fxml")));
         stage.initStyle(StageStyle.TRANSPARENT);
 
         root.setOnMousePressed(event -> {
