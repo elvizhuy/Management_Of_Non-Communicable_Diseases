@@ -4,13 +4,16 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Objects;
 
 public class JdbcDaoLoginRegister implements SQLException{
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
+
+    MD5 md5 = new MD5();
     public boolean validate(String username, String password,String QUERY) throws java.sql.SQLException {
-//      try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
+
         try {
             connection = DBConnection.open();
             assert connection != null;
@@ -19,9 +22,16 @@ public class JdbcDaoLoginRegister implements SQLException{
             preparedStatement.setString(2, password);
             System.out.println(preparedStatement);
             resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return true;
+            String encodedPassword = md5.encode(password);
+            while (resultSet.next()) {
+                String passwordInDB = resultSet.getString("password");
+                if (!Objects.equals(passwordInDB,encodedPassword)){
+                    return true;
+                }
             }
+//            if (resultSet.next()) {
+//                return true;
+//            }
         } catch (java.sql.SQLException e) {
             SQLException.printSQLException(e);
         } finally {
@@ -54,6 +64,7 @@ public class JdbcDaoLoginRegister implements SQLException{
         }
         return true;
     }
+
     public void insertRecord (String username, String password,String QUERY) throws java.sql.SQLException {
         try {
             connection = DBConnection.open();
@@ -62,7 +73,7 @@ public class JdbcDaoLoginRegister implements SQLException{
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             System.out.println(preparedStatement);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
         } catch (java.sql.SQLException e) {
             SQLException.printSQLException(e);
