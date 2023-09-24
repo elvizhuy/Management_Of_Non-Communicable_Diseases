@@ -19,7 +19,7 @@
         </ImageView>
         <AnchorPane focusTraversable="true" layoutX="180.0" layoutY="81.0" prefHeight="528.0" prefWidth="586.0" style="-fx-background-color: white;" stylesheets="@Style/LoginCss.css">
             <children>
-                <Text fill="#000000a5" layoutX="124.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đăng Ký Tại Đây" textAlignment="CENTER">
+                <Text fill="#000000a5" layoutX="124.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đăng Ký Tại Đây" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="23.0" />
                     </font>
@@ -34,17 +34,12 @@
                         <Image url="@Image/icon2.jpeg" />
                     </image>
                 </ImageView>
-            <TextField fx:id="fullName" layoutX="124.0" layoutY="157.0" prefHeight="25.0" prefWidth="363.0" promptText="Họ và tên" stylesheets="@Style/LoginCss.css">
+            <TextField fx:id="fullName" layoutX="124.0" layoutY="218.0" prefHeight="25.0" prefWidth="363.0" promptText="Họ và tên" stylesheets="@Style/LoginCss.css">
                <font>
                   <Font size="16.0" />
                </font>
             </TextField>
-            <TextField fx:id="userName" layoutX="124.0" layoutY="217.0" prefHeight="25.0" prefWidth="363.0" promptText="Tên đăng nhập" stylesheets="@Style/LoginCss.css">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="email" layoutX="124.0" layoutY="275.0" prefHeight="38.0" prefWidth="363.0" promptText="Email" stylesheets="@Style/LoginCss.css">
+            <TextField fx:id="userName" layoutX="124.0" layoutY="275.0" prefHeight="25.0" prefWidth="363.0" promptText="Tên đăng nhập" stylesheets="@Style/LoginCss.css">
                <font>
                   <Font size="16.0" />
                </font>
