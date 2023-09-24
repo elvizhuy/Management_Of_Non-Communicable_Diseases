@@ -1,14 +1,16 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
+import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnection;
 import com.devteam.management_of_noncommunicable_diseases.Controller.ShowAlert;
-import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.stage.Window;
 
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Objects;
 
-public class Staff {
+public class Staff extends SQLException {
     String userName;
     String firstName;
     String lastName;
@@ -18,16 +20,11 @@ public class Staff {
     String passWord;
     String confirmPassword;
     String jobCode;
-
     String position;
-    String startWork;
+    LocalDate startWork;
     int facilityId;
     int departmentId;
     int departmentFacilityId = 0;
-    @FXML
-    private Button addStaffBtn;
-
-    Window owner = addStaffBtn.getScene().getWindow();
 
     public String getUserName() {
         return userName;
@@ -101,11 +98,19 @@ public class Staff {
         this.jobCode = jobCode;
     }
 
+    public LocalDate getStartWork() {
+        return startWork;
+    }
+
+    public void setStartWork(LocalDate startWork) {
+        this.startWork = startWork;
+    }
+
     public Staff() {
 
     }
 
-    public Staff(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String jobCode) {
+    public Staff(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String jobCode,LocalDate startWork) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -115,9 +120,15 @@ public class Staff {
         this.passWord = passWord;
         this.confirmPassword = confirmPassword;
         this.jobCode = jobCode;
+        this.startWork = startWork;
     }
 
-    public void addStaff() {
+    public void addStaff(Window owner, String INSERT_ACCOUNTS_QUERY, String INSERT_STAFFS_QUERY) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
         boolean checkName = validateEmptyFields(this.userName, "Nhập tên đăng nhập", owner);
         boolean checkFirstName = validateEmptyFields(this.firstName, "Nhập tên Họ", owner);
         boolean checkLastName = validateEmptyFields(this.lastName, "Nhập tên", owner);
@@ -129,7 +140,28 @@ public class Staff {
         boolean checkMatchingPass = checkMatchingPassword(this.passWord, this.confirmPassword, "Mật khẩu không khớp!", owner);
 
         if (checkName && checkFirstName && checkLastName && checkEmail && checkIdNumber && checkPhoneNumber && checkJobCode && checkPassword && checkMatchingPass) {
-            // thêm staff
+            try {
+                connection = DBConnection.open();
+                assert connection != null;
+                preparedStatement = connection.prepareStatement(INSERT_ACCOUNTS_QUERY);
+                preparedStatement.setString(1, this.userName);
+                preparedStatement.setString(2, this.passWord);
+                preparedStatement = connection.prepareStatement(INSERT_STAFFS_QUERY);
+                preparedStatement.setString(1, this.jobCode);
+                preparedStatement.setString(2, this.position);
+                preparedStatement.setString(3, this.firstName);
+                preparedStatement.setString(4, this.lastName);
+                preparedStatement.setString(5, this.email);
+                preparedStatement.setString(6, this.idNumber);
+                preparedStatement.setString(7, this.phoneNumber);
+                preparedStatement.setDate(8, Date.valueOf(this.startWork));
+                System.out.println(preparedStatement);
+                resultSet = preparedStatement.executeQuery();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } finally {
+                DBConnection.closeAll(connection, preparedStatement, resultSet);
+            }
         } else {
             // check lại thông tin
         }

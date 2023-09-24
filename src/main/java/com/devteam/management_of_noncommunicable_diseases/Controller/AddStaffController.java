@@ -3,9 +3,19 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Window;
 
-public class AddStaffController{
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class AddStaffController {
+    @FXML
+    private Button addStaffBtn;
     @FXML
     private TextField user_name;
     @FXML
@@ -24,9 +34,12 @@ public class AddStaffController{
     private TextField phone_number;
     @FXML
     private TextField job_code;
+    @FXML
+    private DatePicker start_work;
+    Window owner = addStaffBtn.getScene().getWindow();
 
     @FXML
-    protected void addNewStaff(ActionEvent event) {
+    protected void addNewStaff(ActionEvent event) throws SQLException {
         Staff staff = new Staff();
         String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";
         String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,position,first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
@@ -48,8 +61,9 @@ public class AddStaffController{
         staff.setJobCode(job_code.getText());
         staff.setPassWord(pass_word.getText());
         staff.setConfirm_password(confirm_password.getText());
+        staff.setStartWork(start_work.getValue());
 
-        staff.addStaff();
+        staff.addStaff(owner, INSERT_ACCOUNTS_QUERY, INSERT_STAFFS_QUERY);
 
 //        String position = Position.getText();
 //        String startWork = start_work.getText();
