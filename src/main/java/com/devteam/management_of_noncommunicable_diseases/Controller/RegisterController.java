@@ -81,7 +81,7 @@ public class RegisterController implements Initializable,InfoBox,ShowAlert {
         boolean flag = jdbcDaoLoginRegister.validateDuplicatedName(username,SELECT_QUERY);
 
         if (!flag) {
-            InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập của bạn", null, "Thất Bại");
+            InfoBox.infoBox("Tên đăng nhập đã tồn tại", null, "Thất Bại");
         } else {
             jdbcDaoLoginRegister.insertRecord(username,encodePassword,INSERT_QUERY);
             InfoBox.infoBox("Đăng ký thành công", null, "Thành Công");
