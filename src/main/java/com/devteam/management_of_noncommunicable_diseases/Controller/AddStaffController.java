@@ -13,7 +13,6 @@ import javafx.stage.Window;
 import java.sql.*;
 
 
-import java.sql.*;
 
 public class AddStaffController {
     @FXML
@@ -50,12 +49,16 @@ public class AddStaffController {
     @FXML
     private ComboBox<String> departmentComboBox;
 
+    private DBConnection dbConnection;
+    private Connection connection;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
     Window owner = addStaffBtn.getScene().getWindow();
 
     @FXML
-    protected void initialize(){
+    protected void initialize() {
+        dbConnection = new DBConnection();
         initializeComboBoxData();
-
     }
 
     @FXML
@@ -87,7 +90,10 @@ public class AddStaffController {
     }
 
     private void initializeComboBoxData() {
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mon_cda","root", "Huynn@0908")){
+        try {
+
+            Connection connection = dbConnection.open();
+
             String SELECT_JOB_CODE_QUERY = "SELECT id FROM job_codes";
             String SELECT_POSITION_QUERY = "SELECT id FROM positions";
             String SELECT_SPECIALIZATION_QUERY = "SELECT id FROM specializations";
@@ -107,20 +113,50 @@ public class AddStaffController {
             departmentComboBox.setItems(departments);
             specializationComboBox.setItems(specializations);
 
-        } catch (SQLException e) {
+        } catch (java.sql.SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            closeAll(connection, preparedStatement, resultSet);
         }
     }
 
     private ObservableList<String> getComboBoxData(Connection connection, String query) throws SQLException {
         ObservableList<String> comboBoxData = FXCollections.observableArrayList();
-        try(Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query)){
-            while (resultSet.next()){
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
                 String item = resultSet.getString(1);
                 comboBoxData.add(item);
             }
+        } catch (java.sql.SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeAll(connection, preparedStatement, resultSet);
         }
         return comboBoxData;
+    }
+
+    private void closeAll(Connection con, PreparedStatement stm, ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (stm != null) {
+            try {
+                stm.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
