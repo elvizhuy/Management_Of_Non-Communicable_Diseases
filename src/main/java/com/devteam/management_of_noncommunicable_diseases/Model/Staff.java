@@ -190,16 +190,16 @@ public class Staff extends SQLException {
                 String idOfUserInDb = resultSet.getString("phone_number");
                 String Email = resultSet.getString("email");
                 String job_code = resultSet.getString("job_code");
-                preparedStatement = connection.prepareStatement(QUERY_UPDATE_STAFF);
-                preparedStatement.setString(1, this.idNumber);
-                preparedStatement.setString(2, this.email);
-                preparedStatement.setString(3, this.firstName);
-                preparedStatement.setString(4, this.lastName);
-                preparedStatement.setString(5, this.jobCode);
-                preparedStatement.setString(6, this.phoneNumber);
-
-                preparedStatement.executeUpdate();
             }
+            preparedStatement = connection.prepareStatement(QUERY_UPDATE_STAFF);
+            preparedStatement.setString(1, this.idNumber);
+            preparedStatement.setString(2, this.email);
+            preparedStatement.setString(3, this.firstName);
+            preparedStatement.setString(4, this.lastName);
+            preparedStatement.setString(5, this.jobCode);
+            preparedStatement.setString(6, this.phoneNumber);
+
+            preparedStatement.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
