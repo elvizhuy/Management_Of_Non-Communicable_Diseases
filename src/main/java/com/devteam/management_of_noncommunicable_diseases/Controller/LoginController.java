@@ -1,5 +1,7 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
+import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +19,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable,InfoBox,ShowAlert {
+public class LoginController implements Initializable, InfoBox, ShowAlert {
     @FXML
     private ImageView btnCloseLogin;
     @FXML

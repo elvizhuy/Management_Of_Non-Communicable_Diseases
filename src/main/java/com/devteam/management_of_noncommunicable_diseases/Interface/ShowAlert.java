@@ -1,4 +1,4 @@
-package com.devteam.management_of_noncommunicable_diseases.Controller;
+package com.devteam.management_of_noncommunicable_diseases.Interface;
 
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
