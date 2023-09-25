@@ -176,7 +176,7 @@ public class Staff extends SQLException {
         }
     }
 
-    public void updateStaff(Window owner, String SELECT_GET_ID_NUMBER_QUERY) throws SQLException {
+    public void updateStaff(Window owner, String SELECT_GET_ID_NUMBER_QUERY,String QUERY_UPDATE_STAFF) throws SQLException {
         try {
             connection = DBConnection.open();
             assert connection != null;
@@ -190,13 +190,15 @@ public class Staff extends SQLException {
                 String idOfUserInDb = resultSet.getString("phone_number");
                 String Email = resultSet.getString("email");
                 String job_code = resultSet.getString("job_code");
-                boolean checkUserIdNumber = checkIdNumber(this.idNumber, idOfUserInDb, "CCCD đã tồn tại trên hệ thống!", owner);
-                if (checkUserIdNumber) {
-                    // thực hiện render user đó để update
+                preparedStatement = connection.prepareStatement(QUERY_UPDATE_STAFF);
+                preparedStatement.setString(1, this.idNumber);
+                preparedStatement.setString(2, this.email);
+                preparedStatement.setString(3, this.firstName);
+                preparedStatement.setString(4, this.lastName);
+                preparedStatement.setString(5, this.jobCode);
+                preparedStatement.setString(6, this.phoneNumber);
 
-                } else {
-                    // hỏi có muốn add staff hay ko
-                }
+                preparedStatement.executeUpdate();
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

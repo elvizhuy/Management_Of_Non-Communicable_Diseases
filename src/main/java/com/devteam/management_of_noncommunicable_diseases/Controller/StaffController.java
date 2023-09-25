@@ -143,6 +143,8 @@ public class StaffController {
 
     protected void updateStaff() throws SQLException {
         String FIND_SPECIFIC_STAFF = "SELECT id FROM staffs WHERE id = ?";
+        String QUERY_UPDATE_STAFF = "UPDATE staffs SET id_number = ?, email = ?, first_name = ?, last_name = ?, job_code = ?, phone_number = ? WHERE id=?";
+
         try{
             staff.setId(Integer.parseInt(id.getText()));
             staff.setIdNumber(id_number.getText());
@@ -151,20 +153,7 @@ public class StaffController {
             staff.setLastName(last_name.getText());
             staff.setJobCode(job_code.getText());
             staff.setPhoneNumber(phone_number.getText());
-            staff.updateStaff(owner,FIND_SPECIFIC_STAFF);
-
-
-            String QUERY_UPDATE_STAFF = "UPDATE staffs SET id_number = ?, email = ?, first_name = ?, last_name = ?, job_code = ?, phone_number = ? WHERE id=?";
-            preparedStatement = connection.prepareStatement(QUERY_UPDATE_STAFF);
-            preparedStatement.setString(1, staff.getIdNumber());
-            preparedStatement.setString(2, staff.getEmail());
-            preparedStatement.setString(3, staff.getFirstName());
-            preparedStatement.setString(4, staff.getLastName());
-            preparedStatement.setString(5, staff.getJobCode());
-            preparedStatement.setString(6, staff.getPhoneNumber());
-
-            preparedStatement.executeUpdate();
-
+            staff.updateStaff(owner,FIND_SPECIFIC_STAFF,QUERY_UPDATE_STAFF);
         }catch (java.sql.SQLException e){
             throw new RuntimeException(e);
         }finally {
