@@ -56,8 +56,8 @@ public class AddStaffController {
     Window owner = addStaffBtn.getScene().getWindow();
 
     @FXML
-    protected void initialize() {
-        dbConnection = new DBConnection();
+    protected void initialize() throws SQLException {
+
         initializeComboBoxData();
     }
 
@@ -89,10 +89,10 @@ public class AddStaffController {
 
     }
 
-    private void initializeComboBoxData() {
+    private void initializeComboBoxData() throws SQLException {
         try {
 
-            Connection connection = dbConnection.open();
+            Connection connection = DBConnection.open();
 
             String SELECT_JOB_CODE_QUERY = "SELECT id FROM job_codes";
             String SELECT_POSITION_QUERY = "SELECT id FROM positions";
@@ -116,7 +116,7 @@ public class AddStaffController {
         } catch (java.sql.SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            closeAll(connection, preparedStatement, resultSet);
+            DBConnection.closeAll(connection, preparedStatement, resultSet);
         }
     }
 
@@ -131,12 +131,12 @@ public class AddStaffController {
         } catch (java.sql.SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            closeAll(connection, preparedStatement, resultSet);
+            DBConnection.closeAll(connection, preparedStatement, resultSet);
         }
         return comboBoxData;
     }
 
-    private void closeAll(Connection con, PreparedStatement stm, ResultSet rs) {
+    /*private void closeAll(Connection con, PreparedStatement stm, ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();
@@ -158,5 +158,5 @@ public class AddStaffController {
                 throw new RuntimeException(e);
             }
         }
-    }
+    }*/
 }
