@@ -63,10 +63,9 @@ public class StaffController {
 
         initializeComboBoxData();
     }
-
+    Staff staff = new Staff();
     @FXML
     protected void addNewStaff(ActionEvent event) throws SQLException {
-        Staff staff = new Staff();
         String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";
         String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,position,first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
         String INSERT_DEPARTMENT_FACILITIES_QUERY = "INSERT INTO department_facilities (facility_id,department_id) VALUES (?,?)";
@@ -139,9 +138,13 @@ public class StaffController {
         return comboBoxData;
     }
 
-    protected void updateStaff() {
+    protected void updateStaff() throws SQLException {
+        String FIND_SPECIFIC_STAFF = "SELECT id_number FROM staffs WHERE id_number = ?";
+        staff.setIdNumber(id_number.getText());
+        staff.updateStaff(owner,FIND_SPECIFIC_STAFF);
     }
 
     protected void disableStaff() {
+        String FIND_SPECIFIC_STAFF = "SELECT id_number FROM staffs WHERE id_number = ?";
     }
 }

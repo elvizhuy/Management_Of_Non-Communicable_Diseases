@@ -26,6 +26,11 @@ public class Staff extends SQLException {
     int departmentId;
     int departmentFacilityId = 0;
 
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
     public String getUserName() {
         return userName;
     }
@@ -124,11 +129,6 @@ public class Staff extends SQLException {
     }
 
     public void addStaff(Window owner, String INSERT_ACCOUNTS_QUERY, String INSERT_STAFFS_QUERY) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
         boolean checkName = validateEmptyFields(this.userName, "Nhập tên đăng nhập", owner);
         boolean checkFirstName = validateEmptyFields(this.firstName, "Nhập tên Họ", owner);
         boolean checkLastName = validateEmptyFields(this.lastName, "Nhập tên", owner);
@@ -167,6 +167,29 @@ public class Staff extends SQLException {
         }
     }
 
+    public void updateStaff (Window owner, String SELECT_GET_ID_NUMBER_QUERY) throws SQLException {
+        try {
+            connection = DBConnection.open();
+            assert connection != null;
+            preparedStatement = connection.prepareStatement(SELECT_GET_ID_NUMBER_QUERY);
+            preparedStatement.setString(1,this.idNumber);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String idOfUserInDb = resultSet.getString("id_number");
+                boolean checkUserIdNumber = checkIdNumber(this.idNumber,idOfUserInDb,"CCCD đã tồn tại trên hệ thống!",owner);
+                if (checkUserIdNumber) {
+                    // thực hiện render user đó để update
+                }else {
+                    // hỏi có muốn add staff hay ko
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            DBConnection.closeAll(connection, preparedStatement, resultSet);
+        }
+
+    }
     protected boolean validateEmptyFields(String dataField, String textToNotice, Window owner) {
         if (dataField.isEmpty()) {
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
@@ -177,6 +200,14 @@ public class Staff extends SQLException {
 
     protected boolean checkMatchingPassword(String passWord, String confirmPassword, String textToNotice, Window owner) {
         if (!Objects.equals(passWord, confirmPassword)) {
+            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkIdNumber (String IdFromUserInput,String IdInDatabase,String textToNotice, Window owner) {
+        if (!Objects.equals(IdFromUserInput, IdInDatabase)) {
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
             return false;
         }
