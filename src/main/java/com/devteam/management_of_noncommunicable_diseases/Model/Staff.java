@@ -25,11 +25,20 @@ public class Staff extends SQLException {
     int facilityId;
     int departmentId;
     int departmentFacilityId = 0;
+    int id;
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;
@@ -115,7 +124,7 @@ public class Staff extends SQLException {
 
     }
 
-    public Staff(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String jobCode,LocalDate startWork) {
+    public Staff(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String jobCode, LocalDate startWork) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -167,29 +176,35 @@ public class Staff extends SQLException {
         }
     }
 
-    public void updateStaff (Window owner, String SELECT_GET_ID_NUMBER_QUERY) throws SQLException {
+    public void updateStaff(Window owner, String SELECT_GET_ID_NUMBER_QUERY) throws SQLException {
         try {
             connection = DBConnection.open();
             assert connection != null;
             preparedStatement = connection.prepareStatement(SELECT_GET_ID_NUMBER_QUERY);
-            preparedStatement.setString(1,this.idNumber);
+            preparedStatement.setString(1, this.id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                String idOfUserInDb = resultSet.getString("id_number");
-                boolean checkUserIdNumber = checkIdNumber(this.idNumber,idOfUserInDb,"CCCD đã tồn tại trên hệ thống!",owner);
+                String id_number = resultSet.getString("id_number");
+                String first_name = resultSet.getString("first_name");
+                String last_name = resultSet.getString("last_name");
+                String idOfUserInDb = resultSet.getString("phone_number");
+                String Email = resultSet.getString("email");
+                String job_code = resultSet.getString("job_code");
+                boolean checkUserIdNumber = checkIdNumber(this.idNumber, idOfUserInDb, "CCCD đã tồn tại trên hệ thống!", owner);
                 if (checkUserIdNumber) {
                     // thực hiện render user đó để update
-                }else {
+                } else {
                     // hỏi có muốn add staff hay ko
                 }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             DBConnection.closeAll(connection, preparedStatement, resultSet);
         }
 
     }
+
     protected boolean validateEmptyFields(String dataField, String textToNotice, Window owner) {
         if (dataField.isEmpty()) {
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
@@ -206,7 +221,7 @@ public class Staff extends SQLException {
         return true;
     }
 
-    public boolean checkIdNumber (String IdFromUserInput,String IdInDatabase,String textToNotice, Window owner) {
+    public boolean checkIdNumber(String IdFromUserInput, String IdInDatabase, String textToNotice, Window owner) {
         if (!Objects.equals(IdFromUserInput, IdInDatabase)) {
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
             return false;

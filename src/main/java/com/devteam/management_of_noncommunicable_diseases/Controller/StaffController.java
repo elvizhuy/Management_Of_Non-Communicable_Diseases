@@ -38,6 +38,9 @@ public class StaffController {
 
     @FXML
     private TextField specialization;
+
+    @FXML
+    private NumberField id;
     @FXML
     private DatePicker start_work;
     //các comboBox
@@ -139,8 +142,8 @@ public class StaffController {
     }
 
     protected void updateStaff() throws SQLException {
-        String FIND_SPECIFIC_STAFF = "SELECT id_number FROM staffs WHERE id_number = ?";
-        staff.setIdNumber(id_number.getText());
+        String FIND_SPECIFIC_STAFF = "SELECT id FROM staffs WHERE id = ?";
+        staff.setId(id.getValue());
         staff.updateStaff(owner,FIND_SPECIFIC_STAFF);
     }
 
