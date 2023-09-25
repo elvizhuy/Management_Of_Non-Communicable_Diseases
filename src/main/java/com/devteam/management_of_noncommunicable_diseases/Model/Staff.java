@@ -181,7 +181,7 @@ public class Staff extends SQLException {
             connection = DBConnection.open();
             assert connection != null;
             preparedStatement = connection.prepareStatement(SELECT_GET_ID_NUMBER_QUERY);
-            preparedStatement.setString(1, this.id);
+            preparedStatement.setInt(1, this.id);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String id_number = resultSet.getString("id_number");
@@ -193,6 +193,7 @@ public class Staff extends SQLException {
                 boolean checkUserIdNumber = checkIdNumber(this.idNumber, idOfUserInDb, "CCCD đã tồn tại trên hệ thống!", owner);
                 if (checkUserIdNumber) {
                     // thực hiện render user đó để update
+
                 } else {
                     // hỏi có muốn add staff hay ko
                 }
@@ -202,7 +203,6 @@ public class Staff extends SQLException {
         } finally {
             DBConnection.closeAll(connection, preparedStatement, resultSet);
         }
-
     }
 
     protected boolean validateEmptyFields(String dataField, String textToNotice, Window owner) {
