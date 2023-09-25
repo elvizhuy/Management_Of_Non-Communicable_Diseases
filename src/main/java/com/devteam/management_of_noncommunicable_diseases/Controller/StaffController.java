@@ -10,11 +10,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
+
 import java.sql.*;
 
 
-
-public class AddStaffController {
+public class StaffController {
     @FXML
     private Button addStaffBtn;
     @FXML
@@ -139,4 +139,9 @@ public class AddStaffController {
         return comboBoxData;
     }
 
+    protected void updateStaff() {
+    }
+
+    protected void disableStaff() {
+    }
 }
