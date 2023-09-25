@@ -1,5 +1,7 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
+import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +20,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class RegisterController implements Initializable,InfoBox,ShowAlert {
+public class RegisterController implements Initializable, InfoBox, ShowAlert {
 
     @FXML
     private AnchorPane registerView;

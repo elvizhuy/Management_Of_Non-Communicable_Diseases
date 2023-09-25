@@ -1,12 +1,13 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Interface.SQLException;
+
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Objects;
 
-public class JdbcDaoLoginRegister implements SQLException{
+public class JdbcDaoLoginRegister implements SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;

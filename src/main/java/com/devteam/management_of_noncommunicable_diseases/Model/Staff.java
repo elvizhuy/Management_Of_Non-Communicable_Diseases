@@ -1,7 +1,7 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
 import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnection;
-import com.devteam.management_of_noncommunicable_diseases.Controller.ShowAlert;
+import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
 
