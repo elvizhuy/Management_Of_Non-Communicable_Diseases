@@ -35,6 +35,9 @@ public class AddStaffController {
     private TextField phone_number;
     @FXML
     private TextField job_code;
+
+    @FXML
+    private TextField specialization;
     @FXML
     private DatePicker start_work;
     //các comboBox
@@ -136,27 +139,4 @@ public class AddStaffController {
         return comboBoxData;
     }
 
-    /*private void closeAll(Connection con, PreparedStatement stm, ResultSet rs) {
-        if (rs != null) {
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        if (stm != null) {
-            try {
-                stm.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        if (con != null) {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }*/
 }
