@@ -3,6 +3,7 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,14 +14,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class RegisterController implements Initializable, InfoBox, ShowAlert {
+public class RegisterController extends Thread implements Initializable, InfoBox, ShowAlert {
 
     @FXML
     private AnchorPane registerView;
@@ -44,7 +44,22 @@ public class RegisterController implements Initializable, InfoBox, ShowAlert {
     private TextField fullName;
 
     @FXML
-    protected void Register (ActionEvent event) throws SQLException, IOException {
+    public void start() {
+        Thread reg = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Register(new ActionEvent());
+                } catch (SQLException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        reg.start();
+    }
+
+    //    @FXML
+    protected void Register(ActionEvent event) throws SQLException, IOException {
         String INSERT_QUERY = "INSERT INTO accounts (user_name,password) VALUES (?, ?)";
         String SELECT_QUERY = "SELECT user_name FROM accounts WHERE user_name = ?";
         Window owner = registerBtn.getScene().getWindow();
@@ -76,18 +91,30 @@ public class RegisterController implements Initializable, InfoBox, ShowAlert {
             return;
         }
 
-        JdbcDaoLoginRegister jdbcDaoLoginRegister = new JdbcDaoLoginRegister();
+        LoginRegisterDao loginRegisterDao = new LoginRegisterDao();
         String username = userName.getText();
         String pass = password.getText();
         String encodePassword = md5.encode(pass);
-        boolean flag = jdbcDaoLoginRegister.validateDuplicatedName(username,SELECT_QUERY);
+        boolean flag = loginRegisterDao.validateDuplicatedName(username, SELECT_QUERY);
 
         if (!flag) {
-            InfoBox.infoBox("Tên đăng nhập đã tồn tại", null, "Thất Bại");
+            new Thread(() -> {
+                Platform.runLater(()->{
+                    InfoBox.infoBox("Tên đăng nhập đã tồn tại", null, "Thất Bại");
+                });
+            }).start();
         } else {
-            jdbcDaoLoginRegister.insertRecord(username,encodePassword,INSERT_QUERY);
-            InfoBox.infoBox("Đăng ký thành công", null, "Thành Công");
-            new SceneSwitch(registerView, "View/Dashboard.fxml");
+            new Thread( () -> {
+                Platform.runLater(() -> {
+                    try {
+                        loginRegisterDao.insertRecord(username, encodePassword, INSERT_QUERY);
+                        InfoBox.infoBox("Đăng ký thành công", null, "Thành Công");
+                        new SceneSwitch(registerView, "View/Dashboard.fxml");
+                    } catch (SQLException | IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }).start();
         }
     }
 
@@ -95,7 +122,6 @@ public class RegisterController implements Initializable, InfoBox, ShowAlert {
     void onSwitchToLogin(ActionEvent event) throws IOException {
         new SceneSwitch(registerView, "View/Login.fxml");
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

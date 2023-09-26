@@ -1,14 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
-
-import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnection;
-import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
-import javafx.scene.control.Alert;
-import javafx.stage.Window;
-
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Staff extends SQLException {
     String userName;
@@ -26,11 +18,6 @@ public class Staff extends SQLException {
     int departmentId;
     int departmentFacilityId = 0;
     int id;
-
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public int getId() {
         return id;
@@ -119,7 +106,13 @@ public class Staff extends SQLException {
     public void setStartWork(LocalDate startWork) {
         this.startWork = startWork;
     }
+    public String getPosition() {
+        return position;
+    }
 
+    public void setPosition(String position) {
+        this.position = position;
+    }
     public Staff() {
 
     }
@@ -135,99 +128,5 @@ public class Staff extends SQLException {
         this.confirmPassword = confirmPassword;
         this.jobCode = jobCode;
         this.startWork = startWork;
-    }
-
-    public void addStaff(Window owner, String INSERT_ACCOUNTS_QUERY, String INSERT_STAFFS_QUERY) throws SQLException {
-        boolean checkName = validateEmptyFields(this.userName, "Nhập tên đăng nhập", owner);
-        boolean checkFirstName = validateEmptyFields(this.firstName, "Nhập tên Họ", owner);
-        boolean checkLastName = validateEmptyFields(this.lastName, "Nhập tên", owner);
-        boolean checkEmail = validateEmptyFields(this.email, "Nhập email", owner);
-        boolean checkIdNumber = validateEmptyFields(this.idNumber, "Nhập số cccd", owner);
-        boolean checkPhoneNumber = validateEmptyFields(this.phoneNumber, "Nhập số điện thoại", owner);
-        boolean checkPassword = validateEmptyFields(this.passWord, "Nhập mật khẩu", owner);
-        boolean checkJobCode = validateEmptyFields(this.jobCode, "Nhập jobcode", owner);
-        boolean checkMatchingPass = checkMatchingPassword(this.passWord, this.confirmPassword, "Mật khẩu không khớp!", owner);
-
-        if (checkName && checkFirstName && checkLastName && checkEmail && checkIdNumber && checkPhoneNumber && checkJobCode && checkPassword && checkMatchingPass) {
-            try {
-                connection = DBConnection.open();
-                assert connection != null;
-                preparedStatement = connection.prepareStatement(INSERT_ACCOUNTS_QUERY);
-                preparedStatement.setString(1, this.userName);
-                preparedStatement.setString(2, this.passWord);
-                preparedStatement = connection.prepareStatement(INSERT_STAFFS_QUERY);
-                preparedStatement.setString(1, this.jobCode);
-                preparedStatement.setString(2, this.position);
-                preparedStatement.setString(3, this.firstName);
-                preparedStatement.setString(4, this.lastName);
-                preparedStatement.setString(5, this.email);
-                preparedStatement.setString(6, this.idNumber);
-                preparedStatement.setString(7, this.phoneNumber);
-                preparedStatement.setDate(8, Date.valueOf(this.startWork));
-                System.out.println(preparedStatement);
-                resultSet = preparedStatement.executeQuery();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } finally {
-                DBConnection.closeAll(connection, preparedStatement, resultSet);
-            }
-        } else {
-            // check lại thông tin
-        }
-    }
-
-    public void updateStaff(Window owner, String SELECT_GET_ID_NUMBER_QUERY,String QUERY_UPDATE_STAFF) throws SQLException {
-        try {
-            connection = DBConnection.open();
-            assert connection != null;
-            preparedStatement = connection.prepareStatement(SELECT_GET_ID_NUMBER_QUERY);
-            preparedStatement.setInt(1, this.id);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String id_number = resultSet.getString("id_number");
-                String first_name = resultSet.getString("first_name");
-                String last_name = resultSet.getString("last_name");
-                String idOfUserInDb = resultSet.getString("phone_number");
-                String Email = resultSet.getString("email");
-                String job_code = resultSet.getString("job_code");
-            }
-            preparedStatement = connection.prepareStatement(QUERY_UPDATE_STAFF);
-            preparedStatement.setString(1, this.idNumber);
-            preparedStatement.setString(2, this.email);
-            preparedStatement.setString(3, this.firstName);
-            preparedStatement.setString(4, this.lastName);
-            preparedStatement.setString(5, this.jobCode);
-            preparedStatement.setString(6, this.phoneNumber);
-
-            preparedStatement.executeUpdate();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            DBConnection.closeAll(connection, preparedStatement, resultSet);
-        }
-    }
-
-    protected boolean validateEmptyFields(String dataField, String textToNotice, Window owner) {
-        if (dataField.isEmpty()) {
-            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
-            return false;
-        }
-        return true;
-    }
-
-    protected boolean checkMatchingPassword(String passWord, String confirmPassword, String textToNotice, Window owner) {
-        if (!Objects.equals(passWord, confirmPassword)) {
-            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkIdNumber(String IdFromUserInput, String IdInDatabase, String textToNotice, Window owner) {
-        if (!Objects.equals(IdFromUserInput, IdInDatabase)) {
-            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
-            return false;
-        }
-        return true;
     }
 }

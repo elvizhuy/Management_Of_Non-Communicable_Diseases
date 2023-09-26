@@ -10,9 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
-
 import java.sql.*;
-
 
 public class StaffController {
     @FXML
@@ -35,10 +33,8 @@ public class StaffController {
     private TextField phone_number;
     @FXML
     private TextField job_code;
-
     @FXML
     private TextField specialization;
-
     @FXML
     private TextField id;
     @FXML
@@ -54,26 +50,22 @@ public class StaffController {
     private ComboBox<String> specializationComboBox;
     @FXML
     private ComboBox<String> departmentComboBox;
-
-    private DBConnection dbConnection;
-    private Connection connection;
-    private PreparedStatement preparedStatement;
-    private ResultSet resultSet;
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
     Window owner = addStaffBtn.getScene().getWindow();
+    Staff staff = new Staff();
+    StaffDao staffDao = new StaffDao();
 
     @FXML
     protected void initialize() throws SQLException {
-
         initializeComboBoxData();
     }
-    Staff staff = new Staff();
+
+
+
     @FXML
     protected void addNewStaff(ActionEvent event) throws SQLException {
-        String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";
-        String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,position,first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
-        String INSERT_DEPARTMENT_FACILITIES_QUERY = "INSERT INTO department_facilities (facility_id,department_id) VALUES (?,?)";
-        String INSERT_DEPARTMENT_FACILITIES_INTO_STAFF_QUERY = "INSERT INTO staffs (department_facilities_id) VALUES (?)";
-
         staff.setUserName(user_name.getText());
         staff.setFirstName(first_name.getText());
         staff.setLastName(last_name.getText());
@@ -84,21 +76,12 @@ public class StaffController {
         staff.setPassWord(pass_word.getText());
         staff.setConfirm_password(confirm_password.getText());
         staff.setStartWork(start_work.getValue());
-
-        staff.addStaff(owner, INSERT_ACCOUNTS_QUERY, INSERT_STAFFS_QUERY);
-
-//        String position = Position.getText();
-//        String startWork = start_work.getText();
-//        int facilityId = facility_id.getInt();
-//        int departmentId = department_id.getInt();
-
+        staffDao.addStaff(owner);
     }
 
     private void initializeComboBoxData() throws SQLException {
         try {
-
-            Connection connection = DBConnection.open();
-
+            connection = DBConnection.open();
             String SELECT_JOB_CODE_QUERY = "SELECT id FROM job_codes";
             String SELECT_POSITION_QUERY = "SELECT id FROM positions";
             String SELECT_SPECIALIZATION_QUERY = "SELECT id FROM specializations";
@@ -142,10 +125,7 @@ public class StaffController {
     }
 
     protected void updateStaff() throws SQLException {
-        String FIND_SPECIFIC_STAFF = "SELECT id FROM staffs WHERE id = ?";
-        String QUERY_UPDATE_STAFF = "UPDATE staffs SET id_number = ?, email = ?, first_name = ?, last_name = ?, job_code = ?, phone_number = ? WHERE id=?";
-
-        try{
+        try {
             staff.setId(Integer.parseInt(id.getText()));
             staff.setIdNumber(id_number.getText());
             staff.setEmail(Email.getText());
@@ -153,10 +133,10 @@ public class StaffController {
             staff.setLastName(last_name.getText());
             staff.setJobCode(job_code.getText());
             staff.setPhoneNumber(phone_number.getText());
-            staff.updateStaff(owner,FIND_SPECIFIC_STAFF,QUERY_UPDATE_STAFF);
-        }catch (java.sql.SQLException e){
+            staffDao.updateStaff(owner);
+        } catch (java.sql.SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             DBConnection.closeAll(connection, preparedStatement, resultSet);
         }
     }
