@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffController">
-<AnchorPane prefHeight="1025.0" prefWidth="1026.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="908.0" prefWidth="1094.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffController">
+<AnchorPane prefHeight="902.0" prefWidth="1094.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane layoutX="7.0" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #0f2c38;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
@@ -91,7 +101,7 @@
                 </VBox>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="pane2" prefHeight="950.0" prefWidth="972.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="54.0">
+        <AnchorPane fx:id="pane2" prefHeight="856.0" prefWidth="1040.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="54.0">
             <children>
                 <VBox spacing="12.0">
                     <children>
@@ -224,7 +234,7 @@
                     <DatePicker fx:id="start_work" GridPane.columnIndex="1" GridPane.rowIndex="12" />
       
                     <HBox alignment="BOTTOM_RIGHT" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="13">
-                        <Button fx:id="addStaffBtn" prefHeight="32.0" prefWidth="123.0" onAction="#addNewStaff" styleClass="add-button" text="Nhập">
+                        <Button fx:id="addStaffBtn" onAction="#addNewStaff" prefHeight="32.0" prefWidth="123.0" styleClass="add-button" text="Nhập">
                         <font>
                            <Font name="System Bold" size="15.0" />
                         </font>
