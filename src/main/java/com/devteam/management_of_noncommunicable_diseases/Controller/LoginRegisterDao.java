@@ -18,15 +18,16 @@ public class LoginRegisterDao implements SQLException {
         try {
             connection = DBConnection.open();
             assert connection != null;
+            String encodedPassword = md5.encode(password);
             preparedStatement = connection.prepareStatement(QUERY);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, encodedPassword);
             System.out.println(preparedStatement);
             resultSet = preparedStatement.executeQuery();
-            String encodedPassword = md5.encode(password);
+
             while (resultSet.next()) {
                 String passwordInDB = resultSet.getString("password");
-                if (!Objects.equals(passwordInDB,encodedPassword)){
+                if (Objects.equals(passwordInDB,encodedPassword)){
                     return true;
                 }
             }

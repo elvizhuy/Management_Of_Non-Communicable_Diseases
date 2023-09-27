@@ -20,7 +20,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable, InfoBox, ShowAlert {
+public class LoginController extends Thread implements Initializable, InfoBox, ShowAlert {
     @FXML
     private ImageView btnCloseLogin;
     @FXML
@@ -34,6 +34,19 @@ public class LoginController implements Initializable, InfoBox, ShowAlert {
     @FXML
     private AnchorPane loginView;
 
+    public void start () {
+        Thread login = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    login(new ActionEvent());
+                } catch (SQLException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        login.start();
+    }
     @FXML
     protected void login(ActionEvent event) throws SQLException, SQLException, IOException {
         String SELECT_QUERY = "SELECT user_name,password FROM accounts WHERE user_name = ? and password = ?";

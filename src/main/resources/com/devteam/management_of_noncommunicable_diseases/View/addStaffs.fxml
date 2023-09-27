@@ -224,7 +224,7 @@
                     <DatePicker fx:id="start_work" GridPane.columnIndex="1" GridPane.rowIndex="12" />
       
                     <HBox alignment="BOTTOM_RIGHT" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="13">
-                        <Button fx:id="addStaffBtn" prefHeight="32.0" prefWidth="123.0" styleClass="add-button" text="Nhập">
+                        <Button fx:id="addStaffBtn" prefHeight="32.0" prefWidth="123.0" onAction="#addNewStaff" styleClass="add-button" text="Nhập">
                         <font>
                            <Font name="System Bold" size="15.0" />
                         </font>
