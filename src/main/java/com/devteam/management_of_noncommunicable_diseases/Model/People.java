@@ -4,22 +4,42 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class People {
-    String name;
+    String idNumber;
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    String firstName;
+    String lastName;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     LocalDate dateOfBirth;
     Enum gender;
     String address;
     String phoneNumber;
     String email;
     String note;
-    LocalDateTime deleted_at;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    LocalDateTime deletedAt;
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
@@ -69,25 +89,28 @@ public class People {
         this.note = note;
     }
 
-    public LocalDateTime getDeleted_at() {
-        return deleted_at;
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
     }
 
-    public void setDeleted_at(LocalDateTime deleted_at) {
-        this.deleted_at = deleted_at;
+    public void setDeletedAt(LocalDateTime deleted_at) {
+        this.deletedAt = deleted_at;
     }
 
-    public People () {
+    public People() {
 
     }
-    public People(String name, LocalDate dateOfBirth, Enum gender, String address, String phoneNumber, String email, String note, LocalDateTime deleted_at) {
-        this.name = name;
+
+    public People(String firstName, String lastName, LocalDate dateOfBirth, Enum gender, String address, String phoneNumber, String email, String note, LocalDateTime deletedAt, String idNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.note = note;
-        this.deleted_at = deleted_at;
+        this.deletedAt = deletedAt;
+        this.idNumber = idNumber;
     }
 }

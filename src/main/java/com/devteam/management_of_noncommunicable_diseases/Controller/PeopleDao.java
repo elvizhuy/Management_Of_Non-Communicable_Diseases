@@ -1,12 +1,14 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
+import com.devteam.management_of_noncommunicable_diseases.Model.People;
 import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class PeopleDao {
@@ -16,11 +18,10 @@ public class PeopleDao {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public void addStaff(Window owner) throws SQLException {
-        Staff staff = new Staff();
-        String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";
-        String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,position,first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
-        String INSERT_DEPARTMENT_FACILITIES_QUERY = "INSERT INTO department_facilities (facility_id,department_id) VALUES (?,?)";
-        String INSERT_DEPARTMENT_FACILITIES_INTO_STAFF_QUERY = "INSERT INTO staffs (department_facilities_id) VALUES (?)";
+        People people = new People();
+        String INSERT_PEOPLE_QUERY = "INSERT into people (id_number,first_name,last_name,date_of_birth,gender,address,email,phone_number) VALUES (?,?,?,?,?,?,?,?)";
+        String INSERT_INSURANCE_QUERY = "INSERT INTO insurance (insurance_id,register_place,start_date,expiration_date) VALUES (?,?,?,?)";
+        String INSERT_PATIENT_QUERY = "INSERT INTO patients (people_id,disease_id,first_year_found,first_place_found) VALUES (?,?,?,?)";
 
         boolean checkName = validateEmptyFields(staff.getUserName(), "Nhập tên đăng nhập", owner);
         boolean checkFirstName = validateEmptyFields(staff.getFirstName(), "Nhập tên Họ", owner);
@@ -38,18 +39,22 @@ public class PeopleDao {
                 assert connection != null;
                 MD5 md5 = new MD5();
                 String encodePassword = md5.encode(staff.getPassWord());
-                preparedStatement = connection.prepareStatement(INSERT_ACCOUNTS_QUERY);
-                preparedStatement.setString(1, staff.getUserName());
-                preparedStatement.setString(2, encodePassword);
-                preparedStatement = connection.prepareStatement(INSERT_STAFFS_QUERY);
+                preparedStatement = connection.prepareStatement(INSERT_PEOPLE_QUERY);
+                preparedStatement.setString(1, people.getIdNumber());
+                preparedStatement.setString(2, people.getFirstName());
+                preparedStatement.setString(3, people.getLastName());
+                preparedStatement.setString(4, String.valueOf(people.getDateOfBirth()));
+                preparedStatement.setString(5, String.valueOf(people.getGender()));
+                preparedStatement.setString(6, people.getAddress());
+                preparedStatement.setString(7, people.getEmail());
+                preparedStatement.setString(8, people.getPhoneNumber());
+
+                preparedStatement = connection.prepareStatement(INSERT_INSURANCE_QUERY);
                 preparedStatement.setString(1, staff.getJobCode());
                 preparedStatement.setString(2, staff.getPosition());
                 preparedStatement.setString(3, staff.getFirstName());
                 preparedStatement.setString(4, staff.getLastName());
-                preparedStatement.setString(5, staff.getEmail());
-                preparedStatement.setString(6, staff.getIdNumber());
-                preparedStatement.setString(7, staff.getPhoneNumber());
-                preparedStatement.setDate(8, Date.valueOf(staff.getStartWork()));
+
                 System.out.println(preparedStatement);
                 resultSet = preparedStatement.executeQuery();
             } catch (SQLException e) {

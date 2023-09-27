@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Management_Of_Non-Communicable_Diseases" />
-        <module name="Management_Of_Non-Communicable_Diseases-Application" />
       </profile>
     </annotationProcessing>
   </component>

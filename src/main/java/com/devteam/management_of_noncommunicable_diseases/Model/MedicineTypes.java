@@ -1,6 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
-public class Disease {
+public class MedicineTypes {
     int id;
     String name;
 
@@ -20,8 +20,8 @@ public class Disease {
         this.name = name;
     }
 
-    public Disease () {}
-    public Disease(int id, String name) {
+    public MedicineTypes () {}
+    public MedicineTypes(int id, String name) {
         this.id = id;
         this.name = name;
     }
