@@ -53,30 +53,34 @@ public class StaffController {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-    Window owner = addStaffBtn.getScene().getWindow();
+    Window  owner;
     Staff staff = new Staff();
     StaffDao staffDao = new StaffDao();
 
     @FXML
     protected void initialize() throws SQLException {
         initializeComboBoxData();
+        owner = addStaffBtn.getScene().getWindow();
     }
-
-
 
     @FXML
     protected void addNewStaff(ActionEvent event) throws SQLException {
-        staff.setUserName(user_name.getText());
-        staff.setFirstName(first_name.getText());
-        staff.setLastName(last_name.getText());
-        staff.setEmail(Email.getText());
-        staff.setIdNumber(id_number.getText());
-        staff.setPhoneNumber(phone_number.getText());
-        staff.setJobCode(job_code.getText());
-        staff.setPassWord(pass_word.getText());
-        staff.setConfirm_password(confirm_password.getText());
-        staff.setStartWork(start_work.getValue());
-        staffDao.addStaff(owner);
+
+        if (addStaffBtn != null) {
+
+            staff.setUserName(user_name.getText());
+            staff.setFirstName(first_name.getText());
+            staff.setLastName(last_name.getText());
+            staff.setEmail(Email.getText());
+            staff.setIdNumber(id_number.getText());
+            staff.setPhoneNumber(phone_number.getText());
+            staff.setJobCode(job_code.getText());
+            staff.setPassWord(pass_word.getText());
+            staff.setConfirm_password(confirm_password.getText());
+            staff.setStartWork(start_work.getValue());
+            staffDao.addStaff(owner);
+
+        }
     }
 
     private void initializeComboBoxData() throws SQLException {
@@ -141,7 +145,7 @@ public class StaffController {
         }
     }
 
-    protected void disableStaff() {
+    /*protected void disableStaff() {
         String FIND_SPECIFIC_STAFF = "SELECT id_number FROM staffs WHERE id_number = ?";
-    }
+    }*/
 }
