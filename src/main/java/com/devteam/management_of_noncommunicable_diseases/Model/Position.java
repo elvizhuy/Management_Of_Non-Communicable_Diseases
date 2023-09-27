@@ -1,9 +1,9 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
-public class Specialization {
+public class Position {
     int id;
     String name;
-    String description;
+    float bonus;
 
     public int getId() {
         return id;
@@ -21,21 +21,20 @@ public class Specialization {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public float getBonus() {
+        return bonus;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBonus(float bonus) {
+        this.bonus = bonus;
     }
 
-    public Specialization() {
+    public Position() {
 
     }
-
-    public Specialization(int id, String name, String description) {
+    public Position(int id, String name, float bonus) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.bonus = bonus;
     }
 }
