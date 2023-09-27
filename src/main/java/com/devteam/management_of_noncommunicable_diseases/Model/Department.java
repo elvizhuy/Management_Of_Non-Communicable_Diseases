@@ -1,9 +1,12 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
-public class Specialization {
+import java.time.LocalDateTime;
+
+public class Department {
     int id;
     String name;
     String description;
+    LocalDateTime deletedAt;
 
     public int getId() {
         return id;
@@ -29,13 +32,22 @@ public class Specialization {
         this.description = description;
     }
 
-    public Specialization() {
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
+    public Department() {
 
     }
 
-    public Specialization(int id, String name, String description) {
+    public Department(int id, String name, String description, LocalDateTime deletedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.deletedAt = deletedAt;
     }
 }
