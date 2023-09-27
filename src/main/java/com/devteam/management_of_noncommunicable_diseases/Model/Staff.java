@@ -1,6 +1,8 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
+
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Staff extends SQLException {
     String userName;
@@ -14,6 +16,7 @@ public class Staff extends SQLException {
     String jobCode;
     String position;
     LocalDate startWork;
+    LocalDateTime deletedAt;
     int facilityId;
     int departmentId;
     int departmentFacilityId = 0;
@@ -106,6 +109,7 @@ public class Staff extends SQLException {
     public void setStartWork(LocalDate startWork) {
         this.startWork = startWork;
     }
+
     public String getPosition() {
         return position;
     }
@@ -113,6 +117,15 @@ public class Staff extends SQLException {
     public void setPosition(String position) {
         this.position = position;
     }
+
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
     public Staff() {
 
     }
