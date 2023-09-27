@@ -62,8 +62,6 @@ public class StaffController {
         initializeComboBoxData();
     }
 
-
-
     @FXML
     protected void addNewStaff(ActionEvent event) throws SQLException {
         staff.setUserName(user_name.getText());
