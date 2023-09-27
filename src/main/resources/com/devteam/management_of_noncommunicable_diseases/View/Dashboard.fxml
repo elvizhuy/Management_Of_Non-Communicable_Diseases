@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="966.0" prefWidth="1617.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.DashboardController">
+<AnchorPane prefHeight="740.0" prefWidth="1214.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.DashboardController">
    <children>
       <AnchorPane layoutX="7.0" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #0f2c38;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
@@ -56,7 +56,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="pane1" prefHeight="200.0" prefWidth="1262.0" style="-fx-background-color: #000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="pane1" prefHeight="740.0" prefWidth="1214.0" style="-fx-background-color: #000;" />
       <AnchorPane prefHeight="694.0" prefWidth="54.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="54.0" spacing="14.0" AnchorPane.topAnchor="20.0">
@@ -90,9 +90,9 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="pane2" prefHeight="920.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="54.0">
+      <AnchorPane fx:id="pane2" layoutX="54.0" layoutY="46.0" prefHeight="694.0" prefWidth="195.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="54.0" AnchorPane.topAnchor="46.0">
          <children>
-            <VBox prefHeight="222.0" prefWidth="200.0" spacing="12.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+            <VBox spacing="12.0">
                <children>
                   <JFXButton prefHeight="35.0" prefWidth="200.0" text="Bảng điều khiển ">
                      <font>

@@ -3,6 +3,7 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,7 +20,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable, InfoBox, ShowAlert {
+public class LoginController extends Thread implements Initializable, InfoBox, ShowAlert {
     @FXML
     private ImageView btnCloseLogin;
     @FXML
@@ -33,6 +34,19 @@ public class LoginController implements Initializable, InfoBox, ShowAlert {
     @FXML
     private AnchorPane loginView;
 
+    public void start () {
+        Thread login = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    login(new ActionEvent());
+                } catch (SQLException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        login.start();
+    }
     @FXML
     protected void login(ActionEvent event) throws SQLException, SQLException, IOException {
         String SELECT_QUERY = "SELECT user_name,password FROM accounts WHERE user_name = ? and password = ?";
@@ -51,16 +65,28 @@ public class LoginController implements Initializable, InfoBox, ShowAlert {
                     "Nhập mật khẩu");
             return;
         }
-        JdbcDaoLoginRegister jdbcDaoLoginRegister = new JdbcDaoLoginRegister();
+        LoginRegisterDao loginRegisterDao = new LoginRegisterDao();
         String username = userField.getText();
         String password = passField.getText();
-        boolean flag = jdbcDaoLoginRegister.validate(username, password,SELECT_QUERY);
+        boolean flag = loginRegisterDao.validate(username, password,SELECT_QUERY);
 
         if (!flag) {
-            InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
+            new Thread(() -> {
+                Platform.runLater(()->{
+                    InfoBox.infoBox("Hãy kiểm tra lại tên đăng nhập và mật khẩu của bạn", null, "Thất Bại");
+                });
+            }).start();
         } else {
-            InfoBox.infoBox("Đăng nhập thành công!", null, "Thành Công");
-            new SceneSwitch(loginView, "View/Dashboard.fxml");
+            new Thread( () -> {
+                Platform.runLater(() -> {
+                    try {
+                        InfoBox.infoBox("Đăng nhập thành công!", null, "Thành Công");
+                        new SceneSwitch(loginView, "View/Dashboard.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }).start();
         }
     }
 

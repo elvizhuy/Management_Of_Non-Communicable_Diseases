@@ -54,7 +54,7 @@
                   <Font size="16.0" />
                </font>
             </PasswordField>
-                <Button fx:id="registerBtn" layoutX="124.0" layoutY="447.0" mnemonicParsing="false" onAction="#Register" prefHeight="25.0" prefWidth="363.0" style="-fx-background-color: -fx-primary-color;" stylesheets="@Style/LoginCss.css" text="Đăng ký">
+                <Button fx:id="registerBtn" layoutX="124.0" layoutY="447.0" mnemonicParsing="false" onAction="#start" prefHeight="25.0" prefWidth="363.0" style="-fx-background-color: -fx-primary-color;" stylesheets="@Style/LoginCss.css" text="Đăng ký">
                <font>
                   <Font size="11.0" />
                </font></Button>

@@ -1,14 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
-
-import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnection;
-import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
-import javafx.scene.control.Alert;
-import javafx.stage.Window;
-
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class Staff extends SQLException {
     String userName;
@@ -25,6 +17,15 @@ public class Staff extends SQLException {
     int facilityId;
     int departmentId;
     int departmentFacilityId = 0;
+    int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;
@@ -105,12 +106,18 @@ public class Staff extends SQLException {
     public void setStartWork(LocalDate startWork) {
         this.startWork = startWork;
     }
+    public String getPosition() {
+        return position;
+    }
 
+    public void setPosition(String position) {
+        this.position = position;
+    }
     public Staff() {
 
     }
 
-    public Staff(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String jobCode,LocalDate startWork) {
+    public Staff(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String jobCode, LocalDate startWork) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -121,65 +128,5 @@ public class Staff extends SQLException {
         this.confirmPassword = confirmPassword;
         this.jobCode = jobCode;
         this.startWork = startWork;
-    }
-
-    public void addStaff(Window owner, String INSERT_ACCOUNTS_QUERY, String INSERT_STAFFS_QUERY) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-        boolean checkName = validateEmptyFields(this.userName, "Nhập tên đăng nhập", owner);
-        boolean checkFirstName = validateEmptyFields(this.firstName, "Nhập tên Họ", owner);
-        boolean checkLastName = validateEmptyFields(this.lastName, "Nhập tên", owner);
-        boolean checkEmail = validateEmptyFields(this.email, "Nhập email", owner);
-        boolean checkIdNumber = validateEmptyFields(this.idNumber, "Nhập số cccd", owner);
-        boolean checkPhoneNumber = validateEmptyFields(this.phoneNumber, "Nhập số điện thoại", owner);
-        boolean checkPassword = validateEmptyFields(this.passWord, "Nhập mật khẩu", owner);
-        boolean checkJobCode = validateEmptyFields(this.jobCode, "Nhập jobcode", owner);
-        boolean checkMatchingPass = checkMatchingPassword(this.passWord, this.confirmPassword, "Mật khẩu không khớp!", owner);
-
-        if (checkName && checkFirstName && checkLastName && checkEmail && checkIdNumber && checkPhoneNumber && checkJobCode && checkPassword && checkMatchingPass) {
-            try {
-                connection = DBConnection.open();
-                assert connection != null;
-                preparedStatement = connection.prepareStatement(INSERT_ACCOUNTS_QUERY);
-                preparedStatement.setString(1, this.userName);
-                preparedStatement.setString(2, this.passWord);
-                preparedStatement = connection.prepareStatement(INSERT_STAFFS_QUERY);
-                preparedStatement.setString(1, this.jobCode);
-                preparedStatement.setString(2, this.position);
-                preparedStatement.setString(3, this.firstName);
-                preparedStatement.setString(4, this.lastName);
-                preparedStatement.setString(5, this.email);
-                preparedStatement.setString(6, this.idNumber);
-                preparedStatement.setString(7, this.phoneNumber);
-                preparedStatement.setDate(8, Date.valueOf(this.startWork));
-                System.out.println(preparedStatement);
-                resultSet = preparedStatement.executeQuery();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } finally {
-                DBConnection.closeAll(connection, preparedStatement, resultSet);
-            }
-        } else {
-            // check lại thông tin
-        }
-    }
-
-    protected boolean validateEmptyFields(String dataField, String textToNotice, Window owner) {
-        if (dataField.isEmpty()) {
-            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
-            return false;
-        }
-        return true;
-    }
-
-    protected boolean checkMatchingPassword(String passWord, String confirmPassword, String textToNotice, Window owner) {
-        if (!Objects.equals(passWord, confirmPassword)) {
-            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
-            return false;
-        }
-        return true;
     }
 }
