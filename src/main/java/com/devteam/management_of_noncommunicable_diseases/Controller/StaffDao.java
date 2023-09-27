@@ -1,14 +1,19 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
+import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
 import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
+
+import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
-public class StaffDao {
+public class StaffDao implements InfoBox {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -57,7 +62,11 @@ public class StaffDao {
                 DBConnection.closeAll(connection, preparedStatement, resultSet);
             }
         } else {
-            // check lại thông tin
+            new Thread(() -> {
+                Platform.runLater(() -> {
+                    InfoBox.infoBox("Thiếu thông tin,hãy kiểm tra lại", null, "Thất Bại...");
+                });
+            }).start();
         }
     }
 
@@ -80,7 +89,7 @@ public class StaffDao {
                 String job_code = resultSet.getString("job_code");
             }
             preparedStatement = connection.prepareStatement(QUERY_UPDATE_STAFF);
-            preparedStatement.setString(1,staff.getIdNumber());
+            preparedStatement.setString(1, staff.getIdNumber());
             preparedStatement.setString(2, staff.getEmail());
             preparedStatement.setString(3, staff.getFirstName());
             preparedStatement.setString(4, staff.getLastName());
