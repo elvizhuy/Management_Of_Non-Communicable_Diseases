@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.control.skin.TableHeaderRow?>
+<VBox prefHeight="908.0" prefWidth="1094.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffInfomationDao">
+    <AnchorPane prefHeight="902.0" prefWidth="1693.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+            <AnchorPane layoutX="7.0" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #0f2c38;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <children>
+                    <ImageView fx:id="ExitBtn" fitHeight="32.0" fitWidth="23.0" layoutX="1133.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" AnchorPane.rightAnchor="10.0">
+                        <image>
+                            <Image url="@Image/close.png" />
+                        </image>
+                    </ImageView>
+                    <ImageView fx:id="menuBtn" fitHeight="38.0" fitWidth="32.0" layoutX="8.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                        <image>
+                            <Image url="@IconDashboard/dashboard.png" />
+                        </image>
+                    </ImageView>
+                </children>
+            </AnchorPane>
+            <AnchorPane layoutY="46.0" prefHeight="694.0" prefWidth="54.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                <children>
+                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="54.0" spacing="13.0" AnchorPane.topAnchor="20.0">
+                        <children>
+                            <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@IconDashboard/home.png" />
+                                </image>
+                            </ImageView>
+                            <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@IconDashboard/add-user.png" />
+                                </image>
+                            </ImageView>
+                            <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@IconDashboard/profile.png" />
+                                </image>
+                            </ImageView>
+                            <ImageView fitHeight="38.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@IconDashboard/export.png" />
+                                </image>
+                            </ImageView>
+                            <ImageView fitHeight="59.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@IconDashboard/hierarchy.png" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </VBox>
+                </children>
+            </AnchorPane>
+            <AnchorPane fx:id="pane1" style="-fx-background-color: #000;" />
+            <AnchorPane prefHeight="694.0" prefWidth="54.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.0">
+                <children>
+                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="54.0" spacing="14.0" AnchorPane.topAnchor="20.0">
+                        <children>
+                            <ImageView fitHeight="38.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@IconDashboard/home.png" />
+                                </image>
+                            </ImageView>
+                            <ImageView fitHeight="38.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@IconDashboard/add-user.png" />
+                                </image>
+                            </ImageView>
+                            <ImageView fitHeight="38.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@IconDashboard/profile.png" />
+                                </image>
+                            </ImageView>
+                            <ImageView fitHeight="38.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@IconDashboard/export.png" />
+                                </image>
+                            </ImageView>
+                            <ImageView fitHeight="59.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@IconDashboard/hierarchy.png" />
+                                </image>
+                            </ImageView>
+                        </children>
+                    </VBox>
+                </children>
+            </AnchorPane>
+            <AnchorPane fx:id="pane2" focusTraversable="true" prefHeight="856.0" prefWidth="1647.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="54.0">
+                <children>
+                    <VBox spacing="12.0">
+                        <children>
+                            <JFXButton prefHeight="35.0" prefWidth="200.0" text="Bảng điều khiển ">
+                                <font>
+                                    <Font size="15.0" />
+                                </font>
+                            </JFXButton>
+                            <JFXButton prefHeight="35.0" prefWidth="200.0" text="Tiếp nhận">
+                                <font>
+                                    <Font size="15.0" />
+                                </font>
+                            </JFXButton>
+                            <JFXButton prefHeight="35.0" prefWidth="200.0" text="Hồ sơ">
+                                <font>
+                                    <Font size="15.0" />
+                                </font>
+                            </JFXButton>
+                            <JFXButton prefHeight="35.0" prefWidth="200.0" text="Xuất dữ liệu">
+                                <font>
+                                    <Font size="15.0" />
+                                </font>
+                            </JFXButton>
+                            <JFXButton prefHeight="35.0" prefWidth="200.0" text="Phòng ban">
+                                <font>
+                                    <Font size="15.0" />
+                                </font>
+                            </JFXButton>
+                        </children>
+                    </VBox>
+                    <VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" />
+                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="648.0" layoutY="20.0" prefHeight="71.0" prefWidth="519.0" styleClass="title-label" text="DANH SÁCH CÁN BỘ CÔNG NHÂN VIÊN" textFill="#0a9296" GridPane.columnSpan="2">
+                    <font>
+                        <Font name="System Bold" size="26.0" />
+                    </font>
+                    </Label>
+                      <TableView fx:id="StaffInformationDao" layoutX="200.0" layoutY="106.0" prefWidth="1392.0">
+                          <columns>
+                              <TableColumn fx:id="id" prefWidth="42.99998474121094" text="STT" />
+                              <TableColumn fx:id="department_facilities_id" prefWidth="73.20001220703125" text="Mã cơ sở" />
+                              <TableColumn fx:id="job_code" minWidth="0.199951171875" prefWidth="86.79998779296875" text="Mã công việc" />
+                              <TableColumn fx:id="position_id" prefWidth="118.5999755859375" text="Mã vị trí công việc" />
+                              <TableColumn fx:id="specialization_id" prefWidth="106.39996337890625" text="Mã chuyên môn" />
+                              <TableColumn fx:id="first_name" prefWidth="100.800048828125" text="Tên" />
+                              <TableColumn fx:id="last_name" prefWidth="64.60003662109375" text="Tên họ" />
+                              <TableColumn fx:id="phone_number" prefWidth="126.39990234375" text="Số điện thoại" />
+                              <TableColumn fx:id="Email" prefWidth="152.60003662109375" text="Email" />
+                              <TableColumn fx:id="id_number" prefWidth="145.0" text="Căn cước công dân" />
+                              <TableColumn fx:id="base_salary" prefWidth="100" text="Mức lương" />
+                              <TableColumn fx:id="start_work" prefWidth="156.0" text="Ngày bắt đầu làm việc" />
+                              <TableColumn fx:id="delete_at" prefWidth="119.199951171875" text="Ngày xoá dữ liệu" />
+                          </columns>
+                      </TableView>
+                </children>
+            </AnchorPane>
+        </children>
+    </AnchorPane>
+
+    <AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" />
+</VBox>
