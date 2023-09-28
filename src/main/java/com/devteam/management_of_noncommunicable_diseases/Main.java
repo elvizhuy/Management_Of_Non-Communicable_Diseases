@@ -20,7 +20,7 @@ public class Main extends Application {
             Platform.runLater(() -> {
                 Parent root = null;
                 try {
-                    root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View/Register.fxml")));
+                    root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View/Dashboard.fxml")));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

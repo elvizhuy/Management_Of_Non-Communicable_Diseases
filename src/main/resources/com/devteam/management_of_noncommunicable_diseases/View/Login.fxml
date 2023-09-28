@@ -34,7 +34,7 @@
                <font>
                   <Font size="16.0" />
                </font></PasswordField>
-            <Button fx:id="btnLogin" layoutX="33.0" layoutY="391.0" mnemonicParsing="false" onAction="#start" prefHeight="25.0" prefWidth="363.0" stylesheets="@Style/LoginCss.css" text="Login" />
+            <Button fx:id="btnLogin" layoutX="33.0" layoutY="391.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="363.0" stylesheets="@Style/LoginCss.css" text="Login" />
             <CheckBox layoutX="33.0" layoutY="354.0" mnemonicParsing="false" text="Lưu thông tin đăng nhập" />
             <Hyperlink layoutX="33.0" layoutY="432.0" prefHeight="23.0" prefWidth="124.0" text="Bạn quên mật khẩu ?" />
             <TextField fx:id="userField" layoutX="36.0" layoutY="243.0" prefHeight="25.0" prefWidth="363.0" promptText="Tên đăng nhập" stylesheets="@Style/LoginCss.css">
