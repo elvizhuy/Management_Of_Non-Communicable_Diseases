@@ -1,55 +1,67 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Interface.ComboBoxData;
+import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
+import com.devteam.management_of_noncommunicable_diseases.Model.Medicine;
+import com.devteam.management_of_noncommunicable_diseases.Model.MedicineGroups;
+import com.devteam.management_of_noncommunicable_diseases.Model.MedicineTypes;
 import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Window;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
-public class MedicineDao {
+public class MedicineDao implements ComboBoxData {
+    Medicine medicine = new Medicine();
+    MedicineTypes medicineTypes = new MedicineTypes();
+    MedicineGroups medicineGroups = new MedicineGroups();
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    @FXML
+    private ComboBox<String> medicineGroupComboBox;
+    @FXML
+    private ComboBox<String> medicineTypeComboBox;
 
-    public void addStaff(Window owner) throws SQLException {
-        Staff staff = new Staff();
-        String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";
-        String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,position,first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
-        String INSERT_DEPARTMENT_FACILITIES_QUERY = "INSERT INTO department_facilities (facility_id,department_id) VALUES (?,?)";
-        String INSERT_DEPARTMENT_FACILITIES_INTO_STAFF_QUERY = "INSERT INTO staffs (department_facilities_id) VALUES (?)";
+    public MedicineDao(ComboBox<String> medicineGroupComboBox, ComboBox<String> medicineTypeComboBox) {
+        this.medicineGroupComboBox = medicineGroupComboBox;
+        this.medicineTypeComboBox = medicineTypeComboBox;
+    }
 
-        boolean checkName = validateEmptyFields(staff.getUserName(), "Nhập tên đăng nhập", owner);
-        boolean checkFirstName = validateEmptyFields(staff.getFirstName(), "Nhập tên Họ", owner);
-        boolean checkLastName = validateEmptyFields(staff.getLastName(), "Nhập tên", owner);
-        boolean checkEmail = validateEmptyFields(staff.getEmail(), "Nhập email", owner);
-        boolean checkIdNumber = validateEmptyFields(staff.getIdNumber(), "Nhập số cccd", owner);
-        boolean checkPhoneNumber = validateEmptyFields(staff.getPhoneNumber(), "Nhập số điện thoại", owner);
-        boolean checkPassword = validateEmptyFields(staff.getPassWord(), "Nhập mật khẩu", owner);
-        boolean checkJobCode = validateEmptyFields(staff.getJobCode(), "Nhập jobcode", owner);
-        boolean checkMatchingPass = checkMatchingPassword(staff.getPassWord(), staff.getConfirm_password(), "Mật khẩu không khớp!", owner);
+    public void addMedicine(Window owner) throws SQLException {
+        String INSERT_MEDICINE_TYPE_QUERY = "INSERT into medicine_types (name) VALUES (?)";
+        String INSERT_MEDICINE_GROUP_QUERY = "INSERT into medicine_groups (name,description) VALUES (?,?)";
+        String INSERT_MEDICINE_QUERY = "INSERT into medicine (group_id,type_id,name,unit,description,instruction) VALUES (?,?,?,?,?,?)";
 
-        if (checkName && checkFirstName && checkLastName && checkEmail && checkIdNumber && checkPhoneNumber && checkJobCode && checkPassword && checkMatchingPass) {
+        boolean checkMedicineName = validateEmptyFields(medicine.getName(), "Nhập tên thuốc", owner);
+        boolean checkUnit = validateEmptyFields(medicine.getUnit(), "Nhập đơn vị", owner);
+        boolean checkDescription = validateEmptyFields(medicine.getDescription(), "Nhập mô tả", owner);
+        boolean checkInstruction = validateEmptyFields(medicine.getInstruction(), "Nhập hướng dẫn", owner);
+
+        if (checkMedicineName && checkUnit && checkDescription && checkInstruction) {
             try {
                 connection = DBConnection.open();
                 assert connection != null;
-                MD5 md5 = new MD5();
-                String encodePassword = md5.encode(staff.getPassWord());
-                preparedStatement = connection.prepareStatement(INSERT_ACCOUNTS_QUERY);
-                preparedStatement.setString(1, staff.getUserName());
-                preparedStatement.setString(2, encodePassword);
-                preparedStatement = connection.prepareStatement(INSERT_STAFFS_QUERY);
-                preparedStatement.setString(1, staff.getJobCode());
-                preparedStatement.setString(2, staff.getPosition());
-                preparedStatement.setString(3, staff.getFirstName());
-                preparedStatement.setString(4, staff.getLastName());
-                preparedStatement.setString(5, staff.getEmail());
-                preparedStatement.setString(6, staff.getIdNumber());
-                preparedStatement.setString(7, staff.getPhoneNumber());
-                preparedStatement.setDate(8, Date.valueOf(staff.getStartWork()));
+                preparedStatement = connection.prepareStatement(INSERT_MEDICINE_TYPE_QUERY);
+                preparedStatement.setString(1, medicineTypes.getName());
+                preparedStatement = connection.prepareStatement(INSERT_MEDICINE_GROUP_QUERY);
+                preparedStatement.setString(1, medicineGroups.getName());
+                preparedStatement.setString(2, medicineGroups.getDescription());
+                preparedStatement = connection.prepareStatement(INSERT_MEDICINE_QUERY);
+                preparedStatement.setInt(1, medicine.getGroupId());
+                preparedStatement.setInt(2, medicine.getTypeId());
+                preparedStatement.setString(3, medicine.getName());
+                preparedStatement.setString(4, medicine.getUnit());
+                preparedStatement.setString(5, medicine.getDescription());
+                preparedStatement.setString(6, medicine.getInstruction());
                 System.out.println(preparedStatement);
                 resultSet = preparedStatement.executeQuery();
             } catch (SQLException e) {
@@ -57,8 +69,12 @@ public class MedicineDao {
             } finally {
                 DBConnection.closeAll(connection, preparedStatement, resultSet);
             }
-        } else {
-            // check lại thông tin
+        }  else {
+            new Thread(() -> {
+                Platform.runLater(() -> {
+                    InfoBox.infoBox("Thiếu thông tin,hãy kiểm tra lại", null, "Thất Bại...");
+                });
+            }).start();
         }
     }
 
@@ -95,6 +111,27 @@ public class MedicineDao {
             DBConnection.closeAll(connection, preparedStatement, resultSet);
         }
     }
+
+
+    protected void initializeComboBoxData() throws SQLException {
+        try {
+            connection = DBConnection.open();
+            String SELECT_MEDICINE_GROUP_QUERY = "SELECT id,name FROM medicine_groups";
+            String SELECT_MEDICINE_TYPE_QUERY = "SELECT id,name FROM medicine_types";
+
+            ObservableList<String> medicineGroup = ComboBoxData.getComboBoxData(connection, SELECT_MEDICINE_GROUP_QUERY,preparedStatement);
+            ObservableList<String> medicineType = ComboBoxData.getComboBoxData(connection, SELECT_MEDICINE_TYPE_QUERY,preparedStatement);
+
+            medicineGroupComboBox.setItems(medicineGroup);
+            medicineTypeComboBox.setItems(medicineType);
+
+        } catch (java.sql.SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBConnection.closeAll(connection, preparedStatement, resultSet);
+        }
+    }
+
 
     protected boolean validateEmptyFields(String dataField, String textToNotice, Window owner) {
         if (dataField.isEmpty()) {
