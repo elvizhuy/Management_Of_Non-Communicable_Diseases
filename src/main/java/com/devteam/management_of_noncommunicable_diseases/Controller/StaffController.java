@@ -67,7 +67,6 @@ public class StaffController {
     protected void addNewStaff(ActionEvent event) throws SQLException {
 
         if (addStaffBtn != null) {
-
             staff.setUserName(user_name.getText());
             staff.setFirstName(first_name.getText());
             staff.setLastName(last_name.getText());
@@ -86,11 +85,11 @@ public class StaffController {
     private void initializeComboBoxData() throws SQLException {
         try {
             connection = DBConnection.open();
-            String SELECT_JOB_CODE_QUERY = "SELECT id FROM job_codes";
-            String SELECT_POSITION_QUERY = "SELECT id FROM positions";
-            String SELECT_SPECIALIZATION_QUERY = "SELECT id FROM specializations";
-            String SELECT_DEPARTMENT_QUERY = "SELECT id FROM departments";
-            String SELECT_FACILITY_QUERY = "SELECT id FROM facilities";
+            String SELECT_JOB_CODE_QUERY = "SELECT name FROM job_codes";
+            String SELECT_POSITION_QUERY = "SELECT name FROM positions";
+            String SELECT_SPECIALIZATION_QUERY = "SELECT name FROM specializations";
+            String SELECT_DEPARTMENT_QUERY = "SELECT name FROM departments";
+            String SELECT_FACILITY_QUERY = "SELECT name FROM facilities";
             String SELECT_FROM_DEPARTMENT_FACILITIES = "SELECT id FROM department_facilities WHERE facility_id = ?,department_id = ?";
 
             ObservableList<String> jobCodes = getComboBoxData(connection, SELECT_JOB_CODE_QUERY);

@@ -149,11 +149,4 @@ public class MedicineDao implements ComboBoxData {
         return true;
     }
 
-    public boolean checkIdNumber(String IdFromUserInput, String IdInDatabase, String textToNotice, Window owner) {
-        if (!Objects.equals(IdFromUserInput, IdInDatabase)) {
-            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
-            return false;
-        }
-        return true;
-    }
 }

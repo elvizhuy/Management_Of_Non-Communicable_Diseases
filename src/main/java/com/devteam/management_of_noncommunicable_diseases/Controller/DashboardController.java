@@ -51,7 +51,7 @@ public class DashboardController extends Thread implements Initializable {
     void addStaff(ActionEvent event) throws IOException {
         new Thread(() -> {
             Platform.runLater(() -> {
-                loadView("/View/addStaffs.fxml");
+                loadView("/com/devteam/management_of_noncommunicable_diseases/View/addStaffs.fxml");
             });
         }).start();
     }
