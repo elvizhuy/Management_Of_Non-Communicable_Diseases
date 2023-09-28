@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException, Exception {
         new Thread(()-> {
             Platform.runLater(() -> {
-                Parent root = null;
+                Parent root;
                 try {
                     root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("View/Dashboard.fxml")));
                 } catch (IOException e) {
