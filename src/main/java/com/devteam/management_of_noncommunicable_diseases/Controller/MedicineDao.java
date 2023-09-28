@@ -22,18 +22,18 @@ public class MedicineDao implements ComboBoxData {
     Medicine medicine = new Medicine();
     MedicineTypes medicineTypes = new MedicineTypes();
     MedicineGroups medicineGroups = new MedicineGroups();
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
+    static Connection connection = null;
+    static PreparedStatement preparedStatement = null;
+    static ResultSet resultSet = null;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     @FXML
-    private ComboBox<String> medicineGroupComboBox;
+    private static ComboBox<String> medicineGroupComboBox;
     @FXML
-    private ComboBox<String> medicineTypeComboBox;
+    private static ComboBox<String> medicineTypeComboBox;
 
     public MedicineDao(ComboBox<String> medicineGroupComboBox, ComboBox<String> medicineTypeComboBox) {
-        this.medicineGroupComboBox = medicineGroupComboBox;
-        this.medicineTypeComboBox = medicineTypeComboBox;
+        MedicineDao.medicineGroupComboBox = medicineGroupComboBox;
+        MedicineDao.medicineTypeComboBox = medicineTypeComboBox;
     }
 
     public void addMedicine(Window owner) throws SQLException {
@@ -113,7 +113,7 @@ public class MedicineDao implements ComboBoxData {
     }
 
 
-    protected void initializeComboBoxData() throws SQLException {
+    protected static void initializeComboBoxData() throws SQLException {
         try {
             connection = DBConnection.open();
             String SELECT_MEDICINE_GROUP_QUERY = "SELECT id,name FROM medicine_groups";
