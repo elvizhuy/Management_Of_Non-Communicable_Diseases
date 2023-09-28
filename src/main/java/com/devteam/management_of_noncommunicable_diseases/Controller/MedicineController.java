@@ -38,8 +38,8 @@ public class MedicineController extends Thread implements InfoBox, ShowAlert {
     private ComboBox<String> medicineTypeComboBox;
     @FXML
     protected void initialize() throws SQLException {
-        initializeComboBoxData();
-        owner = addStaffBtn.getScene().getWindow();
+        MedicineDao.initializeComboBoxData();
+        owner = btnAddMedicine.getScene().getWindow();
     }
 
     Window owner;
@@ -57,13 +57,4 @@ public class MedicineController extends Thread implements InfoBox, ShowAlert {
         medicineDao.addMedicine(owner);
     }
 
-    private void initializeComboBoxData() throws SQLException {
-        try {
-           medicineDao.initializeComboBoxData(medicineGroupComboBox,medicineTypeComboBox);
-        } catch (java.sql.SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            DBConnection.closeAll(connection, preparedStatement, resultSet);
-        }
-    }
 }
