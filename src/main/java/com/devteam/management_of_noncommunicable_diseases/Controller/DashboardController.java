@@ -50,7 +50,9 @@ public class DashboardController extends Thread implements Initializable {
     @FXML
     void addStaff(ActionEvent event) throws IOException {
         new Thread(() -> {
-            Platform.runLater(this::loadView);
+            Platform.runLater(() -> {
+                loadView("/View/addStaffs.fxml");
+            });
         }).start();
     }
 
@@ -66,12 +68,14 @@ public class DashboardController extends Thread implements Initializable {
         });
 
     }
-    private void loadView() {
-        new Thread(()->{
-            Platform.runLater(()->{
+
+    private void loadView(String fxmlFileName) {
+        new Thread(() -> {
+            Platform.runLater(() -> {
                 try {
                     // Load FXML file
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/addStaffs.fxml"));
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource(fxmlFileName));
                     Parent root = loader.load();
 
                     // Set the loaded view to the ContentArea
@@ -79,6 +83,8 @@ public class DashboardController extends Thread implements Initializable {
                     ContentArea.getChildren().add(root);
                 } catch (IOException e) {
                     Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, e);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             });
         }).start();
