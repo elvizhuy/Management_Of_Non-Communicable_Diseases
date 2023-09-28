@@ -1,76 +1,82 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.transform.Translate;
-import javafx.util.Duration;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DashboardController implements Initializable {
 
     @FXML
-    private ImageView ExitBtn;
+    private BorderPane bp;
 
     @FXML
-    private ImageView menuBtn;
+    private AnchorPane application;
 
     @FXML
-    private AnchorPane pane1, pane2;
+    private ImageView exitBtn;
 
+    @FXML
+    private StackPane ContentArea;
+
+
+    @FXML
+    void Department(ActionEvent event) {
+
+    }
+
+    @FXML
+    void Export(ActionEvent event) {
+
+    }
+
+    @FXML
+    void Profile(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addStaff(ActionEvent event) throws IOException {
+        loadView("/com/devteam/management_of_noncommunicable_diseases/View/addStaffs.fxml");
+    }
+
+    @FXML
+    void homePage(ActionEvent event) {
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        ExitBtn.setOnMouseClicked(event -> {
+        exitBtn.setOnMouseClicked(event -> {
             System.exit(0);
         });
 
-        pane1.setVisible(false);
-
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), pane1);
-        fadeTransition.setFromValue(1);
-        fadeTransition.setToValue(0);
-        fadeTransition.play();
-
-        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), pane2);
-        translateTransition.setByX(-600);
-        translateTransition.play();
-
-        menuBtn.setOnMouseClicked(event -> {
-
-            pane1.setVisible(true);
-
-            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), pane1);
-            fadeTransition1.setFromValue(0);
-            fadeTransition1.setToValue(0.15);
-            fadeTransition1.play();
-
-            TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), pane2);
-            translateTransition1.setByX(+600);
-            translateTransition1.play();
-        });
-
-        pane1.setOnMouseClicked(event -> {
-            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), pane1);
-            fadeTransition1.setFromValue(0.15);
-            fadeTransition1.setToValue(0);
-            fadeTransition1.play();
-
-            fadeTransition1.setOnFinished(event1 -> {
-                pane1.setVisible(false);
-            });
-
-            TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), pane2);
-            translateTransition1.setByX(-600);
-            translateTransition1.play();
-        });
     }
+    private void loadView(String fxmlFileName) {
+        try {
+            // Load FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+            Parent root = loader.load();
+
+            // Set the loaded view to the ContentArea
+            ContentArea.getChildren().clear();
+            ContentArea.getChildren().add(root);
+        } catch (IOException e) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
 }

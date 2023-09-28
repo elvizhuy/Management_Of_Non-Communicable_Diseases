@@ -15,6 +15,8 @@ public class PeopleDao {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
+
+    static Staff staff;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public void addStaff(Window owner) throws SQLException {
