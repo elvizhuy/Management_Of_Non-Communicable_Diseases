@@ -10,9 +10,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
+
+import java.io.IOException;
 import java.sql.*;
 
-public class StaffController {
+public class StaffController implements Runnable{
+
     @FXML
     private Button addStaffBtn;
     @FXML
@@ -55,31 +58,44 @@ public class StaffController {
     ResultSet resultSet = null;
     Window  owner;
     Staff staff = new Staff();
-    StaffDao staffDao = new StaffDao();
+
 
     @FXML
     protected void initialize() throws SQLException {
 //        initializeComboBoxData();
 //        owner = addStaffBtn.getScene().getWindow();
     }
-
     @FXML
-    protected void addNewStaff(ActionEvent event) throws SQLException {
+    public void start () throws InterruptedException {
+        Thread staff = new Thread(new StaffController());
+        Thread staffDao = new Thread(new StaffDao());
+        staff.start();
+        staff.join();
+        Thread.sleep(1000);
+        staffDao.start();
+        staffDao.join();
+    }
 
-//        if (addStaffBtn != null) {
+
+    protected void addNewStaff(ActionEvent event) throws SQLException {
             staff.setUserName(user_name.getText());
             staff.setFirstName(first_name.getText());
             staff.setLastName(last_name.getText());
             staff.setEmail(Email.getText());
             staff.setIdNumber(id_number.getText());
             staff.setPhoneNumber(phone_number.getText());
-            staff.setJobCode(job_code.getText());
             staff.setPassWord(pass_word.getText());
             staff.setConfirm_password(confirm_password.getText());
             staff.setStartWork(start_work.getValue());
-            staffDao.addStaff(owner);
+    }
 
-//        }
+    @Override
+    public void run() {
+        try {
+            addNewStaff(new ActionEvent());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 //    private void initializeComboBoxData() throws SQLException {
