@@ -107,22 +107,25 @@ public class StaffController {
         } catch (java.sql.SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            DBConnection.closeAll(connection, preparedStatement, resultSet);
+//            DBConnection.closeAll(connection, preparedStatement, resultSet);
         }
     }
 
     private ObservableList<String> getComboBoxData(Connection connection, String query) throws SQLException {
         ObservableList<String> comboBoxData = FXCollections.observableArrayList();
-        try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-            while (resultSet.next()) {
-                String item = resultSet.getString(1);
-                comboBoxData.add(item);
+        try {
+            assert connection != null;
+            try (Statement statement = connection.createStatement();
+                     ResultSet resultSet = statement.executeQuery(query)) {
+                while (resultSet.next()) {
+                    String item = resultSet.getString(1);
+                    comboBoxData.add(item);
+                }
             }
         } catch (java.sql.SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            DBConnection.closeAll(connection, preparedStatement, resultSet);
+//            DBConnection.closeAll(connection, preparedStatement, resultSet);
         }
         return comboBoxData;
     }
