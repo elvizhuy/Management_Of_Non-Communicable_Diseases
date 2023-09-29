@@ -6,6 +6,7 @@ import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
@@ -24,21 +25,26 @@ public class StaffDao implements InfoBox {
         String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,position,first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
         String INSERT_DEPARTMENT_FACILITIES_QUERY = "INSERT INTO department_facilities (facility_id,department_id) VALUES (?,?)";
         String INSERT_DEPARTMENT_FACILITIES_INTO_STAFF_QUERY = "INSERT INTO staffs (department_facilities_id) VALUES (?)";
-        String IdInDatabase = null;
 
         boolean checkNameEmpty = validateEmptyFields(username, "Nhập tên đăng nhập", owner);
-        boolean checkNameExisted = checkExistedItem(username,"accounts","Tên đã tồn tại",owner);
-//        boolean checkFirstName = validateEmptyFields(staff.getFirstName(), "Nhập tên Họ", owner);
-//        boolean checkLastName = validateEmptyFields(staff.getLastName(), "Nhập tên", owner);
-//        boolean checkEmail = validateEmptyFields(staff.getEmail(), "Nhập email", owner);
-//        boolean checkIdNumber = validateEmptyFields(staff.getIdNumber(), "Nhập số cccd", owner);
-//        boolean checkPhoneNumber = validateEmptyFields(staff.getPhoneNumber(), "Nhập số điện thoại", owner);
-//        boolean checkPassword = validateEmptyFields(staff.getPassWord(), "Nhập mật khẩu", owner);
-//        boolean checkMatchingPass = checkMatchingPassword(staff.getPassWord(), staff.getConfirm_password(), "Mật khẩu không khớp!", owner);
-//        boolean checkExistingIdNumber = checkIdNumber(staff.getIdNumber(), null,"ID đã tồn tại!",owner);
+        boolean checkNameExisted = checkExistedItem(username, "accounts", "user_name", "Tên đã tồn tại", owner);
+        boolean checkFirstName = validateEmptyFields(firstName, "Nhập tên", owner);
+        boolean checkLastName = validateEmptyFields(lastName, "Nhập họ", owner);
+        boolean checkEmailExist = checkExistedItem(email, "staffs", "email", "Email đã tồn tại", owner);
+        boolean checkEmptyEmail = validateEmptyFields(email, "Nhập email", owner);
+        boolean validOrInvalid = checkEmailValid(email, owner);
+        boolean checkEmptyIdNumber = validateEmptyFields(idNumber, "Nhập số cccd", owner);
+        boolean checkEmptyPhoneNumber = validateEmptyFields(phoneNumber, "Nhập số điện thoại", owner);
+        boolean checkEmptyPassword = validateEmptyFields(passWord, "Nhập mật khẩu", owner);
+        boolean checkEmptyConfirmPassword = validateEmptyFields(passWord, "Nhập mật khẩu", owner);
+        boolean checkMatchingPass = checkMatchingPasswordAndLength(passWord, confirmPassword, owner);
+        boolean checkExistingIdNumberAndLength = checkIdNumberAndLength(idNumber, "staffs", "ID đã tồn tại!", owner);
 
-//        if (checkName && checkFirstName && checkLastName && checkEmail && checkIdNumber && checkPhoneNumber && checkPassword && checkMatchingPass && checkExistingIdNumber) {
-        if (checkNameExisted && checkNameEmpty) {
+        if (checkNameExisted && checkNameEmpty && checkMatchingPass
+                && checkFirstName && checkLastName && checkEmailExist
+                && checkEmptyEmail && validOrInvalid && checkEmptyIdNumber
+                && checkExistingIdNumberAndLength && checkEmptyPassword
+                && checkEmptyConfirmPassword && checkEmptyPhoneNumber) {
             try {
                 connection = DBConnection.open();
                 assert connection != null;
@@ -47,20 +53,20 @@ public class StaffDao implements InfoBox {
                 preparedStatement = connection.prepareStatement(INSERT_ACCOUNTS_QUERY);
                 preparedStatement.setString(1, username);
                 preparedStatement.setString(2, encodePassword);
-//                    preparedStatement = connection.prepareStatement(INSERT_STAFFS_QUERY);
-//                    preparedStatement.setString(1, null);
-//                    preparedStatement.setString(2, null);
-//                    preparedStatement.setString(3, firstName);
-//                    preparedStatement.setString(4, lastName);
-//                    preparedStatement.setString(5, email);
-//                    preparedStatement.setString(6, idNumber);
-//                    preparedStatement.setString(7, phoneNumber);
-//                    preparedStatement.setDate(8, Date.valueOf(startWork));
+                preparedStatement = connection.prepareStatement(INSERT_STAFFS_QUERY);
+                preparedStatement.setString(1, null);
+                preparedStatement.setString(2, null);
+                preparedStatement.setString(3, firstName);
+                preparedStatement.setString(4, lastName);
+                preparedStatement.setString(5, email);
+                preparedStatement.setString(6, idNumber);
+                preparedStatement.setString(7, phoneNumber);
+                preparedStatement.setDate(8, Date.valueOf(startWork));
                 System.out.println(preparedStatement);
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
-        } finally {
+            } finally {
                 DBConnection.closeAll(connection, preparedStatement, resultSet);
             }
         } else {
@@ -114,43 +120,58 @@ public class StaffDao implements InfoBox {
         return true;
     }
 
-    protected boolean checkMatchingPassword(String passWord, String confirmPassword, String textToNotice, Window owner) {
+    protected boolean checkMatchingPasswordAndLength(String passWord, String confirmPassword, Window owner) {
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9]{4,}");
+        Matcher matcher = pattern.matcher(passWord);
         if (!Objects.equals(passWord, confirmPassword)) {
-            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkIdNumber(String IdFromUserInput, String IdInDatabase, String textToNotice, Window owner) throws SQLException {
-        Staff staff = new Staff();
-        String SELECT_ID_NUMBER_QUERY = "SELECT id_number FROM staffs WHERE id_number = ?";
-        connection = DBConnection.open();
-        assert connection != null;
-        preparedStatement = connection.prepareStatement(SELECT_ID_NUMBER_QUERY);
-        preparedStatement.setInt(1, Integer.parseInt(staff.getIdNumber()));
-        resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            IdInDatabase = resultSet.getString("id_number");
-        }
-        Pattern pattern = Pattern.compile("[0-9]{12}");
-        Matcher matcher = pattern.matcher(IdFromUserInput);
-        int ID = Integer.parseInt(IdFromUserInput);
-        if (!Objects.equals(IdFromUserInput, IdInDatabase)) {
-            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
+            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Mật khẩu không khớp");
             return false;
         } else {
-            if (!matcher.find()) {
-                ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Độ dài không hợp lệ,Id phải đủ 12 số");
+            if (!matcher.matches()) {
+                ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Mật khẩu tối thiểu 4 ký tự");
                 return false;
             }
         }
         return true;
     }
 
-    public boolean checkExistedItem(String itemFromUserInput,String databaseName, String textToNotice, Window owner) throws SQLException {
-        Staff staff = new Staff();
-        String SELECT_ITEM_QUERY = "SELECT user_name FROM " + databaseName + " WHERE user_name = ?";
+    protected boolean checkEmailValid(String Email, Window owner) {
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
+        Matcher matcher = pattern.matcher(Email);
+        if (!matcher.matches()) {
+            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Định dạng email ko hợp lệ");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkIdNumberAndLength(String IdFromUserInput, String database, String textToNotice, Window owner) throws SQLException {
+        String SELECT_ID_NUMBER_QUERY = "SELECT id_number FROM " + database + " WHERE id_number = ?";
+        String IdInDatabase = null;
+        connection = DBConnection.open();
+        assert connection != null;
+        preparedStatement = connection.prepareStatement(SELECT_ID_NUMBER_QUERY);
+        preparedStatement.setInt(1, Integer.parseInt(IdFromUserInput));
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            IdInDatabase = resultSet.getString("id_number");
+            Pattern pattern = Pattern.compile("[0-9]{12}");
+            Matcher matcher = pattern.matcher(IdFromUserInput);
+            if (!Objects.equals(IdFromUserInput, IdInDatabase)) {
+                ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
+                return false;
+            } else {
+                if (!matcher.matches()) {
+                    ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Độ dài không hợp lệ,Id phải đủ 12 số");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean checkExistedItem(String itemFromUserInput, String databaseName, String columnName, String textToNotice, Window owner) throws SQLException {
+        String SELECT_ITEM_QUERY = "SELECT " + columnName + " FROM " + databaseName + " WHERE " + columnName + " = ?";
         String itemInDatabase = null;
         connection = DBConnection.open();
         assert connection != null;
@@ -158,7 +179,7 @@ public class StaffDao implements InfoBox {
         preparedStatement.setString(1, itemFromUserInput);
         resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-            itemInDatabase = resultSet.getString("user_name");
+            itemInDatabase = resultSet.getString(columnName);
             if (Objects.equals(itemFromUserInput, itemInDatabase)) {
                 ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
                 return false;
