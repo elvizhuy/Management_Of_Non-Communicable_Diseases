@@ -2,29 +2,33 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
-import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
 import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
+import jdk.nio.zipfs.ZipFileAttributeView;
 
-import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class StaffDao implements InfoBox {
+import static jdk.nio.zipfs.ZipFileAttributeView.AttrID.owner;
+
+public class StaffDao implements InfoBox,Runnable {
+    Staff staff = new Staff();
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
     public void addStaff(Window owner) throws SQLException {
-        Staff staff = new Staff();
         String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";
         String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,position,first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
         String INSERT_DEPARTMENT_FACILITIES_QUERY = "INSERT INTO department_facilities (facility_id,department_id) VALUES (?,?)";
         String INSERT_DEPARTMENT_FACILITIES_INTO_STAFF_QUERY = "INSERT INTO staffs (department_facilities_id) VALUES (?)";
+        String IdInDatabase = null;
 
         boolean checkName = validateEmptyFields(staff.getUserName(), "Nhập tên đăng nhập", owner);
         boolean checkFirstName = validateEmptyFields(staff.getFirstName(), "Nhập tên Họ", owner);
@@ -33,10 +37,10 @@ public class StaffDao implements InfoBox {
         boolean checkIdNumber = validateEmptyFields(staff.getIdNumber(), "Nhập số cccd", owner);
         boolean checkPhoneNumber = validateEmptyFields(staff.getPhoneNumber(), "Nhập số điện thoại", owner);
         boolean checkPassword = validateEmptyFields(staff.getPassWord(), "Nhập mật khẩu", owner);
-        boolean checkJobCode = validateEmptyFields(staff.getJobCode(), "Nhập jobcode", owner);
         boolean checkMatchingPass = checkMatchingPassword(staff.getPassWord(), staff.getConfirm_password(), "Mật khẩu không khớp!", owner);
+        boolean checkExistingIdNumber = checkIdNumber(staff.getIdNumber(), null,"ID đã tồn tại!",owner);
 
-        if (checkName && checkFirstName && checkLastName && checkEmail && checkIdNumber && checkPhoneNumber && checkJobCode && checkPassword && checkMatchingPass) {
+        if (checkName && checkFirstName && checkLastName && checkEmail && checkIdNumber && checkPhoneNumber && checkPassword && checkMatchingPass && checkExistingIdNumber) {
             try {
                 connection = DBConnection.open();
                 assert connection != null;
@@ -71,7 +75,7 @@ public class StaffDao implements InfoBox {
     }
 
     public void updateStaff(Window owner) throws SQLException {
-        Staff staff = new Staff();
+
         String FIND_SPECIFIC_STAFF = "SELECT id FROM staffs WHERE id = ?";
         String QUERY_UPDATE_STAFF = "UPDATE staffs SET id_number = ?, email = ?, first_name = ?, last_name = ?, job_code = ?, phone_number = ? WHERE id = ?";
         try {
@@ -120,11 +124,37 @@ public class StaffDao implements InfoBox {
         return true;
     }
 
-    public boolean checkIdNumber(String IdFromUserInput, String IdInDatabase, String textToNotice, Window owner) {
+    public boolean checkIdNumber(String IdFromUserInput,String IdInDatabase ,String textToNotice, Window owner) throws SQLException {
+        String SELECT_ID_NUMBER_QUERY = "SELECT id_number FROM staffs WHERE id_number = ?";
+        connection = DBConnection.open();
+        assert connection != null;
+        preparedStatement = connection.prepareStatement(SELECT_ID_NUMBER_QUERY);
+        preparedStatement.setInt(1, Integer.parseInt(staff.getIdNumber()));
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            IdInDatabase = resultSet.getString("id_number");
+        }
+        Pattern pattern = Pattern.compile("[0-9]{12}");
+        Matcher matcher = pattern.matcher(IdFromUserInput);
+        int ID = Integer.parseInt(IdFromUserInput);
         if (!Objects.equals(IdFromUserInput, IdInDatabase)) {
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
             return false;
+        }else {
+            if (!matcher.find()){
+                ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", "Độ dài không hợp lệ,Id phải đủ 12 số");
+                return false;
+            }
         }
         return true;
+    }
+
+    @Override
+    public void run() {
+        try {
+            addStaff(owner);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
