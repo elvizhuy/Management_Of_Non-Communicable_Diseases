@@ -6,7 +6,7 @@ import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
-import jdk.nio.zipfs.ZipFileAttributeView;
+/*import jdk.nio.zipfs.ZipFileAttributeView;*/
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -14,7 +14,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static jdk.nio.zipfs.ZipFileAttributeView.AttrID.owner;
+/*import static jdk.nio.zipfs.ZipFileAttributeView.AttrID.owner;*/
+
 
 public class StaffDao implements InfoBox,Runnable {
     Staff staff = new Staff();
@@ -22,6 +23,7 @@ public class StaffDao implements InfoBox,Runnable {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    Window owner;
 
     public void addStaff(Window owner) throws SQLException {
         String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";

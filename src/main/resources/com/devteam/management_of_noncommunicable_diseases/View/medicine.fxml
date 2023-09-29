@@ -12,8 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="733.0" prefWidth="1094.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.MedicineController">
-      <AnchorPane fx:id="pane2" prefHeight="733.0" prefWidth="1094.0" style="-fx-background-color: white;">
+<VBox prefHeight="857.0" prefWidth="1094.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.testController">
+      <AnchorPane fx:id="pane2" prefHeight="874.0" prefWidth="1094.0" style="-fx-background-color: white;">
           <children>
               <GridPane layoutX="163.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
                   <padding>
