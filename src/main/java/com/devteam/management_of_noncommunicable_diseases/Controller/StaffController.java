@@ -59,14 +59,14 @@ public class StaffController {
 
     @FXML
     protected void initialize() throws SQLException {
-        initializeComboBoxData();
-        owner = addStaffBtn.getScene().getWindow();
+//        initializeComboBoxData();
+//        owner = addStaffBtn.getScene().getWindow();
     }
 
     @FXML
     protected void addNewStaff(ActionEvent event) throws SQLException {
 
-        if (addStaffBtn != null) {
+//        if (addStaffBtn != null) {
             staff.setUserName(user_name.getText());
             staff.setFirstName(first_name.getText());
             staff.setLastName(last_name.getText());
@@ -79,73 +79,73 @@ public class StaffController {
             staff.setStartWork(start_work.getValue());
             staffDao.addStaff(owner);
 
-        }
+//        }
     }
 
-    private void initializeComboBoxData() throws SQLException {
-        try {
-            connection = DBConnection.open();
-            String SELECT_JOB_CODE_QUERY = "SELECT name FROM job_codes";
-            String SELECT_POSITION_QUERY = "SELECT name FROM positions";
-            String SELECT_SPECIALIZATION_QUERY = "SELECT name FROM specializations";
-            String SELECT_DEPARTMENT_QUERY = "SELECT name FROM departments";
-            String SELECT_FACILITY_QUERY = "SELECT name FROM facilities";
-            String SELECT_FROM_DEPARTMENT_FACILITIES = "SELECT id FROM department_facilities WHERE facility_id = ?,department_id = ?";
+//    private void initializeComboBoxData() throws SQLException {
+//        try {
+//            connection = DBConnection.open();
+//            String SELECT_JOB_CODE_QUERY = "SELECT name FROM job_codes";
+//            String SELECT_POSITION_QUERY = "SELECT name FROM positions";
+//            String SELECT_SPECIALIZATION_QUERY = "SELECT name FROM specializations";
+//            String SELECT_DEPARTMENT_QUERY = "SELECT name FROM departments";
+//            String SELECT_FACILITY_QUERY = "SELECT name FROM facilities";
+//            String SELECT_FROM_DEPARTMENT_FACILITIES = "SELECT id FROM department_facilities WHERE facility_id = ?,department_id = ?";
+//
+//            ObservableList<String> jobCodes = getComboBoxData(connection, SELECT_JOB_CODE_QUERY);
+//            ObservableList<String> facilities = getComboBoxData(connection, SELECT_FACILITY_QUERY);
+//            ObservableList<String> positions = getComboBoxData(connection, SELECT_POSITION_QUERY);
+//            ObservableList<String> departments = getComboBoxData(connection, SELECT_DEPARTMENT_QUERY);
+//            ObservableList<String> specializations = getComboBoxData(connection, SELECT_SPECIALIZATION_QUERY);
+//
+//            jobCodeComboBox.setItems(jobCodes);
+//            facilityComboBox.setItems(facilities);
+//            positionComboBox.setItems(positions);
+//            departmentComboBox.setItems(departments);
+//            specializationComboBox.setItems(specializations);
+//
+//        } catch (java.sql.SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+////            DBConnection.closeAll(connection, preparedStatement, resultSet);
+//        }
+//    }
 
-            ObservableList<String> jobCodes = getComboBoxData(connection, SELECT_JOB_CODE_QUERY);
-            ObservableList<String> facilities = getComboBoxData(connection, SELECT_FACILITY_QUERY);
-            ObservableList<String> positions = getComboBoxData(connection, SELECT_POSITION_QUERY);
-            ObservableList<String> departments = getComboBoxData(connection, SELECT_DEPARTMENT_QUERY);
-            ObservableList<String> specializations = getComboBoxData(connection, SELECT_SPECIALIZATION_QUERY);
+//    private ObservableList<String> getComboBoxData(Connection connection, String query) throws SQLException {
+//        ObservableList<String> comboBoxData = FXCollections.observableArrayList();
+//        try {
+//            assert connection != null;
+//            try (Statement statement = connection.createStatement();
+//                     ResultSet resultSet = statement.executeQuery(query)) {
+//                while (resultSet.next()) {
+//                    String item = resultSet.getString(1);
+//                    comboBoxData.add(item);
+//                }
+//            }
+//        } catch (java.sql.SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+////            DBConnection.closeAll(connection, preparedStatement, resultSet);
+//        }
+//        return comboBoxData;
+//    }
 
-            jobCodeComboBox.setItems(jobCodes);
-            facilityComboBox.setItems(facilities);
-            positionComboBox.setItems(positions);
-            departmentComboBox.setItems(departments);
-            specializationComboBox.setItems(specializations);
-
-        } catch (java.sql.SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
+//    protected void updateStaff() throws SQLException {
+//        try {
+//            staff.setId(Integer.parseInt(id.getText()));
+//            staff.setIdNumber(id_number.getText());
+//            staff.setEmail(Email.getText());
+//            staff.setFirstName(first_name.getText());
+//            staff.setLastName(last_name.getText());
+//            staff.setJobCode(job_code.getText());
+//            staff.setPhoneNumber(phone_number.getText());
+//            staffDao.updateStaff(owner);
+//        } catch (java.sql.SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
 //            DBConnection.closeAll(connection, preparedStatement, resultSet);
-        }
-    }
-
-    private ObservableList<String> getComboBoxData(Connection connection, String query) throws SQLException {
-        ObservableList<String> comboBoxData = FXCollections.observableArrayList();
-        try {
-            assert connection != null;
-            try (Statement statement = connection.createStatement();
-                     ResultSet resultSet = statement.executeQuery(query)) {
-                while (resultSet.next()) {
-                    String item = resultSet.getString(1);
-                    comboBoxData.add(item);
-                }
-            }
-        } catch (java.sql.SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-//            DBConnection.closeAll(connection, preparedStatement, resultSet);
-        }
-        return comboBoxData;
-    }
-
-    protected void updateStaff() throws SQLException {
-        try {
-            staff.setId(Integer.parseInt(id.getText()));
-            staff.setIdNumber(id_number.getText());
-            staff.setEmail(Email.getText());
-            staff.setFirstName(first_name.getText());
-            staff.setLastName(last_name.getText());
-            staff.setJobCode(job_code.getText());
-            staff.setPhoneNumber(phone_number.getText());
-            staffDao.updateStaff(owner);
-        } catch (java.sql.SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            DBConnection.closeAll(connection, preparedStatement, resultSet);
-        }
-    }
+//        }
+//    }
 
     /*protected void disableStaff() {
         String FIND_SPECIFIC_STAFF = "SELECT id_number FROM staffs WHERE id_number = ?";
