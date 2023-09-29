@@ -7,6 +7,7 @@ public class DBConnection {
     private static final String DATABASE_USERNAME = "root";
     private static final String DATABASE_PASSWORD = "Huynn@0908";
 
+    private static Connection connection = null;
     public static Connection open() {
         System.out.println("Connecting database.......");
         try {
@@ -22,7 +23,7 @@ public class DBConnection {
         if (rs != null) {
             try {
                 rs.close();
-            }catch (java.sql.SQLException e) {
+            } catch (java.sql.SQLException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -39,6 +40,62 @@ public class DBConnection {
             } catch (java.sql.SQLException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    public static ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
+        //Declare statement, resultSet and CachedResultSet as null
+        Statement stmt = null;
+        ResultSet resultSet = null;
+
+        try {
+            //Connect to DB (Establish Oracle Connection)
+            open();
+            System.out.println("Select statement: " + queryStmt + "\n");
+            //Create statement
+            stmt = connection.createStatement();
+            //Execute select (query) operation
+            resultSet = stmt.executeQuery(queryStmt);
+
+        } catch (SQLException e) {
+            System.out.println("Lỗi khi thực thi lệnh : " + e);
+            throw e;
+        } finally {
+            if (resultSet != null) {
+                //Close resultSet
+                resultSet.close();
+            }
+            if (stmt != null) {
+                //Close Statement
+                stmt.close();
+            }
+            //Close connection
+            closeAll(connection, null, resultSet);
+        }
+        return resultSet;
+    }
+
+    //DB Execute Update (For Update/Insert/Delete) Operation
+    public static void dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
+        //Declare statement as null
+        Statement stmt = null;
+        try {
+            //Connect to DB (Establish Oracle Connection)
+            open();
+            //Create Statement
+            stmt = connection.createStatement();
+            //Run executeUpdate operation with given sql statement
+            stmt.executeUpdate(sqlStmt);
+        } catch (SQLException e) {
+            System.out.println("Lỗi khi thực thi lệnh : " + e);
+            throw e;
+        } finally {
+            if (stmt != null) {
+                //Close statement
+                stmt.close();
+            }
+            //Close connection
+            closeAll(connection, null, null);
         }
     }
 }

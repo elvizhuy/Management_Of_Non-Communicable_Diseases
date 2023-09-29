@@ -1,6 +1,7 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
 import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,8 +14,9 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 
-public class StaffController implements Runnable{
+public class StaffController {
 
     @FXML
     private Button addStaffBtn;
@@ -56,7 +58,7 @@ public class StaffController implements Runnable{
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-    Window  owner;
+    Window owner;
     Staff staff = new Staff();
 
 
@@ -65,38 +67,22 @@ public class StaffController implements Runnable{
 //        initializeComboBoxData();
 //        owner = addStaffBtn.getScene().getWindow();
     }
+
     @FXML
-    public void start () throws InterruptedException {
-        Thread staff = new Thread(new StaffController());
-        Thread staffDao = new Thread(new StaffDao());
-        staff.start();
-        staff.join();
-        Thread.sleep(1000);
-        staffDao.start();
-        staffDao.join();
-    }
-
-
     protected void addNewStaff(ActionEvent event) throws SQLException {
-            staff.setUserName(user_name.getText());
-            staff.setFirstName(first_name.getText());
-            staff.setLastName(last_name.getText());
-            staff.setEmail(Email.getText());
-            staff.setIdNumber(id_number.getText());
-            staff.setPhoneNumber(phone_number.getText());
-            staff.setPassWord(pass_word.getText());
-            staff.setConfirm_password(confirm_password.getText());
-            staff.setStartWork(start_work.getValue());
+        String UserName = user_name.getText();
+        String FirstName = first_name.getText();
+        String LastName = last_name.getText();
+        String email = Email.getText();
+        String IdNumber = id_number.getText();
+        String PhoneNumber = phone_number.getText();
+        String PassWord = pass_word.getText();
+        String Confirm_password = confirm_password.getText();
+        LocalDate StartWork = start_work.getValue();
+        Staff staff = new Staff(UserName, FirstName, LastName, email, IdNumber, PhoneNumber, PassWord, Confirm_password, StartWork);
+        staff.add();
     }
 
-    @Override
-    public void run() {
-        try {
-            addNewStaff(new ActionEvent());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 //    private void initializeComboBoxData() throws SQLException {
 //        try {

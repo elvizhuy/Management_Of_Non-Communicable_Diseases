@@ -1,5 +1,8 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
+import com.devteam.management_of_noncommunicable_diseases.Controller.StaffDao;
+import javafx.stage.Window;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -126,11 +129,13 @@ public class Staff extends SQLException {
         this.deletedAt = deletedAt;
     }
 
+    Window owner;
+    StaffDao staffDao = new StaffDao();
     public Staff() {
 
     }
 
-    public Staff(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String jobCode, LocalDate startWork) {
+    public Staff(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword,LocalDate startWork) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -141,5 +146,21 @@ public class Staff extends SQLException {
         this.confirmPassword = confirmPassword;
         this.jobCode = jobCode;
         this.startWork = startWork;
+    }
+
+    public void add () throws SQLException {
+        staffDao.addStaff(owner,this.userName,this.firstName,this.lastName,this.email,this.idNumber,this.phoneNumber,this.passWord,this.confirmPassword, String.valueOf(this.startWork));
+    }
+
+    protected void update () {
+
+    }
+
+    protected void delete () {
+
+    }
+
+    protected void disable () {
+
     }
 }
