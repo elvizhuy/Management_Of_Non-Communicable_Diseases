@@ -70,10 +70,14 @@ public class StaffController implements Runnable{
         Thread staff = new Thread(new StaffController());
         Thread staffDao = new Thread(new StaffDao());
         staff.start();
-        staff.join();
-        Thread.sleep(1000);
-        staffDao.start();
-        staffDao.join();
+        try {
+            staff.join();
+            Thread.sleep(1000);
+            staffDao.start();
+            staffDao.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 
