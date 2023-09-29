@@ -6,7 +6,6 @@ import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
-
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
@@ -18,6 +17,7 @@ public class StaffDao implements InfoBox {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    Window owner;
 
     public void addStaff(Window owner, String username, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String startWork) throws SQLException {
         String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";

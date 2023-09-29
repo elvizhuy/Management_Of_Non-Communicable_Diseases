@@ -15,18 +15,17 @@
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="857.0" prefWidth="1092.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffController">
-<AnchorPane prefHeight="869.0" prefWidth="1049.0">
+<AnchorPane prefHeight="857.0" prefWidth="1129.0">
     <children>
-        <AnchorPane fx:id="pane1" style="-fx-background-color: #000;" />
-        <AnchorPane fx:id="pane2" prefHeight="869.0" prefWidth="1094.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+        <AnchorPane fx:id="pane2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="857.0" prefWidth="1177.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-85.0" AnchorPane.topAnchor="0.0">
             <children>
-            <GridPane layoutX="234.0" prefHeight="650.0" prefWidth="639.0">
+            <GridPane layoutX="327.0" layoutY="14.0" prefHeight="650.0" prefWidth="639.0">
                 <padding>
                     <Insets bottom="40" left="60" right="60" top="40" />
                 </padding>
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="100.0" prefWidth="172.4" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="200.0" prefWidth="309.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="100.0" prefWidth="165.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="200.0" prefWidth="354.0" />
                 </columnConstraints>
                 <rowConstraints>
                     <RowConstraints maxHeight="204.8" minHeight="10.0" prefHeight="194.8" vgrow="SOMETIMES" />
@@ -134,6 +133,4 @@
         </AnchorPane>
     </children>
 </AnchorPane>
-
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" />
 </VBox>

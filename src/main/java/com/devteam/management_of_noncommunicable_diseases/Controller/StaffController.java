@@ -149,7 +149,8 @@ public class StaffController {
 //        }
 //    }
 
-    /*protected void disableStaff() {
+protected void disableStaff() {
         String FIND_SPECIFIC_STAFF = "SELECT id_number FROM staffs WHERE id_number = ?";
-    }*/
+    }
+
 }
