@@ -31,7 +31,6 @@ public class DashboardController extends Thread implements Initializable {
     @FXML
     private StackPane ContentArea;
 
-
     @FXML
     void Department(ActionEvent event) {
 
@@ -45,6 +44,15 @@ public class DashboardController extends Thread implements Initializable {
     @FXML
     void Profile(ActionEvent event) {
 
+    }
+
+    @FXML
+    void PillsInformation(ActionEvent event) {
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                loadView("/com/devteam/management_of_noncommunicable_diseases/View/medicine.fxml");
+            });
+        }).start();
     }
 
     @FXML

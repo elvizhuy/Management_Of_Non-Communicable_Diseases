@@ -73,6 +73,18 @@
                   </ImageView>
                </graphic>
             </JFXButton>
+            <JFXButton fx:id="btnPillsInformation" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="290.0" onAction="#PillsInformation" prefHeight="50.0" prefWidth="237.0" style="-fx-border-color: white; -fx-border-width: 0px 0px 2px;" text="Thông Tin Thuốc" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@IconDashboard/pills-bottle.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
          </children>
       </VBox>
    </left>

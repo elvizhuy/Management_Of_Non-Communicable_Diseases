@@ -3,9 +3,11 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.Medicine;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
@@ -28,7 +30,7 @@ public class MedicineController extends Thread implements InfoBox, ShowAlert {
     private TextField unit;
 
     @FXML
-    private TextField description;
+    private TextArea description;
 
     @FXML
     private TextField instruction;
@@ -45,6 +47,11 @@ public class MedicineController extends Thread implements InfoBox, ShowAlert {
     Window owner;
     Medicine medicine = new Medicine();
     MedicineDao medicineDao = new MedicineDao(medicineGroupComboBox, medicineTypeComboBox);
+
+    @FXML
+    void addPills(ActionEvent event) throws SQLException {
+        add();
+    }
 
     public void add() throws SQLException {
         medicine.setTypeId(Integer.parseInt(type_id.getText()));
