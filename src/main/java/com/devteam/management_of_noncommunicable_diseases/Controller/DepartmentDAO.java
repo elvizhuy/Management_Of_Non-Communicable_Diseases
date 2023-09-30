@@ -4,7 +4,10 @@ import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.Department;
 import com.devteam.management_of_noncommunicable_diseases.Model.DepartmentFacilities;
+import com.devteam.management_of_noncommunicable_diseases.Model.Department;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
 
@@ -27,21 +30,19 @@ public class DepartmentDAO {
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-    protected void addDepartment(Window owner) throws SQLException {
-        String INSERT_DEPARTMENT_QUERY = "INSERT INTO departments (name, description, deleted_at) VALUES (?, ?, ?)";
+    public void addDepartment(Window owner,String name, String description) throws SQLException {
+        String INSERT_DEPARTMENT_QUERY = "INSERT INTO departments (name, description) VALUES (?, ?)";
 
-        boolean checkDepartmentName = validateEmptyDields(department.getName(), "Nhập tên phòng ban", owner);
-        boolean checkDescription = validateEmptyDields(department.getDescription(), "Nhâp mô tả", owner);
-        boolean checkDeleted_at = validateEmptyDields(department.getName(), "Nhập Ngày xóa", owner);
+        boolean checkDepartmentName = validateEmptyFields(name, "Nhập tên trụ sở", owner);
+        boolean checkDepartmentDescription = validateEmptyFields(description, "Nhâp mô tả", owner);
 
-        if(checkDepartmentName && checkDescription && checkDeleted_at){
+        if(checkDepartmentName && checkDepartmentDescription){
             try{
                 connection = DBConnection.open();
                 assert connection != null;
                 preparedStatement = connection.prepareStatement(INSERT_DEPARTMENT_QUERY);
-                preparedStatement.setString(1, department.getName());
-                preparedStatement.setString(2, department.getDescription());
-                preparedStatement.setString(3, String.valueOf(department.getDeletedAt()));
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, description);
                 System.out.println(preparedStatement);
                 resultSet = preparedStatement.executeQuery();
             }
@@ -61,8 +62,34 @@ public class DepartmentDAO {
         }
     }
 
-    protected boolean validateEmptyDields(String dateField, String textToNotice, Window owner){
-        if(dateField.isEmpty()){
+    public static Department searchDepartment () throws SQLException, ClassNotFoundException {
+        String SELECT_DEPARTMENT = "SELECT * FROM departments";
+        try {
+            ResultSet rs = DBConnection.dbExecuteQuery(SELECT_DEPARTMENT);
+            return (Department) getDepartmentList(rs);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Department> getDepartmentList(ResultSet rs) throws SQLException, ClassNotFoundException {
+        ObservableList<Department> departmentsList = FXCollections.observableArrayList();
+        while (rs.next()) {
+            Department department = new Department();
+            setDepartmentProperties(rs, department);
+            departmentsList.add(department);
+        }
+        return departmentsList;
+    }
+
+    private static void setDepartmentProperties(ResultSet rs, Department department) throws SQLException {
+        department.setId(rs.getInt("id"));
+        department.setName(rs.getString("name"));
+        department.setDescription(rs.getString("description"));
+    }
+
+    protected <T> boolean validateEmptyFields(T dateField, String textToNotice, Window owner){
+        if(dateField == null){
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Error !", textToNotice);
             return false;
         }

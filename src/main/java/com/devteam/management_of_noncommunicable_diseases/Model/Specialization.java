@@ -1,10 +1,17 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
+import com.devteam.management_of_noncommunicable_diseases.Controller.SpecializationDao;
+import javafx.stage.Window;
+
+import java.sql.SQLException;
+
 public class Specialization {
     int id;
     String name;
     String description;
+    SpecializationDao specializationDao = new SpecializationDao();
 
+    Window owner;
     public int getId() {
         return id;
     }
@@ -37,5 +44,9 @@ public class Specialization {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public void add () throws SQLException {
+        specializationDao.addSpecialization(owner,this.name,this.description);
     }
 }
