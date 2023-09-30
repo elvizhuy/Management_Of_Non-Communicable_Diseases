@@ -85,7 +85,10 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
                 Platform.runLater(() -> {
                     try {
                         InfoBox.infoBox("Đăng nhập thành công!", null, "Thành Công");
-                        new SceneSwitch(loginView, "View/Dashboard.fxml");
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/devteam/management_of_noncommunicable_diseases/View/Dashboard.fxml"));
+                        Parent dashboardParent = loader.load();
+                        DashboardController dashboardController = loader.getController();
+                        loginView.getScene().setRoot(dashboardParent);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -96,21 +99,8 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
 
     @FXML
     void switchToRegister(ActionEvent event) throws IOException {
-        new SceneSwitch(loginView, "View/Dashboard.fxml");
+        new SceneSwitch(loginView, "View/Register.fxml");
     }
-    /*private void loadView(String fxmlFileName) {
-        try {
-            // Load FXML file
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(fxmlFileName));
-            Parent root = loader.load();
-
-        } catch (IOException e) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, e);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
