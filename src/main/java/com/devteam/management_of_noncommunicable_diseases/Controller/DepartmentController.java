@@ -11,8 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
-import java.sql.SQLException;
-
 public class DepartmentController implements InfoBox, ShowAlert,ComboBoxData {
     @FXML
     private Button btnAddDepartment;
@@ -30,7 +28,7 @@ public class DepartmentController implements InfoBox, ShowAlert,ComboBoxData {
 
     Department department = new Department();
 
-    DepartmentDAO departmentDAO = new DepartmentDAO();
+    DepartmentDao departmentDAO = new DepartmentDao();
 
 
    /* protected void setBtnAddDepartment() throws SQLException {

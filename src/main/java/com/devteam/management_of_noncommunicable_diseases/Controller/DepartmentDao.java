@@ -4,7 +4,6 @@ import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.Department;
 import com.devteam.management_of_noncommunicable_diseases.Model.DepartmentFacilities;
-import com.devteam.management_of_noncommunicable_diseases.Model.Department;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
-public class DepartmentDAO {
+public class DepartmentDao {
     Department department = new Department();
 
     DepartmentFacilities departmentFacilities = new DepartmentFacilities();
