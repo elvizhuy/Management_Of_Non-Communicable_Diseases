@@ -1,5 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Model.JobCode;
 import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -78,8 +79,9 @@ public class StaffController {
         String PhoneNumber = phone_number.getText();
         String PassWord = pass_word.getText();
         String Confirm_password = confirm_password.getText();
+        String JobCode = job_code.getText();
         LocalDate StartWork = start_work.getValue();
-        Staff staff = new Staff(UserName, FirstName, LastName, email, IdNumber, PhoneNumber, PassWord, Confirm_password, StartWork);
+        Staff staff = new Staff(UserName, FirstName, LastName, JobCode, email, IdNumber, PhoneNumber, PassWord, Confirm_password, StartWork);
         staff.add();
     }
 
