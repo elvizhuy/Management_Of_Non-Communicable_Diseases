@@ -1,5 +1,4 @@
 package com.devteam.management_of_noncommunicable_diseases.Dao;
-
 import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnection;
 import com.devteam.management_of_noncommunicable_diseases.Controller.MD5;
 import com.devteam.management_of_noncommunicable_diseases.Interface.SQLException;

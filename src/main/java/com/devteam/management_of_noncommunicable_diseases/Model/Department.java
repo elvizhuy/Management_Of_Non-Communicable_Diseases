@@ -11,7 +11,7 @@ public class Department {
     String name;
     String description;
     LocalDateTime deletedAt;
-    DepartmentDao departmentDAO = new DepartmentDao();
+    DepartmentDao departmentDao = new DepartmentDao();
     Window owner;
     public int getId() {
         return id;
@@ -57,6 +57,6 @@ public class Department {
     }
 
     public void add () throws SQLException {
-        departmentDAO.addDepartment(owner,this.name,this.description);
+        departmentDao.addDepartment(owner,this.name,this.description);
     }
 }
