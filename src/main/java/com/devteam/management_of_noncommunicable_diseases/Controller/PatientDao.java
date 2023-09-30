@@ -18,7 +18,7 @@ public class PatientDao {
     public void addStaff(Window owner) throws SQLException {
         Staff staff = new Staff();
         String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";
-        String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
+        String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,position,first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
         String INSERT_DEPARTMENT_FACILITIES_QUERY = "INSERT INTO department_facilities (facility_id,department_id) VALUES (?,?)";
         String INSERT_DEPARTMENT_FACILITIES_INTO_STAFF_QUERY = "INSERT INTO staffs (department_facilities_id) VALUES (?)";
 
@@ -43,6 +43,7 @@ public class PatientDao {
                 preparedStatement.setString(2, encodePassword);
                 preparedStatement = connection.prepareStatement(INSERT_STAFFS_QUERY);
                 preparedStatement.setString(1, staff.getJobCode());
+                preparedStatement.setString(2, staff.getPosition());
                 preparedStatement.setString(3, staff.getFirstName());
                 preparedStatement.setString(4, staff.getLastName());
                 preparedStatement.setString(5, staff.getEmail());
