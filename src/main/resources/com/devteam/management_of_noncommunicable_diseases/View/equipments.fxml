@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="908.0" prefWidth="1094.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.EquipmentDao">
+<VBox prefHeight="908.0" prefWidth="1094.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Dao.EquipmentDao">
     <AnchorPane prefHeight="902.0" prefWidth="1693.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
         <children>
             <AnchorPane layoutX="7.0" prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #0f2c38;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

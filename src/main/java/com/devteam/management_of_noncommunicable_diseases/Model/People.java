@@ -1,10 +1,24 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
+import com.devteam.management_of_noncommunicable_diseases.Dao.PeopleDao;
+import javafx.stage.Window;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 public class People {
     String idNumber;
+    String firstName;
+    String lastName;
+    LocalDate dateOfBirth;
+    String gender;
+    String address;
+    String phoneNumber;
+    String email;
+    String note;
+    LocalDateTime deletedAt;
 
     public String getIdNumber() {
         return idNumber;
@@ -14,8 +28,7 @@ public class People {
         this.idNumber = idNumber;
     }
 
-    String firstName;
-    String lastName;
+
 
     public String getFirstName() {
         return firstName;
@@ -33,14 +46,6 @@ public class People {
         this.lastName = lastName;
     }
 
-    LocalDate dateOfBirth;
-    Enum gender;
-    String address;
-    String phoneNumber;
-    String email;
-    String note;
-    LocalDateTime deletedAt;
-
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
@@ -49,13 +54,14 @@ public class People {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Enum getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Enum gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
+
 
     public String getAddress() {
         return address;
@@ -97,11 +103,15 @@ public class People {
         this.deletedAt = deleted_at;
     }
 
+    Window owner;
+    PeopleDao peopleDao = new PeopleDao();
+
     public People() {
 
     }
 
-    public People(String firstName, String lastName, LocalDate dateOfBirth, Enum gender, String address, String phoneNumber, String email, String note, LocalDateTime deletedAt, String idNumber) {
+    public People(String idNumber, String firstName, String lastName,LocalDate dateOfBirth, String gender, String address, String phoneNumber, String email, String note) {
+        this.idNumber = idNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -110,7 +120,19 @@ public class People {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.note = note;
-        this.deletedAt = deletedAt;
-        this.idNumber = idNumber;
     }
+
+    public void add() throws SQLException {
+        peopleDao.addPeople(owner, this.idNumber, this.firstName,this.lastName, String.valueOf(this.dateOfBirth), String.valueOf(this.gender), this.address, this.phoneNumber, this.email, this.note );
+    }
+
+    protected void update () {
+
+    }
+
+    protected void delete () {
+
+    }
+
+
 }
