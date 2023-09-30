@@ -1,5 +1,9 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
+import com.devteam.management_of_noncommunicable_diseases.Controller.DepartmentDAO;
+import javafx.stage.Window;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Department {
@@ -7,7 +11,8 @@ public class Department {
     String name;
     String description;
     LocalDateTime deletedAt;
-
+    DepartmentDAO departmentDAO = new DepartmentDAO();
+    Window owner;
     public int getId() {
         return id;
     }
@@ -49,5 +54,9 @@ public class Department {
         this.name = name;
         this.description = description;
         this.deletedAt = deletedAt;
+    }
+
+    public void add () throws SQLException {
+        departmentDAO.addDepartment(owner,this.name,this.description);
     }
 }

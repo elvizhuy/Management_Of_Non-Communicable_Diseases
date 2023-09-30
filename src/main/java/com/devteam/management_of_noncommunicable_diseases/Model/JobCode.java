@@ -1,11 +1,18 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
+import com.devteam.management_of_noncommunicable_diseases.Controller.JobCodeDao;
+import javafx.stage.Window;
+
+import java.sql.SQLException;
+
 public class JobCode {
     String id;
     String name;
     int jobLevel;
     int grade;
     float coefficientSalary;
+    Window owner;
+    JobCodeDao jobCodeDao;
 
     public String getId() {
         return id;
@@ -58,4 +65,10 @@ public class JobCode {
         this.grade = grade;
         this.coefficientSalary = coefficientSalary;
     }
+
+    public void add ()  throws SQLException {
+        jobCodeDao = new JobCodeDao();
+        jobCodeDao.addJobCode(owner,this.id,this.name,this.jobLevel,this.grade,this.coefficientSalary);
+    }
+
 }

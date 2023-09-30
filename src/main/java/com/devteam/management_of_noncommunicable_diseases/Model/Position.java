@@ -1,10 +1,16 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
+import com.devteam.management_of_noncommunicable_diseases.Controller.PositionDao;
+import javafx.stage.Window;
+
+import java.sql.SQLException;
+
 public class Position {
     int id;
     String name;
     float bonus;
-
+    Window owner;
+    PositionDao positionDao = new PositionDao();
     public int getId() {
         return id;
     }
@@ -36,5 +42,9 @@ public class Position {
         this.id = id;
         this.name = name;
         this.bonus = bonus;
+    }
+
+    public void add () throws SQLException {
+        positionDao.addPosition(owner,this.name,this.bonus);
     }
 }

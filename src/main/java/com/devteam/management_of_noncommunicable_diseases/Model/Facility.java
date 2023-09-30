@@ -1,5 +1,9 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
+import com.devteam.management_of_noncommunicable_diseases.Controller.FacilityDao;
+import javafx.stage.Window;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class Facility {
@@ -10,6 +14,9 @@ public class Facility {
     String email;
     LocalDateTime deletedAt;
 
+    Window owner;
+
+    FacilityDao facilityDao = new FacilityDao();
     public int getId() {
         return id;
     }
@@ -69,5 +76,9 @@ public class Facility {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.deletedAt = deletedAt;
+    }
+
+    public void add () throws SQLException {
+        facilityDao.addFacility(owner,this.name,this.address,this.phoneNumber,this.email);
     }
 }
