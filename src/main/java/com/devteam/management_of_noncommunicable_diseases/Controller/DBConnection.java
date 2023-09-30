@@ -44,19 +44,14 @@ public class DBConnection {
     }
 
     public static ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
-        //Declare statement, resultSet and CachedResultSet as null
         Statement stmt = null;
         ResultSet resultSet = null;
 
         try {
-            //Connect to DB (Establish Oracle Connection)
             open();
             System.out.println("Select statement: " + queryStmt + "\n");
-            //Create statement
             stmt = connection.createStatement();
-            //Execute select (query) operation
             resultSet = stmt.executeQuery(queryStmt);
-
         } catch (SQLException e) {
             System.out.println("Lỗi khi thực thi lệnh : " + e);
             throw e;

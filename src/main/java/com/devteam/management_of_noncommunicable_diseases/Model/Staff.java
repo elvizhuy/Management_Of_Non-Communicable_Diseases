@@ -17,12 +17,39 @@ public class Staff extends SQLException {
     String passWord;
     String confirmPassword;
     String jobCode;
-    String position;
+    int position;
+
+    public int position() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     LocalDate startWork;
     LocalDateTime deletedAt;
-    int facilityId;
-    int departmentId;
-    int departmentFacilityId = 0;
+    int specializationId;
+
+    public int getSpecializationId() {
+        return specializationId;
+    }
+
+    public void setSpecializationId(int specializationId) {
+        this.specializationId = specializationId;
+    }
+
+    int departmentFacilityId;
+
+
+    public int departmentFacilityId() {
+        return departmentFacilityId;
+    }
+
+    public void setDepartmentFacilityId(int departmentFacilityId) {
+        this.departmentFacilityId = departmentFacilityId;
+    }
+
     int id;
 
     public int getId() {
@@ -113,14 +140,6 @@ public class Staff extends SQLException {
         this.startWork = startWork;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
     public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
@@ -135,7 +154,7 @@ public class Staff extends SQLException {
 
     }
 
-    public Staff(String userName, String firstName, String lastName, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword,LocalDate startWork) {
+    public Staff(String userName, String firstName, String lastName,String jobCode, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword,LocalDate startWork) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -148,8 +167,8 @@ public class Staff extends SQLException {
         this.startWork = startWork;
     }
 
-    public void add () throws SQLException {
-        staffDao.addStaff(owner,this.userName,this.firstName,this.lastName,this.email,this.idNumber,this.phoneNumber,this.passWord,this.confirmPassword, String.valueOf(this.startWork));
+    public void add() throws SQLException {
+        staffDao.addStaff(owner,this.userName,this.firstName,this.lastName,this.jobCode,this.email,this.idNumber,this.phoneNumber,this.passWord,this.confirmPassword, String.valueOf(this.startWork));
     }
 
     protected void update () {
