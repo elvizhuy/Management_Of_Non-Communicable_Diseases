@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="857.0" prefWidth="1092.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffController">
+<VBox prefHeight="857.0" prefWidth="1092.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffController">
 <AnchorPane prefHeight="869.0" prefWidth="1049.0">
     <children>
         <AnchorPane fx:id="pane1" style="-fx-background-color: #000;" />
         <AnchorPane fx:id="pane2" prefHeight="869.0" prefWidth="1094.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
             <children>
-            <GridPane layoutX="234.0" prefHeight="650.0" prefWidth="639.0">
+            <GridPane layoutX="234.0" layoutY="14.0" prefHeight="663.0" prefWidth="639.0">
                 <padding>
                     <Insets bottom="40" left="60" right="60" top="40" />
                 </padding>
@@ -41,8 +32,9 @@
                   <RowConstraints maxHeight="58.200000000000045" minHeight="28.600000000000023" prefHeight="42.39999999999998" />
                   <RowConstraints />
                   <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-                  <RowConstraints maxHeight="40.60000000000002" minHeight="26.600000000000023" prefHeight="27.200000000000045" />
-                  <RowConstraints maxHeight="31.0" minHeight="17.0" prefHeight="31.0" />
+                  <RowConstraints maxHeight="40.60000000000002" minHeight="25.200000000000045" prefHeight="26.200000000000045" />
+                  <RowConstraints maxHeight="51.39999999999998" minHeight="16.200000000000045" prefHeight="41.799999999999955" />
+                     <RowConstraints maxHeight="26.200000000000045" minHeight="0.0" prefHeight="9.600000000000023" />
                </rowConstraints>
                 <children>
                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="93.0" prefWidth="519.0" styleClass="title-label" text="THÔNG TIN CÁN BỘ CÔNG NHÂN VIÊN" textFill="#0a9296" GridPane.columnSpan="2">
@@ -114,14 +106,21 @@
                      </Label>
                     <TextField fx:id="phone_number" prefHeight="8.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
-                    <Label prefHeight="22.0" prefWidth="173.0" text="Ngày bắt đầu làm việc:" GridPane.rowIndex="12">
+                    <Label prefHeight="22.0" prefWidth="173.0" text="Ngày sinh:" GridPane.rowIndex="12">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                    <DatePicker fx:id="date_of_birth" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+
+                    <Label prefHeight="22.0" prefWidth="173.0" text="Ngày bắt đầu làm việc:" GridPane.rowIndex="13">
                      <font>
                         <Font size="15.0" />
                      </font>
                      </Label>
-                    <DatePicker fx:id="start_work" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                    <DatePicker fx:id="start_work" GridPane.columnIndex="1" GridPane.rowIndex="13" />
 
-                    <HBox alignment="BOTTOM_RIGHT" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="13">
+                    <HBox alignment="BOTTOM_RIGHT" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="14">
                         <Button fx:id="addStaffBtn" onAction="#start" prefHeight="32.0" prefWidth="123.0" styleClass="add-button" text="Nhập">
                         <font>
                            <Font name="System Bold" size="15.0" />

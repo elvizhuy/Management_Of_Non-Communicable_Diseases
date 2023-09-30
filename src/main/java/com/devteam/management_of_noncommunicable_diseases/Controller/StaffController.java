@@ -41,6 +41,8 @@ public class StaffController implements Runnable{
     @FXML
     private TextField id;
     @FXML
+    private DatePicker date_of_birth;
+    @FXML
     private DatePicker start_work;
     //các comboBox
     @FXML
