@@ -4,11 +4,9 @@ import com.devteam.management_of_noncommunicable_diseases.Interface.ComboBoxData
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.People;
-import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
 
