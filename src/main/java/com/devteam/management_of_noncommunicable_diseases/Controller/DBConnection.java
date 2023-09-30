@@ -43,6 +43,26 @@ public class DBConnection {
         }
     }
 
+    public static ResultSet dbPrepareStatementAndExecuteQuery (String queryStmt,String name,String id) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            open();
+            preparedStatement = connection.prepareStatement(queryStmt);
+            preparedStatement.setString(1, "%" + name + "%");
+            preparedStatement.setString(2, id);
+            resultSet = preparedStatement.executeQuery();
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            closeAll(connection, preparedStatement, resultSet);
+        }
+        return resultSet;
+    }
     public static ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
         Statement stmt = null;
         ResultSet resultSet = null;

@@ -18,6 +18,11 @@ public class Staff extends SQLException {
     String confirmPassword;
     String jobCode;
     int position;
+    LocalDate dateOfBirth;
+    LocalDate startWork;
+    LocalDateTime deletedAt;
+    int specializationId;
+    int id;
 
     public int position() {
         return position;
@@ -27,9 +32,14 @@ public class Staff extends SQLException {
         this.position = position;
     }
 
-    LocalDate startWork;
-    LocalDateTime deletedAt;
-    int specializationId;
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
 
     public int getSpecializationId() {
         return specializationId;
@@ -50,7 +60,6 @@ public class Staff extends SQLException {
         this.departmentFacilityId = departmentFacilityId;
     }
 
-    int id;
 
     public int getId() {
         return id;
@@ -154,7 +163,7 @@ public class Staff extends SQLException {
 
     }
 
-    public Staff(String userName, String firstName, String lastName,String jobCode, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword,LocalDate startWork) {
+    public Staff(String userName, String firstName, String lastName,String jobCode, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword,LocalDate startWork,LocalDate dateOfBirth) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -165,10 +174,11 @@ public class Staff extends SQLException {
         this.confirmPassword = confirmPassword;
         this.jobCode = jobCode;
         this.startWork = startWork;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public void add() throws SQLException {
-        staffDao.addStaff(owner,this.userName,this.firstName,this.lastName,this.jobCode,this.email,this.idNumber,this.phoneNumber,this.passWord,this.confirmPassword, String.valueOf(this.startWork));
+        staffDao.addStaff(owner,this.userName,this.firstName,this.lastName,this.jobCode,this.email,this.idNumber,this.phoneNumber,this.passWord,this.confirmPassword, String.valueOf(this.startWork), String.valueOf(this.dateOfBirth));
     }
 
     protected void update () {

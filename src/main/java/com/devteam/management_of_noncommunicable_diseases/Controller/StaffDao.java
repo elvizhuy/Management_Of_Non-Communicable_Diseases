@@ -7,12 +7,12 @@ import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,11 +24,9 @@ public class StaffDao implements InfoBox, ComboBoxData {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     Window owner;
 
-    public void addStaff(Window owner, String username, String firstName, String lastName, String jobCode, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String startWork) throws SQLException {
+    public void addStaff(Window owner, String username, String firstName, String lastName, String jobCode, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String startWork, String dateOfBirth) throws SQLException {
         String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";
-        String INSERT_STAFFS_QUERY = "INSERT into staffs (first_name,last_name,email,id_number,phone_number,start_work) VALUES (?,?,?,?,?,?,?,?)";
-        String INSERT_DEPARTMENT_FACILITIES_QUERY = "INSERT INTO department_facilities (facility_id,department_id) VALUES (?,?)";
-        String INSERT_DEPARTMENT_FACILITIES_INTO_STAFF_QUERY = "INSERT INTO staffs (department_facilities_id) VALUES (?)";
+        String INSERT_STAFFS_QUERY = "INSERT into staffs (first_name,last_name,email,id_number,phone_number,date_of_birth,start_work) VALUES (?,?,?,?,?,?,?,?)";
 
         boolean checkNameEmpty = validateEmptyFields(username, "Nhập tên đăng nhập", owner);
         boolean checkNameExisted = checkExistedItem(username, "accounts", "user_name", "Tên đã tồn tại", owner);
@@ -64,7 +62,8 @@ public class StaffDao implements InfoBox, ComboBoxData {
                 preparedStatement.setString(3, email);
                 preparedStatement.setString(4, idNumber);
                 preparedStatement.setString(5, phoneNumber);
-                preparedStatement.setString(6, String.valueOf(Date.valueOf(startWork)));
+                preparedStatement.setString(6, String.valueOf(Date.valueOf(dateOfBirth)));
+                preparedStatement.setString(7, String.valueOf(Date.valueOf(startWork)));
                 System.out.println(preparedStatement);
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -82,7 +81,7 @@ public class StaffDao implements InfoBox, ComboBoxData {
     }
 
     public static Staff searchStaff (String idNumber) throws SQLException, ClassNotFoundException {
-        String FIND_SPECIFIC_STAFF = "SELECT id_number FROM staffs WHERE id_number = " + idNumber;
+        String FIND_SPECIFIC_STAFF = "SELECT * FROM staffs WHERE id_number = " + idNumber;
         try {
             ResultSet rs = DBConnection.dbExecuteQuery(FIND_SPECIFIC_STAFF);
             return getStaffFromResultSet(rs);
@@ -91,12 +90,36 @@ public class StaffDao implements InfoBox, ComboBoxData {
         }
     }
 
-    public static ObservableList<Staff> searchStaffs () throws SQLException, ClassNotFoundException {
-        String SELECT_ALL_STAFFS = "SELECT * FROM staffs";
+    public static ObservableList<Staff> searchStaffs (String name,String ID) throws SQLException, ClassNotFoundException {
+        String SELECT_ALL_STAFFS =
+                """
+                        SELECT S.*,DF.*,P.*,SP.*,JC.*,FL.*,DM.*\s
+                        FROM staffs S\s
+                        join department_facilities DF on S.department_facilities_id = DF.id
+                        inner join facilities FL on DF.facility_id = FL.id
+                        inner join departments DM on DF.department_id = DM.id
+                        join job_codes JC on S.job_code = JC.id
+                        join positions P on S.position_id = P.id
+                        join specializations SP on S.specialization_id = SP.id""";
+        String SELECT_ALL_WITH_CONDITION =
+                """
+                SELECT S.*,DF.*,P.*,SP.*,JC.*,FL.*,DM.*
+                FROM staffs S
+                join department_facilities DF on S.department_facilities_id = DF.id
+                inner join facilities FL on DF.facility_id = FL.id
+                inner join departments DM on DF.department_id = DM.id
+                join job_codes JC on S.job_code = JC.id
+                join positions P on S.position_id = P.id
+                join specializations SP on S.specialization_id = SP.id
+                where S.first_name like ? or S.id_number = ?""";
         try {
-            ResultSet rs = DBConnection.dbExecuteQuery(SELECT_ALL_STAFFS);
-            ObservableList<Staff> staffList = getStaffList(rs);
-            return staffList;
+            if (name == null || ID == null) {
+                ResultSet rs = DBConnection.dbExecuteQuery(SELECT_ALL_STAFFS);
+                return getStaffList(rs);
+            }else {
+                ResultSet rs = DBConnection.dbPrepareStatementAndExecuteQuery(SELECT_ALL_WITH_CONDITION,name,ID);
+                return getStaffList(rs);
+            }
         } catch (SQLException e) {
             System.out.println("Lệnh thực thi thất bại: " + e);
             throw e;

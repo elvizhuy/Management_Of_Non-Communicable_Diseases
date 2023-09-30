@@ -45,6 +45,8 @@ public class StaffController {
     private TextField id;
     @FXML
     private DatePicker start_work;
+    @FXML
+    private DatePicker date_of_birth;
     //các comboBox
     @FXML
     private ComboBox<String> jobCodeComboBox;
@@ -80,8 +82,9 @@ public class StaffController {
         String PassWord = pass_word.getText();
         String Confirm_password = confirm_password.getText();
         String JobCode = job_code.getText();
+        LocalDate dateOfBirth = date_of_birth.getValue();
         LocalDate StartWork = start_work.getValue();
-        Staff staff = new Staff(UserName, FirstName, LastName, JobCode, email, IdNumber, PhoneNumber, PassWord, Confirm_password, StartWork);
+        Staff staff = new Staff(UserName, FirstName, LastName, JobCode, email, IdNumber, PhoneNumber, PassWord, Confirm_password,dateOfBirth, StartWork);
         staff.add();
     }
 
