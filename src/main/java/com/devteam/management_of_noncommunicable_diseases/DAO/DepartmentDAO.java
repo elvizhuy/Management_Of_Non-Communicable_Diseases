@@ -1,5 +1,6 @@
-package com.devteam.management_of_noncommunicable_diseases.Controller;
+package com.devteam.management_of_noncommunicable_diseases.DAO;
 
+import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnection;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.Department;

@@ -1,6 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
-import com.devteam.management_of_noncommunicable_diseases.Controller.PositionDao;
+import com.devteam.management_of_noncommunicable_diseases.DAO.PositionDao;
 import javafx.stage.Window;
 
 import java.sql.SQLException;

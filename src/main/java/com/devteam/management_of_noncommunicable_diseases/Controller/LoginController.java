@@ -1,5 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.DAO.LoginRegisterDao;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
@@ -9,20 +10,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class LoginController extends Thread implements Initializable, InfoBox, ShowAlert {
     @FXML
@@ -88,7 +90,15 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/devteam/management_of_noncommunicable_diseases/View/Dashboard.fxml"));
                         Parent dashboardParent = loader.load();
                         DashboardController dashboardController = loader.getController();
-                        loginView.getScene().setRoot(dashboardParent);
+
+                        Stage dashboardStage = new Stage();
+                        dashboardStage.initStyle(StageStyle.TRANSPARENT);
+                        dashboardStage.setTitle("Dashboard");
+                        dashboardStage.setScene(new Scene(dashboardParent, 1711, 913));
+
+                        dashboardStage.show();
+
+                        ((Stage) loginView.getScene().getWindow()).close();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

@@ -14,4 +14,6 @@ module com.devteam.management_of_noncommunicable_diseases {
     opens com.devteam.management_of_noncommunicable_diseases.Controller to javafx.fxml;
     exports com.devteam.management_of_noncommunicable_diseases.Interface;
     opens com.devteam.management_of_noncommunicable_diseases.Interface to javafx.fxml;
+    exports com.devteam.management_of_noncommunicable_diseases.DAO;
+    opens com.devteam.management_of_noncommunicable_diseases.DAO to javafx.fxml;
 }

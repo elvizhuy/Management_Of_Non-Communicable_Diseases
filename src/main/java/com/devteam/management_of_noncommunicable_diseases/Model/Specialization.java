@@ -1,6 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
-import com.devteam.management_of_noncommunicable_diseases.Controller.SpecializationDao;
+import com.devteam.management_of_noncommunicable_diseases.DAO.SpecializationDao;
 import javafx.stage.Window;
 
 import java.sql.SQLException;
