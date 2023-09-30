@@ -1,5 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Dao.PeopleDao;
 import com.devteam.management_of_noncommunicable_diseases.Model.People;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

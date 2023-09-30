@@ -1,8 +1,8 @@
-package com.devteam.management_of_noncommunicable_diseases.Controller;
+package com.devteam.management_of_noncommunicable_diseases.Dao;
 
+import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnection;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
-import com.devteam.management_of_noncommunicable_diseases.Model.Facility;
 import com.devteam.management_of_noncommunicable_diseases.Model.Facility;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

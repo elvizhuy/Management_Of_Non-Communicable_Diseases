@@ -1,9 +1,9 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Dao.DepartmentDao;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.Department;
-import com.devteam.management_of_noncommunicable_diseases.Interface.ComboBoxData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -13,7 +13,7 @@ import javafx.stage.Window;
 
 import java.sql.SQLException;
 
-public class DepartmentController implements InfoBox, ShowAlert,ComboBoxData {
+public class DepartmentController extends Thread implements InfoBox, ShowAlert {
     @FXML
     private Button btnAddDepartment;
 
@@ -30,7 +30,7 @@ public class DepartmentController implements InfoBox, ShowAlert,ComboBoxData {
 
     Department department = new Department();
 
-    DepartmentDAO departmentDAO = new DepartmentDAO();
+    DepartmentDao departmentDao = new DepartmentDao();
 
 
    /* protected void setBtnAddDepartment() throws SQLException {
