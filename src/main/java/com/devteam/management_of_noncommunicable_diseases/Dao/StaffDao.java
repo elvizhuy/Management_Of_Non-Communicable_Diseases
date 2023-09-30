@@ -1,4 +1,4 @@
-package com.devteam.management_of_noncommunicable_diseases.DAO;
+package com.devteam.management_of_noncommunicable_diseases.Dao;
 
 import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnection;
 import com.devteam.management_of_noncommunicable_diseases.Controller.MD5;
@@ -14,7 +14,6 @@ import javafx.stage.Window;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,8 +26,8 @@ public class StaffDao implements InfoBox, ComboBoxData {
     Window owner;
 
     public void addStaff(Window owner, String username, String firstName, String lastName, String jobCode, String email, String idNumber, String phoneNumber, String passWord, String confirmPassword, String startWork, String dateOfBirth) throws SQLException {
-        String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password) VALUES (?,?)";
-        String INSERT_STAFFS_QUERY = "INSERT into staffs (first_name,last_name,email,id_number,phone_number,date_of_birth,start_work) VALUES (?,?,?,?,?,?,?,?)";
+        String INSERT_ACCOUNTS_QUERY = "INSERT into accounts (user_name,password,status) VALUES (?,?,?)";
+        String INSERT_STAFFS_QUERY = "INSERT into staffs (job_code,first_name,last_name,email,id_number,phone_number,date_of_birth,start_work) VALUES (?,?,?,?,?,?,?,?)";
 
         boolean checkNameEmpty = validateEmptyFields(username, "Nhập tên đăng nhập", owner);
         boolean checkNameExisted = checkExistedItem(username, "accounts", "user_name", "Tên đã tồn tại", owner);
@@ -44,6 +43,7 @@ public class StaffDao implements InfoBox, ComboBoxData {
         boolean checkMatchingPass = checkMatchingPasswordAndLength(passWord, confirmPassword, owner);
         boolean checkExistingIdNumberAndLength = checkIdNumberAndLength(idNumber, "staffs", "ID đã tồn tại!", owner);
         boolean checkEmptyStartWork = validateEmptyFields(startWork, "Nhập ngày bắt đầu làm việc", owner);
+        boolean checkJobCodeEmpty = validateEmptyFields(jobCode,"Nhập Mã ngành",owner);
 
         if (checkNameExisted && checkNameEmpty && checkMatchingPass
                 && checkFirstName && checkLastName && checkEmailExist
@@ -58,14 +58,16 @@ public class StaffDao implements InfoBox, ComboBoxData {
                 preparedStatement = connection.prepareStatement(INSERT_ACCOUNTS_QUERY);
                 preparedStatement.setString(1, username);
                 preparedStatement.setString(2, encodePassword);
+                preparedStatement.setString(3, "active");
                 preparedStatement = connection.prepareStatement(INSERT_STAFFS_QUERY);
-                preparedStatement.setString(1, firstName);
-                preparedStatement.setString(2, lastName);
-                preparedStatement.setString(3, email);
-                preparedStatement.setString(4, idNumber);
-                preparedStatement.setString(5, phoneNumber);
-                preparedStatement.setString(6, String.valueOf(Date.valueOf(dateOfBirth)));
-                preparedStatement.setString(7, String.valueOf(Date.valueOf(startWork)));
+                preparedStatement.setString(1, jobCode);
+                preparedStatement.setString(2, firstName);
+                preparedStatement.setString(3, lastName);
+                preparedStatement.setString(4, email);
+                preparedStatement.setString(5, idNumber);
+                preparedStatement.setString(6, phoneNumber);
+                preparedStatement.setString(7, String.valueOf(Date.valueOf(dateOfBirth)));
+                preparedStatement.setString(8, String.valueOf(Date.valueOf(startWork)));
                 System.out.println(preparedStatement);
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
@@ -115,13 +117,13 @@ public class StaffDao implements InfoBox, ComboBoxData {
                 join specializations SP on S.specialization_id = SP.id
                 where S.first_name like ? or S.id_number = ?""";
         try {
+            ResultSet rs;
             if (name == null || ID == null) {
-                ResultSet rs = DBConnection.dbExecuteQuery(SELECT_ALL_STAFFS);
-                return getStaffList(rs);
+                rs = DBConnection.dbExecuteQuery(SELECT_ALL_STAFFS);
             }else {
-                ResultSet rs = DBConnection.dbPrepareStatementAndExecuteQuery(SELECT_ALL_WITH_CONDITION,name,ID);
-                return getStaffList(rs);
+                rs = DBConnection.dbPrepareStatementAndExecuteQuery(SELECT_ALL_WITH_CONDITION, name, ID);
             }
+            return getStaffList(rs);
         } catch (SQLException e) {
             System.out.println("Lệnh thực thi thất bại: " + e);
             throw e;
@@ -161,7 +163,6 @@ public class StaffDao implements InfoBox, ComboBoxData {
     }
 
     public void updateStaff(Window owner) throws SQLException {
-
 
 //        String QUERY_UPDATE_STAFF = "UPDATE staffs SET id_number = ?, email = ?, first_name = ?, last_name = ?, job_code = ?, phone_number = ? WHERE id = ?";
 //        try {

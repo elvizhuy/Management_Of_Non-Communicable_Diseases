@@ -1,6 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
-import com.devteam.management_of_noncommunicable_diseases.DAO.StaffDao;
+import com.devteam.management_of_noncommunicable_diseases.Dao.StaffDao;
 import javafx.stage.Window;
 
 import java.sql.*;

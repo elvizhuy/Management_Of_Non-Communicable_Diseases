@@ -1,4 +1,4 @@
-package com.devteam.management_of_noncommunicable_diseases.DAO;
+package com.devteam.management_of_noncommunicable_diseases.Dao;
 
 
 import javafx.fxml.FXML;

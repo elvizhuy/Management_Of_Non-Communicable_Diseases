@@ -1,7 +1,6 @@
-package com.devteam.management_of_noncommunicable_diseases.DAO;
+package com.devteam.management_of_noncommunicable_diseases.Dao;
 
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
-import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
 

@@ -1,4 +1,4 @@
-package com.devteam.management_of_noncommunicable_diseases.DAO;
+package com.devteam.management_of_noncommunicable_diseases.Dao;
 
 import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnection;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ComboBoxData;
@@ -114,7 +114,7 @@ public class MedicineDao implements ComboBoxData {
     }
 
 
-    protected static void initializeComboBoxData() throws SQLException {
+    public static void initializeComboBoxData() throws SQLException {
         try {
             connection = DBConnection.open();
             String SELECT_MEDICINE_GROUP_QUERY = "SELECT id,name FROM medicine_groups";

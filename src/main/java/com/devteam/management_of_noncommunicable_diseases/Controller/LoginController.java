@@ -1,6 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
-import com.devteam.management_of_noncommunicable_diseases.DAO.LoginRegisterDao;
+import com.devteam.management_of_noncommunicable_diseases.Dao.LoginRegisterDao;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
@@ -55,9 +55,7 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
     }
     @FXML
     protected void login(ActionEvent event) throws SQLException, SQLException, IOException {
-
         Window owner = btnLogin.getScene().getWindow();
-
         System.out.println(userField.getText());
         System.out.println(passField.getText());
 
