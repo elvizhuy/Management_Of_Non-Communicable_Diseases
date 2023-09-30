@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/Management_Of_Non-Communicable_Diseases-Application.sql" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/Management_Of_Non-Communicable_Diseases-Application.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/devteam/management_of_noncommunicable_diseases/Controller/MedicineDao.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/devteam/management_of_noncommunicable_diseases/Controller/StaffController.java" dialect="GenericSQL" />
   </component>

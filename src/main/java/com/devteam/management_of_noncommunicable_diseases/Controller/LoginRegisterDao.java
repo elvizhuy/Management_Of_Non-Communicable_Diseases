@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.util.Objects;
 
 public class LoginRegisterDao implements SQLException {
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
+   Connection connection = null;
+   PreparedStatement preparedStatement = null;
+   ResultSet resultSet = null;
 
     MD5 md5 = new MD5();
     public boolean validate(String username, String password,String QUERY) throws java.sql.SQLException {
@@ -44,7 +44,7 @@ public class LoginRegisterDao implements SQLException {
         String existingName;
         try {
             connection = DBConnection.open();
-            assert connection != null;
+           /* assert connection != null;*/
             preparedStatement = connection.prepareStatement(QUERY);
             preparedStatement.setString(1, username);
             System.out.println(preparedStatement);
