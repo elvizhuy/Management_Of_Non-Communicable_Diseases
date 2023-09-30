@@ -32,11 +32,11 @@ public class DepartmentController extends Thread implements InfoBox, ShowAlert {
     DepartmentDAO departmentDAO = new DepartmentDAO();
 
 
-    protected void setBtnAddDepartment() throws SQLException {
+   /* protected void setBtnAddDepartment() throws SQLException {
         department.setName(departmentName.getText());
         department.setDescription(departmentDescription.getText());
         department.setDeletedAt(departmentDeleted_at.getValue().atStartOfDay());
 
         departmentDAO.addDepartment(owner);
-    }
+    }*/
 }
