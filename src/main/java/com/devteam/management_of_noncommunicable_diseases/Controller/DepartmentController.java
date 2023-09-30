@@ -3,6 +3,7 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.Department;
+import com.devteam.management_of_noncommunicable_diseases.Interface.ComboBoxData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -12,7 +13,7 @@ import javafx.stage.Window;
 
 import java.sql.SQLException;
 
-public class DepartmentController extends Thread implements InfoBox, ShowAlert {
+public class DepartmentController implements InfoBox, ShowAlert,ComboBoxData {
     @FXML
     private Button btnAddDepartment;
 

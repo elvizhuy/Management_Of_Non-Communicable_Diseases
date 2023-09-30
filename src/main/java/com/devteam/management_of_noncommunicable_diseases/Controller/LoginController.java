@@ -53,9 +53,7 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
     }
     @FXML
     protected void login(ActionEvent event) throws SQLException, SQLException, IOException {
-
         Window owner = btnLogin.getScene().getWindow();
-
         System.out.println(userField.getText());
         System.out.println(passField.getText());
 
