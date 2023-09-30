@@ -6,7 +6,9 @@ import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -19,6 +21,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginController extends Thread implements Initializable, InfoBox, ShowAlert {
     @FXML
@@ -49,9 +53,7 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
     }
     @FXML
     protected void login(ActionEvent event) throws SQLException, SQLException, IOException {
-        String SELECT_QUERY = "SELECT user_name,password FROM accounts WHERE user_name = ? and password = ?";
         Window owner = btnLogin.getScene().getWindow();
-
         System.out.println(userField.getText());
         System.out.println(passField.getText());
 
@@ -68,7 +70,7 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
         LoginRegisterDao loginRegisterDao = new LoginRegisterDao();
         String username = userField.getText();
         String password = passField.getText();
-        boolean flag = loginRegisterDao.validate(username, password,SELECT_QUERY);
+        boolean flag = loginRegisterDao.validate(username, password);
 
         if (!flag) {
             new Thread(() -> {
@@ -81,7 +83,10 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
                 Platform.runLater(() -> {
                     try {
                         InfoBox.infoBox("Đăng nhập thành công!", null, "Thành Công");
-                        new SceneSwitch(loginView, "View/Dashboard.fxml");
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/devteam/management_of_noncommunicable_diseases/View/Dashboard.fxml"));
+                        Parent dashboardParent = loader.load();
+                        DashboardController dashboardController = loader.getController();
+                        loginView.getScene().setRoot(dashboardParent);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

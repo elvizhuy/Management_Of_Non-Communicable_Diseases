@@ -109,7 +109,7 @@ public class RegisterController extends Thread implements Initializable, InfoBox
                     try {
                         loginRegisterDao.insertRecord(username, encodePassword, INSERT_QUERY);
                         InfoBox.infoBox("Đăng ký thành công", null, "Thành Công");
-                        new SceneSwitch(registerView, "View/Dashboard.fxml");
+                        new SceneSwitch(registerView, "View/Login.fxml");
                     } catch (SQLException | IOException e) {
                         throw new RuntimeException(e);
                     }

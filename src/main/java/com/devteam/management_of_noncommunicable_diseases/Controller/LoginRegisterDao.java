@@ -13,13 +13,13 @@ public class LoginRegisterDao implements SQLException {
    ResultSet resultSet = null;
 
     MD5 md5 = new MD5();
-    public boolean validate(String username, String password,String QUERY) throws java.sql.SQLException {
-
+    public boolean validate(String username, String password) throws java.sql.SQLException {
+        String SELECT_QUERY = "SELECT user_name,password FROM accounts WHERE user_name = ? and password = ?";
         try {
             connection = DBConnection.open();
             assert connection != null;
             String encodedPassword = md5.encode(password);
-            preparedStatement = connection.prepareStatement(QUERY);
+            preparedStatement = connection.prepareStatement(SELECT_QUERY);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, encodedPassword);
             System.out.println(preparedStatement);
