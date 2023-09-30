@@ -3,7 +3,7 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 import java.sql.*;
 
 public class DBConnection {
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mon_cda";
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mon_dca";
     private static final String DATABASE_USERNAME = "root";
     private static final String DATABASE_PASSWORD = "Huynn@0908";
 
