@@ -136,8 +136,4 @@ public class DBConnection {
         }
     }
 
-    public static ResultSet dbPrepareStatementAndExecuteQueryForPeople(String selectAllWithCondition, String phoneNumber, String idNumber) {
-
-        return null;
-    }
 }
