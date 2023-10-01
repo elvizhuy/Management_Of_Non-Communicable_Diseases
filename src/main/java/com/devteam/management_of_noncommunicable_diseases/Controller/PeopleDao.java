@@ -110,9 +110,9 @@ public class PeopleDao implements InfoBox, ComboBoxData {
                 """;
         String SELECT_ALL_WITH_CONDITION =
                 """
-                SELECT *
-                FROM people
-                where first_name like ? or id_number = ?
+                        SELECT *
+                        FROM people
+                        where first_name like ? or id_number = ?
                 """;
         try {
             if (name == null || ID == null) {
