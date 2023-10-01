@@ -113,4 +113,9 @@ public class DBConnection {
             closeAll(connection, null, null);
         }
     }
+
+    public static ResultSet dbPrepareStatementAndExecuteQueryForPeople(String selectAllWithCondition, String phoneNumber, String idNumber) {
+
+        return null;
+    }
 }
