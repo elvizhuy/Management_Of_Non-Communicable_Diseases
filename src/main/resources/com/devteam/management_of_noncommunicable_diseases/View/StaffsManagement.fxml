@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="886.0" prefWidth="1320.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffManagementController">
+   <top>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutY="149.0" prefHeight="2.0" prefWidth="1211.0" style="-fx-background-color: #BBB8B8;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <TextField fx:id="SearchStaffsByName" layoutX="14.0" layoutY="174.0" prefHeight="25.0" prefWidth="227.0" promptText="Tìm KIếm Nhân Sự Theo Tên " styleClass="search-Field" />
+            <Label layoutX="43.0" layoutY="47.0" prefHeight="53.0" prefWidth="265.0" text="Quản Lý Nhân Sự " textFill="#28a473">
+               <font>
+                  <Font name="System Italic" size="32.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="addStaffs" layoutX="1205.0" layoutY="22.0" onAction="#addStaffs" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #D5D5D5;" styleClass="btnAddStaffs" text="Add New Staff" AnchorPane.topAnchor="22.0" />
+            <ComboBox layoutX="399.0" layoutY="174.0" prefHeight="25.0" prefWidth="220.0" promptText="Any" styleClass="ComboBox" stylesheets="@Style/ComboBoxStyle.css" />
+            <ComboBox layoutX="643.0" layoutY="174.0" prefWidth="150.0" promptText="All Users" styleClass="ComboBox" stylesheets="@Style/ComboBoxStyle.css" />
+            <ComboBox layoutX="810.0" layoutY="174.0" prefHeight="25.0" prefWidth="89.0" promptText="All Users" styleClass="ComboBox" stylesheets="@Style/ComboBoxStyle.css" />
+            <Hyperlink layoutX="914.0" layoutY="175.0" text="Làm Mới" />
+            <Label layoutX="399.0" layoutY="157.0" text="Thuộc Phòng Ban" />
+            <Label layoutX="643.0" layoutY="157.0" text="Quyên Truy Cập" />
+            <Label layoutX="810.0" layoutY="157.0" text="Trạng Thái" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" />
+         </BorderPane.margin>
+         <stylesheets>
+            <URL value="@Style/SearchFieldCSS.css" />
+            <URL value="@Style/ComboBoxStyle.css" />
+         </stylesheets>
+      </AnchorPane>
+   </top>
+   <center>
+      
+   </center>
+   <center>
+      <TableView prefHeight="666.0" prefWidth="1151.0" stylesheets="@Style/dataTableStyle.css" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn prefWidth="211.0" text="Họ và Tên" />
+          <TableColumn prefWidth="167.0" text="Tài Khoản" />
+            <TableColumn prefWidth="186.0" text="Thời Gian Hoạt Động" />
+            <TableColumn prefWidth="202.0" text="Phòng Ban " />
+            <TableColumn prefWidth="198.0" text="Chi Nhánh" />
+            <TableColumn prefWidth="244.0" text="Danh Mục" />
+            <TableColumn prefWidth="108.0" text="Chỉnh Sửa " />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
