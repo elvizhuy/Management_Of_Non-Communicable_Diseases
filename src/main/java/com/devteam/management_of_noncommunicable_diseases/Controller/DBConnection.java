@@ -3,9 +3,9 @@ package com.devteam.management_of_noncommunicable_diseases.Controller;
 import java.sql.*;
 
 public class DBConnection {
-    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/test_data";
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mon_cda";
     private static final String DATABASE_USERNAME = "root";
-    private static final String DATABASE_PASSWORD = "sonminh3012";
+    private static final String DATABASE_PASSWORD = "Huynn@0908";
 
     private static Connection connection = null;
     public static Connection open() {
@@ -134,5 +134,10 @@ public class DBConnection {
             //Close connection
             closeAll(connection, null, null);
         }
+    }
+
+    public static ResultSet dbPrepareStatementAndExecuteQueryForPeople(String selectAllWithCondition, String phoneNumber, String idNumber) {
+
+        return null;
     }
 }

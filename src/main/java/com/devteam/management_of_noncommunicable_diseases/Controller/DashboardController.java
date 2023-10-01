@@ -56,15 +56,6 @@ public class DashboardController extends Thread implements Initializable {
     }
 
     @FXML
-    void addStaff(ActionEvent event) throws IOException {
-        new Thread(() -> {
-            Platform.runLater(() -> {
-                loadView("/com/devteam/management_of_noncommunicable_diseases/View/addStaffs.fxml");
-            });
-        }).start();
-    }
-
-    @FXML
     void homePage(ActionEvent event) {
 
     }
@@ -75,6 +66,15 @@ public class DashboardController extends Thread implements Initializable {
             System.exit(0);
         });
 
+    }
+
+    @FXML
+    void staffsManagement(ActionEvent event) {
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                loadView("/com/devteam/management_of_noncommunicable_diseases/View/StaffsManagement.fxml");
+            });
+        }).start();
     }
 
     private void loadView(String fxmlFileName) {
