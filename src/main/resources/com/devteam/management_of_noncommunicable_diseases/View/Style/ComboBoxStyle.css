@@ -1,0 +1,18 @@
+* {
+    -fx-primary-color: #007acc;
+    -fx-secondary-color: #4B6EAF;
+    -fx-white-color: #ffff;
+
+    -fx-focus-color: -fx-secondary-color;
+}
+
+.ComboBox{
+    -fx-background-color: -fx-white-color;
+    -fx-accent: -fx-primary-color;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
+}
+
+.ComboBox:focused{
+    -fx-background-color: -fx-primary-color, white;
+}
