@@ -1,14 +1,13 @@
 package com.devteam.management_of_noncommunicable_diseases.Controller;
 
+import com.devteam.management_of_noncommunicable_diseases.Dao.LoginRegisterDao;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
 import com.devteam.management_of_noncommunicable_diseases.Model.SceneSwitch;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -21,8 +20,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class LoginController extends Thread implements Initializable, InfoBox, ShowAlert {
     @FXML
@@ -83,10 +80,7 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
                 Platform.runLater(() -> {
                     try {
                         InfoBox.infoBox("Đăng nhập thành công!", null, "Thành Công");
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/devteam/management_of_noncommunicable_diseases/View/Dashboard.fxml"));
-                        Parent dashboardParent = loader.load();
-                        DashboardController dashboardController = loader.getController();
-                        loginView.getScene().setRoot(dashboardParent);
+                        new SceneSwitch(loginView, "View/Dashboard.fxml");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -97,8 +91,21 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
 
     @FXML
     void switchToRegister(ActionEvent event) throws IOException {
-        new SceneSwitch(loginView, "View/Register.fxml");
+        new SceneSwitch(loginView, "View/Dashboard.fxml");
     }
+    /*private void loadView(String fxmlFileName) {
+        try {
+            // Load FXML file
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(fxmlFileName));
+            Parent root = loader.load();
+
+        } catch (IOException e) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, e);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
