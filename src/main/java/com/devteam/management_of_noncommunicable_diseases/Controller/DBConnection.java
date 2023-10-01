@@ -114,8 +114,24 @@ public class DBConnection {
         }
     }
 
-    public static ResultSet dbPrepareStatementAndExecuteQueryForPeople(String selectAllWithCondition, String phoneNumber, String idNumber) {
-
-        return null;
+    public static ResultSet dbPrepareStatementAndExecuteQueryForPeople (String queryStmt, String phone_number, String idNumber) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            open();
+            preparedStatement = connection.prepareStatement(queryStmt);
+            preparedStatement.setString(1, phone_number);
+            preparedStatement.setString(2, idNumber);
+            resultSet = preparedStatement.executeQuery();
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            closeAll(connection, preparedStatement, resultSet);
+        }
+        return resultSet;
     }
 }
