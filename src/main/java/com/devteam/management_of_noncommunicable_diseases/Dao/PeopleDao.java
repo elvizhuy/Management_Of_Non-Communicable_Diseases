@@ -1,5 +1,6 @@
-package com.devteam.management_of_noncommunicable_diseases.Controller;
+package com.devteam.management_of_noncommunicable_diseases.Dao;
 
+import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnection;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ComboBoxData;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
@@ -12,7 +13,6 @@ import javafx.stage.Window;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,8 +24,6 @@ public class PeopleDao implements InfoBox, ComboBoxData {
     ResultSet resultSet = null;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     Window owner;
-
-
 
     public void addPeople(Window owner, String idNumber, String firstName, String lastName, String dateOfBirth, String gender, String address, String phone_number, String email, String note) throws SQLException {
         People people = new People();
