@@ -31,29 +31,33 @@ public class PeopleDao implements InfoBox, ComboBoxData {
         String INSERT_INSURANCE_QUERY = "INSERT INTO insurance (insurance_id,register_place,start_date,expiration_date) VALUES (?,?,?,?)";
         String INSERT_PATIENT_QUERY = "INSERT INTO patients (people_id,disease_id,first_year_found,first_place_found) VALUES (?,?,?,?)";
 
-        boolean checkIdNumber = validateEmptyFields(people.getIdNumber(), "Nhập số cccd", owner);
-        boolean checkFirstName = validateEmptyFields(people.getFirstName(), "Nhập tên Họ", owner);
-        boolean checkLastName = validateEmptyFields(people.getLastName(), "Nhập tên", owner);
-        boolean checkDOB = validateEmptyFields(String.valueOf(people.getDateOfBirth()), "Nhập DOB", owner);
-        boolean checkGender = validateEmptyFields(String.valueOf(people.getGender()), "Nhập giới tính", owner);
-        boolean checkAddress = validateEmptyFields(people.getAddress(), "Nhập địa chỉ", owner);
-        boolean checkPhoneNumber = validateEmptyFields(people.getPhoneNumber(), "Nhập số điện thoại", owner);
-        boolean checkEmail = validateEmptyFields(people.getEmail(), "Nhập email", owner);
+        boolean checkIdNumber = validateEmptyFields(idNumber, "Nhập số cccd", owner);
+        boolean checkFirstName = validateEmptyFields(firstName, "Nhập tên Họ", owner);
+        boolean checkLastName = validateEmptyFields(lastName, "Nhập tên", owner);
+        boolean checkDOB = validateEmptyFields(dateOfBirth, "Nhập DOB", owner);
+        boolean checkGender = validateEmptyFields(gender, "Nhập giới tính", owner);
+        boolean checkAddress = validateEmptyFields(address, "Nhập địa chỉ", owner);
+        boolean checkPhoneNumber = validateEmptyFields(phone_number, "Nhập số điện thoại", owner);
+        boolean checkEmail = validateEmptyFields(email, "Nhập email", owner);
+        boolean checkEmailValid = checkEmailValid(email, owner);
+        boolean checkEmptyIdNumber = validateEmptyFields(idNumber, "Nhập số cccd", owner);
+        boolean checkEmptyPhoneNumber = validateEmptyFields(phone_number, "Nhập số điện thoại", owner);
+        boolean checkExistingIdNumberAndLength = checkIdNumberAndLength(idNumber, "staffs", "ID đã tồn tại!", owner);
 
-        if ( checkIdNumber && checkFirstName && checkLastName && checkEmail && checkPhoneNumber && checkDOB && checkGender && checkAddress) {
+        if ( checkIdNumber && checkFirstName && checkLastName && checkEmail && checkPhoneNumber && checkDOB && checkGender && checkAddress && checkEmailValid && checkEmptyIdNumber && checkEmptyPhoneNumber && checkExistingIdNumberAndLength) {
             try {
                 connection = DBConnection.open();
                 assert connection != null;
                 preparedStatement = connection.prepareStatement(INSERT_PEOPLE_QUERY);
-                preparedStatement.setString(1, people.getIdNumber());
-                preparedStatement.setString(2, people.getFirstName());
-                preparedStatement.setString(3, people.getLastName());
-                preparedStatement.setString(4, String.valueOf(people.getDateOfBirth()));
-                preparedStatement.setString(5, String.valueOf(people.getGender()));
-                preparedStatement.setString(6, people.getAddress());
-                preparedStatement.setString(7, people.getEmail());
-                preparedStatement.setString(8, people.getPhoneNumber());
-                preparedStatement.setString(9, people.getNote());
+                preparedStatement.setString(1, idNumber);
+                preparedStatement.setString(2, firstName);
+                preparedStatement.setString(3, lastName);
+                preparedStatement.setString(4, String.valueOf(Date.valueOf(dateOfBirth)));
+                preparedStatement.setString(5, gender);
+                preparedStatement.setString(6, address);
+                preparedStatement.setString(8, phone_number);
+                preparedStatement.setString(7, email);
+                preparedStatement.setString(9, note);
 
 //                preparedStatement = connection.prepareStatement(INSERT_INSURANCE_QUERY);
 //                preparedStatement.setString(1, staff.getJobCode());
@@ -100,7 +104,7 @@ public class PeopleDao implements InfoBox, ComboBoxData {
         return peopleList;
     }
 
-    public static ObservableList<People> searchPeople (String name,String ID) throws SQLException, ClassNotFoundException {
+    public static ObservableList<People> searchPeople (String phone_number, String idNumber) throws SQLException, ClassNotFoundException {
         String SELECT_ALL_PEOPLE =
                 """
                         SELECT *
@@ -110,19 +114,29 @@ public class PeopleDao implements InfoBox, ComboBoxData {
                 """
                         SELECT *
                         FROM people
-                        where first_name like ? or id_number = ?
+                        where phone_number = ? or id_number = ?
                 """;
         try {
-            if (name == null || ID == null) {
+            if (phone_number == null || idNumber == null) {
                 ResultSet rs = DBConnection.dbExecuteQuery(SELECT_ALL_PEOPLE);
                 return getPeopleList(rs);
             }else {
-                ResultSet rs = DBConnection.dbPrepareStatementAndExecuteQuery(SELECT_ALL_WITH_CONDITION,name,ID);
+                ResultSet rs = DBConnection.dbPrepareStatementAndExecuteQueryForPeople(SELECT_ALL_WITH_CONDITION, phone_number, idNumber);
                 return getPeopleList(rs);
             }
         } catch (SQLException e) {
             System.out.println("Lệnh thực thi thất bại: " + e);
             throw e;
+        }
+    }
+
+    public static People searchPeopleByIdNumber (String idNumber) throws SQLException, ClassNotFoundException {
+        String FIND_SPECIFIC_PEOPLE = "SELECT * FROM people WHERE id_number = " + idNumber;
+        try {
+            ResultSet rs = DBConnection.dbExecuteQuery(FIND_SPECIFIC_PEOPLE);
+            return getPeopleFromResultSet(rs);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -135,66 +149,48 @@ public class PeopleDao implements InfoBox, ComboBoxData {
         return people;
     }
 
-    public static People searchPeople (String idNumber) throws SQLException, ClassNotFoundException {
-        String FIND_SPECIFIC_STAFF = "SELECT * FROM people WHERE id_number = " + idNumber;
-        try {
-            ResultSet rs = DBConnection.dbExecuteQuery(FIND_SPECIFIC_STAFF);
-            return getPeopleFromResultSet(rs);
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void updatePeople(Window owner) throws SQLException {
-        People people = new People();
-        String FIND_SPECIFIC_PEOPLE = "SELECT id_number FROM people WHERE id_number = ?";
-        String QUERY_UPDATE_PEOPLE = "UPDATE people SET id_number = ?, first_name = ?, last_name = ?, date_of_birth = ?, gender = ?, address = ?, phone_number = ?, email = ?, note = ? WHERE id_number = ?";
-        try {
-            connection = DBConnection.open();
-            assert connection != null;
-            preparedStatement = connection.prepareStatement(FIND_SPECIFIC_PEOPLE);
-            preparedStatement.setString(1, people.getIdNumber());
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String id_number = resultSet.getString("id_number");
-                String first_name = resultSet.getString("first_name");
-                String last_name = resultSet.getString("last_name");
-                String date_of_birth = String.valueOf(resultSet.getDate("date_of_birth"));
-                String gender = resultSet.getString("gender");
-                String address = resultSet.getString("address");
-                String phone_number = resultSet.getString("phone_number");
-                String Email = resultSet.getString("email");
-                String note = resultSet.getString("note");
-            }
-            preparedStatement = connection.prepareStatement(QUERY_UPDATE_PEOPLE);
-            preparedStatement.setString(1, people.getIdNumber());
-            preparedStatement.setString(2, people.getFirstName());
-            preparedStatement.setString(3, people.getLastName());
-            preparedStatement.setString(4, String.valueOf(people.getDateOfBirth()));
-            preparedStatement.setString(5, String.valueOf(people.getGender()));
-            preparedStatement.setString(6, people.getAddress());
-            preparedStatement.setString(7, people.getPhoneNumber());
-            preparedStatement.setString(8, people.getEmail());
-            preparedStatement.setString(9, people.getNote());
-            preparedStatement.executeUpdate();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            DBConnection.closeAll(connection, preparedStatement, resultSet);
-        }
-    }
+//    public void updatePeople(Window owner) throws SQLException {
+//        People people = new People();
+//        String FIND_SPECIFIC_PEOPLE = "SELECT * FROM people WHERE id_number = ?";
+//        String QUERY_UPDATE_PEOPLE = "UPDATE people SET id_number = ?, first_name = ?, last_name = ?, date_of_birth = ?, gender = ?, address = ?, phone_number = ?, email = ?, note = ? WHERE id_number = ?";
+//        try {
+//            connection = DBConnection.open();
+//            assert connection != null;
+//            preparedStatement = connection.prepareStatement(FIND_SPECIFIC_PEOPLE);
+//            preparedStatement.setString(1, people.getIdNumber());
+//            resultSet = preparedStatement.executeQuery();
+//            while (resultSet.next()) {
+//                String id_number = resultSet.getString("id_number");
+//                String first_name = resultSet.getString("first_name");
+//                String last_name = resultSet.getString("last_name");
+//                String date_of_birth = String.valueOf(resultSet.getDate("date_of_birth"));
+//                String gender = resultSet.getString("gender");
+//                String address = resultSet.getString("address");
+//                String phone_number = resultSet.getString("phone_number");
+//                String Email = resultSet.getString("email");
+//                String note = resultSet.getString("note");
+//            }
+//            preparedStatement = connection.prepareStatement(QUERY_UPDATE_PEOPLE);
+//                preparedStatement.setString(1, idNumber);
+//                preparedStatement.setString(2, firstName);
+//                preparedStatement.setString(3, lastName);
+//                preparedStatement.setString(4, String.valueOf(Date.valueOf(dateOfBirth)));
+//                preparedStatement.setString(5, gender);
+//                preparedStatement.setString(6, address);
+//                preparedStatement.setString(8, phone_number);
+//                preparedStatement.setString(7, email);
+//                preparedStatement.setString(9, note);
+//                preparedStatement.executeUpdate();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            DBConnection.closeAll(connection, preparedStatement, resultSet);
+//        }
+//    }
 
     protected boolean validateEmptyFields(String dataField, String textToNotice, Window owner) {
         if (dataField.isEmpty()) {
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Form Error!", textToNotice);
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkIdNumber(String IdNumberFromUserInput, String IdNumberInDatabase, String textToNotice, Window owner) {
-        if (!Objects.equals(IdNumberFromUserInput, IdNumberInDatabase)) {
-            ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "People not exist !", textToNotice);
             return false;
         }
         return true;
