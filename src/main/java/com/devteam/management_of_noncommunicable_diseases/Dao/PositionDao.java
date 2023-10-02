@@ -16,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PositionDao {
-    Position position = new Position();
     static Connection connection = null;
 
     static PreparedStatement preparedStatement = null;
@@ -53,29 +52,35 @@ public class PositionDao {
             }).start();
         }
     }
-    public static Position getAllPositions () throws SQLException, ClassNotFoundException {
-        String SELECT_POSITION = "SELECT id,name FROM positions";
+//    public static Position getAllPositions () throws SQLException, ClassNotFoundException {
+//
+//        try {
+//
+//            return (Position) getPositionList(rs);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    public static ObservableList<Position> getPositionList() throws SQLException, ClassNotFoundException {
+        String SELECT_POSITION = "SELECT * FROM positions";
+        ObservableList<Position> positionsList = FXCollections.observableArrayList();
         try {
-            ResultSet rs = DBConnection.dbExecuteQuery(SELECT_POSITION);
-            return (Position) getPositionList(rs);
+            ResultSet resultSet = DBConnection.dbExecuteQuery(SELECT_POSITION);
+            while (resultSet.next()) {
+                Position position = new Position();
+                setPositionProperties(resultSet, position);
+                positionsList.add(position);
+            }
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    private static ObservableList<Position> getPositionList(ResultSet rs) throws SQLException, ClassNotFoundException {
-        ObservableList<Position> positionsList = FXCollections.observableArrayList();
-        while (rs.next()) {
-           Position position = new Position();
-           rs = (ResultSet) getAllPositions();
-            setPositionProperties(rs, position);
-            positionsList.add(position);
-            System.out.println(positionsList);
+        }finally {
+            DBConnection.closeAll(connection, preparedStatement, resultSet);
         }
         return positionsList;
     }
 
-    private static void setPositionProperties(ResultSet rs, Position position) throws SQLException {
+    public static void setPositionProperties(ResultSet rs, Position position) throws SQLException {
         position.setId(rs.getInt("id"));
         position.setName(rs.getString("name"));
         position.setBonus(rs.getFloat("bonus"));
