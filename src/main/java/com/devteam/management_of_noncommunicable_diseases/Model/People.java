@@ -1,6 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
-import com.devteam.management_of_noncommunicable_diseases.Dao.PeopleDao;
+/*import com.devteam.management_of_noncommunicable_diseases.Dao.PeopleDao;*/
 import javafx.stage.Window;
 
 import java.sql.SQLException;
@@ -103,7 +103,7 @@ public class People {
     }
 
     Window owner;
-    PeopleDao peopleDao = new PeopleDao();
+    /*PeopleDao peopleDao = new PeopleDao();*/
 
     public People() {
 

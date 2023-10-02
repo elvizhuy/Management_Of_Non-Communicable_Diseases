@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="878.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.View.DetailStaff">
+   <children>
+      <Label layoutX="27.0" layoutY="25.0" text="Chi Tiết Nhân Viên : ">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="297.0" layoutY="25.0" text="Unknow">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Hyperlink layoutX="74.0" layoutY="69.0" text="Quay Lại ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Hyperlink>
+      <ImageView fitHeight="23.0" fitWidth="27.0" layoutX="51.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Image/left-chevron.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="252.0" layoutY="121.0" prefHeight="73.0" prefWidth="200.0" style="-fx-background-color: #deebff;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <children>
+            <ImageView fitHeight="37.0" fitWidth="43.0" layoutX="27.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Image/warning.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="71.0" layoutY="18.0" prefHeight="25.0" prefWidth="182.0" text="This Account is">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="77.0" layoutY="47.0" text="Label" />
+         </children>
+      </AnchorPane>
+      <GridPane layoutX="331.0" layoutY="262.0" prefHeight="564.0" prefWidth="596.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="206.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="397.0" minWidth="10.0" prefWidth="390.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Full Name" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="lamnt" GridPane.columnIndex="1" />
+            <Label layoutX="10.0" layoutY="96.0" text="Directories" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="30.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="33.0" text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="222.0" text="Created" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="285.0" text="Last Updated" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="348.0" text="Login" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="10.0" layoutY="411.0" text="Groups" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="User" GridPane.halignment="RIGHT">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Nguyen Thanh Lam " GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label layoutX="227.0" layoutY="96.0" text="nguyenthanhlam02122003@gmail.com" textFill="#0cb0c3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label layoutX="227.0" layoutY="222.0" text="Sep 20, 2023 10:04" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label layoutX="227.0" layoutY="285.0" text="Oct 02, 2023 10:05" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label layoutX="227.0" layoutY="411.0" text="elvizHuy " textFill="#0cb0c3" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="jira" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </Text>
+            <AnchorPane prefHeight="121.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <children>
+                  <Label layoutX="63.0" layoutY="36.0" text="Last Login:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutY="28.0" text="Last Failed Login:" AnchorPane.topAnchor="20.0">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutY="45.0" text="Total Faild Login Count:" AnchorPane.topAnchor="40.0">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="50.0" text="Current Dailed Login Count:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="60.0">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </GridPane>
+      <HBox alignment="CENTER" layoutX="197.0" layoutY="225.0" prefHeight="45.0" prefWidth="1238.0" spacing="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <children>
+            <Hyperlink alignment="CENTER" text="View Profile" HBox.hgrow="SOMETIMES" />
+            <Hyperlink alignment="CENTER" text="Edit Gruops" HBox.hgrow="SOMETIMES" />
+            <Hyperlink alignment="CENTER" text="Edit Details" HBox.hgrow="SOMETIMES" />
+            <Hyperlink alignment="CENTER" text="Delete Profile Pictrure" HBox.hgrow="SOMETIMES" />
+            <Hyperlink alignment="CENTER" text="Set Password" HBox.hgrow="SOMETIMES" />
+            <Hyperlink alignment="CENTER" text="Enable" HBox.hgrow="SOMETIMES" />
+            <Hyperlink alignment="BOTTOM_LEFT" contentDisplay="CENTER" text="Switch User" HBox.hgrow="SOMETIMES" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
