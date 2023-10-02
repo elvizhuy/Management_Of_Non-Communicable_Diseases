@@ -30,14 +30,14 @@ public class DepartmentDao {
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-    public void addDepartment(Window owner,String name, String description) throws SQLException {
+    public void addDepartment(Window owner, String name, String description) throws SQLException {
         String INSERT_DEPARTMENT_QUERY = "INSERT INTO departments (name, description) VALUES (?, ?)";
 
         boolean checkDepartmentName = validateEmptyFields(name, "Nhập tên trụ sở", owner);
         boolean checkDepartmentDescription = validateEmptyFields(description, "Nhâp mô tả", owner);
 
-        if(checkDepartmentName && checkDepartmentDescription){
-            try{
+        if (checkDepartmentName && checkDepartmentDescription) {
+            try {
                 connection = DBConnection.open();
                 assert connection != null;
                 preparedStatement = connection.prepareStatement(INSERT_DEPARTMENT_QUERY);
@@ -45,15 +45,12 @@ public class DepartmentDao {
                 preparedStatement.setString(2, description);
                 System.out.println(preparedStatement);
                 resultSet = preparedStatement.executeQuery();
-            }
-            catch (SQLException e){
+            } catch (SQLException e) {
                 throw new RuntimeException(e);
-            }
-            finally {
+            } finally {
                 DBConnection.closeAll(connection, preparedStatement, resultSet);
             }
-        }
-        else {
+        } else {
             new Thread(() -> {
                 Platform.runLater(() -> {
                     InfoBox.infoBox("Thiếu Thông Tin, Vui Long Kiểm Tra Lại !", null, "Thất Bại...");
@@ -62,11 +59,10 @@ public class DepartmentDao {
         }
     }
 
-    public static Department searchDepartment () throws SQLException, ClassNotFoundException {
+    public static ResultSet getAllDepartment() throws SQLException, ClassNotFoundException {
         String SELECT_DEPARTMENT = "SELECT * FROM departments";
         try {
-            ResultSet rs = DBConnection.dbExecuteQuery(SELECT_DEPARTMENT);
-            return (Department) getDepartmentList(rs);
+            return DBConnection.dbExecuteQuery(SELECT_DEPARTMENT);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -74,10 +70,17 @@ public class DepartmentDao {
 
     private static ObservableList<Department> getDepartmentList(ResultSet rs) throws SQLException, ClassNotFoundException {
         ObservableList<Department> departmentsList = FXCollections.observableArrayList();
-        while (rs.next()) {
-            Department department = new Department();
-            setDepartmentProperties(rs, department);
-            departmentsList.add(department);
+        ResultSet resultSet = getAllDepartment();
+        try {
+            while (true) {
+                assert resultSet != null;
+                if (!resultSet.next()) break;
+                Department department = new Department();
+                setDepartmentProperties(resultSet, department);
+                departmentsList.add(department);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return departmentsList;
     }
@@ -88,8 +91,8 @@ public class DepartmentDao {
         department.setDescription(rs.getString("description"));
     }
 
-    protected <T> boolean validateEmptyFields(T dateField, String textToNotice, Window owner){
-        if(dateField == null){
+    protected <T> boolean validateEmptyFields(T dateField, String textToNotice, Window owner) {
+        if (dateField == null) {
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Error !", textToNotice);
             return false;
         }

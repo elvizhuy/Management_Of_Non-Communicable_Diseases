@@ -4,11 +4,9 @@ import com.devteam.management_of_noncommunicable_diseases.Controller.DBConnectio
 import com.devteam.management_of_noncommunicable_diseases.Interface.ComboBoxData;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
-import com.devteam.management_of_noncommunicable_diseases.Model.Medicine;
-import com.devteam.management_of_noncommunicable_diseases.Model.MedicineGroups;
-import com.devteam.management_of_noncommunicable_diseases.Model.MedicineTypes;
-import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
+import com.devteam.management_of_noncommunicable_diseases.Model.*;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -70,7 +68,7 @@ public class MedicineDao implements ComboBoxData {
             } finally {
                 DBConnection.closeAll(connection, preparedStatement, resultSet);
             }
-        }  else {
+        } else {
             new Thread(() -> {
                 Platform.runLater(() -> {
                     InfoBox.infoBox("Thiếu thông tin,hãy kiểm tra lại", null, "Thất Bại...");
@@ -98,7 +96,7 @@ public class MedicineDao implements ComboBoxData {
                 String job_code = resultSet.getString("job_code");
             }
             preparedStatement = connection.prepareStatement(QUERY_UPDATE_STAFF);
-            preparedStatement.setString(1,staff.getIdNumber());
+            preparedStatement.setString(1, staff.getIdNumber());
             preparedStatement.setString(2, staff.getEmail());
             preparedStatement.setString(3, staff.getFirstName());
             preparedStatement.setString(4, staff.getLastName());
@@ -113,6 +111,41 @@ public class MedicineDao implements ComboBoxData {
         }
     }
 
+    public static ResultSet getAllMedicines() throws SQLException, ClassNotFoundException {
+        String SELECT_MEDICINE = "SELECT * FROM medicines";
+        try {
+            return DBConnection.dbExecuteQuery(SELECT_MEDICINE);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static ObservableList<Medicine> getMedicinesList() throws SQLException, ClassNotFoundException {
+        ObservableList<Medicine> medicinesList = FXCollections.observableArrayList();
+        ResultSet resultSet = getAllMedicines();
+        try {
+            while (true) {
+                assert resultSet != null;
+                if (!resultSet.next()) break;
+                Medicine medicine = new Medicine();
+                setMedicineProperties(resultSet, medicine);
+                medicinesList.add(medicine);
+            }
+            return medicinesList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void setMedicineProperties(ResultSet rs, Medicine medicine) throws SQLException {
+        medicine.setId(rs.getInt("id"));
+        medicine.setTypeId(rs.getInt("type_id"));
+        medicine.setGroupId(rs.getInt("group_id"));
+        medicine.setName(rs.getString("name"));
+        medicine.setUnit(rs.getString("unit"));
+        medicine.setDescription(rs.getString("description"));
+        medicine.setInstruction(rs.getString("instruction"));
+    }
 
     public static void initializeComboBoxData() throws SQLException {
         try {
@@ -120,8 +153,8 @@ public class MedicineDao implements ComboBoxData {
             String SELECT_MEDICINE_GROUP_QUERY = "SELECT id,name FROM medicine_groups";
             String SELECT_MEDICINE_TYPE_QUERY = "SELECT id,name FROM medicine_types";
 
-            ObservableList<String> medicineGroup = ComboBoxData.getComboBoxData(connection, SELECT_MEDICINE_GROUP_QUERY,preparedStatement);
-            ObservableList<String> medicineType = ComboBoxData.getComboBoxData(connection, SELECT_MEDICINE_TYPE_QUERY,preparedStatement);
+            ObservableList<String> medicineGroup = ComboBoxData.getComboBoxData(connection, SELECT_MEDICINE_GROUP_QUERY, preparedStatement);
+            ObservableList<String> medicineType = ComboBoxData.getComboBoxData(connection, SELECT_MEDICINE_TYPE_QUERY, preparedStatement);
 
             medicineGroupComboBox.setItems(medicineGroup);
             medicineTypeComboBox.setItems(medicineType);

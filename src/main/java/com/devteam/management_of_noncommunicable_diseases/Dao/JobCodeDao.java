@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.stage.Window;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +22,7 @@ public class JobCodeDao {
 
     static ResultSet resultSet = null;
 
-    public void addJobCode(Window owner,String id, String name, int jobLevel,int grade,float coefficientSalary) throws SQLException {
+    public void addJobCode(Window owner, String id, String name, int jobLevel, int grade, float coefficientSalary) throws SQLException {
 
         String INSERT_JOB_CODE_QUERY = "INSERT INTO job_codes (id,name, job_level,grade,coefficients_salary) VALUES (?,?, ?,?,?)";
         boolean checkJobCodeId = validateEmptyFields(id, "Nhập id job", owner);
@@ -30,8 +31,8 @@ public class JobCodeDao {
         boolean checkJobCodeGrade = validateEmptyFields(grade, "Nhâp thứ hạng job", owner);
         boolean checkCoefficient = validateEmptyFields(coefficientSalary, "Nhâp lương chức danh", owner);
 
-        if(checkCoefficient && checkJobCodeGrade && checkJobCodeLevel && checkJobCodeName){
-            try{
+        if (checkCoefficient && checkJobCodeGrade && checkJobCodeLevel && checkJobCodeName) {
+            try {
                 connection = DBConnection.open();
                 assert connection != null;
                 preparedStatement = connection.prepareStatement(INSERT_JOB_CODE_QUERY);
@@ -43,15 +44,12 @@ public class JobCodeDao {
 
                 System.out.println(preparedStatement);
                 resultSet = preparedStatement.executeQuery();
-            }
-            catch (SQLException e){
+            } catch (SQLException e) {
                 throw new RuntimeException(e);
-            }
-            finally {
+            } finally {
                 DBConnection.closeAll(connection, preparedStatement, resultSet);
             }
-        }
-        else {
+        } else {
             new Thread(() -> {
                 Platform.runLater(() -> {
                     InfoBox.infoBox("Thiếu Thông Tin, Vui Long Kiểm Tra Lại !", null, "Thất Bại...");
@@ -60,12 +58,10 @@ public class JobCodeDao {
         }
     }
 
-    public static JobCode getAllJobCode () throws SQLException, ClassNotFoundException {
+    public static ResultSet getAllJobCode() throws SQLException, ClassNotFoundException {
         String SELECT_JOB_CODE = "SELECT * FROM job_codes";
         try {
-            ResultSet rs = DBConnection.dbExecuteQuery(SELECT_JOB_CODE);
-            System.out.println(rs);
-            return (JobCode) getJobCodeList(rs);
+            return DBConnection.dbExecuteQuery(SELECT_JOB_CODE);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -73,13 +69,19 @@ public class JobCodeDao {
 
     public static ObservableList<JobCode> getJobCodeList(ResultSet rs) throws SQLException, ClassNotFoundException {
         ObservableList<JobCode> jobCodesList = FXCollections.observableArrayList();
-        while (rs.next()) {
-            JobCode jobCode = new JobCode();
-            rs = (ResultSet) getAllJobCode();
-            setJobCodeProperties(rs, jobCode);
-            jobCodesList.add(jobCode);
+        ResultSet resultSet = getAllJobCode();
+        try {
+            while (true) {
+                assert resultSet != null;
+                if (!resultSet.next()) break;
+                JobCode jobCode = new JobCode();
+                setJobCodeProperties(resultSet, jobCode);
+                jobCodesList.add(jobCode);
+            }
+            return jobCodesList;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return jobCodesList;
     }
 
     public static void setJobCodeProperties(ResultSet rs, JobCode jobCode) throws SQLException {
@@ -90,8 +92,8 @@ public class JobCodeDao {
         jobCode.setCoefficientSalary(rs.getFloat("coefficients_salary"));
     }
 
-    private  <T> boolean validateEmptyFields(T dateField, String textToNotice, Window owner){
-        if(dateField == null){
+    private <T> boolean validateEmptyFields(T dateField, String textToNotice, Window owner) {
+        if (dateField == null) {
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Error !", textToNotice);
             return false;
         }

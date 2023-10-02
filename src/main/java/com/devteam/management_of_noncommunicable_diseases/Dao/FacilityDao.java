@@ -58,24 +58,30 @@ public class FacilityDao {
             }).start();
         }
     }
-    public static Facility searchFacility () throws SQLException, ClassNotFoundException {
+    public static ResultSet getAllFacility () throws SQLException, ClassNotFoundException {
         String SELECT_FACILITY = "SELECT * FROM facilities";
         try {
-            ResultSet rs = DBConnection.dbExecuteQuery(SELECT_FACILITY);
-            return (Facility) getFacilityList(rs);
+           return DBConnection.dbExecuteQuery(SELECT_FACILITY);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static ObservableList<Facility> getFacilityList(ResultSet rs) throws SQLException, ClassNotFoundException {
-        ObservableList<Facility> positionsList = FXCollections.observableArrayList();
-        while (rs.next()) {
-           Facility facility = new Facility();
-            setFacilityProperties(rs, facility);
-            positionsList.add(facility);
+    private static ObservableList<Facility> getFacilityList() throws SQLException, ClassNotFoundException {
+        ObservableList<Facility> facilitiesList = FXCollections.observableArrayList();
+        ResultSet resultSet = getAllFacility();
+        try {
+            while (resultSet.next()) {
+                Facility facility = new Facility();
+                setFacilityProperties(resultSet, facility);
+                facilitiesList.add(facility);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            DBConnection.closeAll(connection, preparedStatement, PositionDao.resultSet);
         }
-        return positionsList;
+        return facilitiesList;
     }
 
     private static void setFacilityProperties(ResultSet rs, Facility facility) throws SQLException {
