@@ -3,7 +3,7 @@ module com.devteam.management_of_noncommunicable_diseases {
     requires javafx.fxml;
 
     requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
+
 
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;

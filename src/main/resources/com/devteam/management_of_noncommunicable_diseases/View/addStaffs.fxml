@@ -14,123 +14,108 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="857.0" prefWidth="1092.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffController">
-<AnchorPane prefHeight="857.0" prefWidth="1129.0">
-    <children>
-        <AnchorPane fx:id="pane2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="857.0" prefWidth="1177.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-85.0" AnchorPane.topAnchor="0.0">
+<VBox prefHeight="727.0" prefWidth="943.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffController">
+<AnchorPane prefHeight="2.0" prefWidth="943.0" />
+   <GridPane prefHeight="650.0" prefWidth="639.0">
+      <padding>
+         <Insets bottom="40" left="60" right="60" top="40" />
+      </padding>
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="100.0" prefWidth="165.0" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="200.0" prefWidth="354.0" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="200.0" prefWidth="354.0" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints maxHeight="204.8" minHeight="10.0" prefHeight="194.8" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="116.6" minHeight="30.400000000000006" prefHeight="42.0" />
+         <RowConstraints maxHeight="85.19999999999999" minHeight="27.0" prefHeight="40.60000000000002" />
+         <RowConstraints maxHeight="83.0" minHeight="30.600000000000023" prefHeight="36.39999999999998" />
+         <RowConstraints maxHeight="73.60000000000002" minHeight="32.19999999999999" prefHeight="40.0" />
+         <RowConstraints maxHeight="69.19999999999999" minHeight="30.600000000000023" prefHeight="35.39999999999998" />
+         <RowConstraints maxHeight="68.39999999999998" minHeight="30.600000000000023" prefHeight="40.19999999999999" />
+         <RowConstraints maxHeight="65.60000000000002" minHeight="30.600000000000023" prefHeight="37.799999999999955" />
+         <RowConstraints maxHeight="68.80000000000001" minHeight="23.19999999999999" prefHeight="35.79996948242183" />
+         <RowConstraints maxHeight="58.200000000000045" minHeight="28.600000000000023" prefHeight="42.39999999999998" />
+         <RowConstraints />
+         <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+         <RowConstraints maxHeight="40.60000000000002" minHeight="26.600000000000023" prefHeight="27.200000000000045" />
+         <RowConstraints maxHeight="31.0" minHeight="17.0" prefHeight="31.0" />
+      </rowConstraints>
+      <children>
+         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="93.0" prefWidth="519.0" styleClass="title-label" text="THÔNG TIN CÁN BỘ CÔNG NHÂN VIÊN" textFill="#0a9296" GridPane.columnIndex="1" GridPane.columnSpan="2">
+            <font>
+               <Font name="System Bold" size="26.0" />
+            </font>
+         </Label>
+         <Label text="STT:" GridPane.rowIndex="1">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <TextField fx:id="id" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         <Label text="Tên đăng nhập:" GridPane.rowIndex="2">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <TextField fx:id="user_name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <Label text="Mật khẩu:" GridPane.rowIndex="3">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <PasswordField fx:id="pass_word" prefHeight="25.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         <Label text="Mật khẩu xác nhận:" GridPane.rowIndex="4">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <PasswordField fx:id="confirm_password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         <Label text="Tên:" GridPane.rowIndex="5">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <TextField fx:id="first_name" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+         <Label alignment="CENTER" text="Tên họ:" GridPane.rowIndex="6">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <TextField fx:id="last_name" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+         <Label text="Email:" GridPane.rowIndex="7">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <TextField fx:id="Email" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+         <Label prefHeight="18.0" prefWidth="141.0" text="Căn cước công dân:" GridPane.rowIndex="8">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <TextField fx:id="id_number" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+         <Label text="Số điện thoại:" GridPane.rowIndex="9">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <TextField fx:id="phone_number" prefHeight="8.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+         <Label prefHeight="22.0" prefWidth="173.0" text="Ngày bắt đầu làm việc:" GridPane.rowIndex="12">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <DatePicker fx:id="start_work" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+         <HBox alignment="BOTTOM_RIGHT" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="13">
             <children>
-            <GridPane layoutX="327.0" layoutY="14.0" prefHeight="650.0" prefWidth="639.0">
-                <padding>
-                    <Insets bottom="40" left="60" right="60" top="40" />
-                </padding>
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="100.0" prefWidth="165.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="200.0" prefWidth="354.0" />
-                </columnConstraints>
-                <rowConstraints>
-                    <RowConstraints maxHeight="204.8" minHeight="10.0" prefHeight="194.8" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="116.6" minHeight="30.400000000000006" prefHeight="42.0" />
-                  <RowConstraints maxHeight="85.19999999999999" minHeight="27.0" prefHeight="40.60000000000002" />
-                  <RowConstraints maxHeight="83.0" minHeight="30.600000000000023" prefHeight="36.39999999999998" />
-                  <RowConstraints maxHeight="73.60000000000002" minHeight="32.19999999999999" prefHeight="40.0" />
-                  <RowConstraints maxHeight="69.19999999999999" minHeight="30.600000000000023" prefHeight="35.39999999999998" />
-                  <RowConstraints maxHeight="68.39999999999998" minHeight="30.600000000000023" prefHeight="40.19999999999999" />
-                  <RowConstraints maxHeight="65.60000000000002" minHeight="30.600000000000023" prefHeight="37.799999999999955" />
-                  <RowConstraints maxHeight="68.80000000000001" minHeight="23.19999999999999" prefHeight="35.79996948242183" />
-                  <RowConstraints maxHeight="58.200000000000045" minHeight="28.600000000000023" prefHeight="42.39999999999998" />
-                  <RowConstraints />
-                  <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-                  <RowConstraints maxHeight="40.60000000000002" minHeight="26.600000000000023" prefHeight="27.200000000000045" />
-                  <RowConstraints maxHeight="31.0" minHeight="17.0" prefHeight="31.0" />
-               </rowConstraints>
-                <children>
-                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="93.0" prefWidth="519.0" styleClass="title-label" text="THÔNG TIN CÁN BỘ CÔNG NHÂN VIÊN" textFill="#0a9296" GridPane.columnSpan="2">
-                     <font>
-                        <Font name="System Bold" size="26.0" />
-                     </font>
-                  </Label>
-
-                    <Label text="STT:" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     </Label>
-                    <TextField fx:id="id" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-                    <Label text="Tên đăng nhập:" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     </Label>
-                    <TextField fx:id="user_name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                    <Label text="Mật khẩu:" GridPane.rowIndex="3">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     </Label>
-                    <PasswordField fx:id="pass_word" prefHeight="25.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-                    <Label text="Mật khẩu xác nhận:" GridPane.rowIndex="4">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     </Label>
-                    <PasswordField fx:id="confirm_password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-
-                    <Label text="Tên:" GridPane.rowIndex="5">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     </Label>
-                    <TextField fx:id="first_name" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-
-                    <Label alignment="CENTER" text="Tên họ:" GridPane.rowIndex="6">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     </Label>
-                    <TextField fx:id="last_name" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-
-                    <Label text="Email:" GridPane.rowIndex="7">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     </Label>
-                    <TextField fx:id="Email" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-
-                    <Label prefHeight="18.0" prefWidth="141.0" text="Căn cước công dân:" GridPane.rowIndex="8">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     </Label>
-                    <TextField fx:id="id_number" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-
-                    <Label text="Số điện thoại:" GridPane.rowIndex="9">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     </Label>
-                    <TextField fx:id="phone_number" prefHeight="8.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-
-                    <Label prefHeight="22.0" prefWidth="173.0" text="Ngày bắt đầu làm việc:" GridPane.rowIndex="12">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     </Label>
-                    <DatePicker fx:id="start_work" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-
-                    <HBox alignment="BOTTOM_RIGHT" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="13">
-                        <Button fx:id="addStaffBtn" onAction="#addNewStaff" prefHeight="32.0" prefWidth="123.0" styleClass="add-button" text="Nhập">
-                        <font>
-                           <Font name="System Bold" size="15.0" />
-                        </font>
-                        </Button>
-                    </HBox>
-                </children>
-            </GridPane>
+               <Button fx:id="addStaffBtn" onAction="#addNewStaff" prefHeight="32.0" prefWidth="123.0" styleClass="add-button" text="Nhập">
+                  <font>
+                     <Font name="System Bold" size="15.0" />
+                  </font>
+               </Button>
             </children>
-        </AnchorPane>
-    </children>
-</AnchorPane>
+         </HBox>
+      </children>
+   </GridPane>
 </VBox>
