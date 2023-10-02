@@ -1,7 +1,9 @@
 package com.devteam.management_of_noncommunicable_diseases;
 
 import com.devteam.management_of_noncommunicable_diseases.Dao.PositionDao;
+import com.devteam.management_of_noncommunicable_diseases.Dao.StaffDao;
 import com.devteam.management_of_noncommunicable_diseases.Model.Position;
+import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -18,10 +20,11 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-    double x,y = 0;
+    double x, y = 0;
+
     @Override
     public void start(Stage stage) throws IOException, Exception {
-        new Thread(()-> {
+        new Thread(() -> {
             Platform.runLater(() -> {
                 Parent root;
                 try {
@@ -49,8 +52,14 @@ public class Main extends Application {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 //        launch();
-        ObservableList<Position> positionsList = PositionDao.getPositionList();
-        Position firstpos = positionsList.get(0);
-        System.out.println(firstpos.getName());
+        ObservableList<Staff> staffList = StaffDao.getStaffsListByConditionOrNot(null, "'943656129601'");
+        Staff staff = staffList.get(0);
+        System.out.println(staff.getFirstName());
+        System.out.println(staff.getLastName());
+        System.out.println(staff.getEmail());
+        System.out.println(staff.getDateOfBirth());
+        System.out.println(staff.getPhoneNumber());
+        System.out.println(staff.getJobCode());
+        System.out.println(staff.getIdNumber());
     }
 }

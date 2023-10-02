@@ -5,6 +5,7 @@ import com.devteam.management_of_noncommunicable_diseases.Controller.MD5;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ComboBoxData;
 import com.devteam.management_of_noncommunicable_diseases.Interface.InfoBox;
 import com.devteam.management_of_noncommunicable_diseases.Interface.ShowAlert;
+import com.devteam.management_of_noncommunicable_diseases.Model.Position;
 import com.devteam.management_of_noncommunicable_diseases.Model.Staff;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -19,8 +20,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StaffDao implements InfoBox, ComboBoxData {
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
+    static Connection connection = null;
+    static PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     Window owner;
@@ -84,17 +85,7 @@ public class StaffDao implements InfoBox, ComboBoxData {
         }
     }
 
-    public static Staff searchStaff (String idNumber) throws SQLException, ClassNotFoundException {
-        String FIND_SPECIFIC_STAFF = "SELECT * FROM staffs WHERE id_number = " + idNumber;
-        try {
-            ResultSet rs = DBConnection.dbExecuteQuery(FIND_SPECIFIC_STAFF);
-            return getStaffFromResultSet(rs);
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static ObservableList<Staff> searchStaffs (String name,String ID) throws SQLException, ClassNotFoundException {
+    public static ResultSet searchStaff (String name,String Id) throws SQLException, ClassNotFoundException {
         String SELECT_ALL_STAFFS =
                 """
                         SELECT S.*,DF.*,P.*,SP.*,JC.*,FL.*,DM.*\s
@@ -117,37 +108,36 @@ public class StaffDao implements InfoBox, ComboBoxData {
                 join specializations SP on S.specialization_id = SP.id
                 where S.first_name like ? or S.id_number = ?""";
         try {
-            ResultSet rs;
-            if (name == null || ID == null) {
-                rs = DBConnection.dbExecuteQuery(SELECT_ALL_STAFFS);
+            if (name == null || Id == null) {
+                return DBConnection.dbExecuteQuery(SELECT_ALL_STAFFS);
             }else {
-                rs = DBConnection.dbPrepareStatementAndExecuteQuery(SELECT_ALL_WITH_CONDITION, name, ID);
+                return DBConnection.dbPrepareStatementAndExecuteQuery(SELECT_ALL_WITH_CONDITION, name, Id);
             }
-            return getStaffList(rs);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static ObservableList<Staff> getStaffsListByConditionOrNot (String name,String ID) throws SQLException, ClassNotFoundException {
+        ObservableList<Staff> staffsList = FXCollections.observableArrayList();
+        ResultSet resultSet = searchStaff(name,ID);
+        try {
+            while (true) {
+                assert resultSet != null;
+                if (!resultSet.next()) break;
+                Staff staff = new Staff();
+                setStaffProperties(resultSet, staff);
+                staffsList.add(staff);
+            }
         } catch (SQLException e) {
             System.out.println("Lệnh thực thi thất bại: " + e);
             throw e;
+        }finally {
+            DBConnection.closeAll(connection,preparedStatement,resultSet);
         }
+        return staffsList;
     }
 
-    private static Staff getStaffFromResultSet(ResultSet rs) throws SQLException {
-        Staff staff = null;
-        if (rs.next()) {
-            staff = new Staff();
-            setStaffProperties(rs, staff);
-        }
-        return staff;
-    }
-
-    private static ObservableList<Staff> getStaffList(ResultSet rs) throws SQLException, ClassNotFoundException {
-        ObservableList<Staff> staffList = FXCollections.observableArrayList();
-        while (rs.next()) {
-            Staff staff = new Staff();
-            setStaffProperties(rs, staff);
-            staffList.add(staff);
-        }
-        return staffList;
-    }
 
     private static void setStaffProperties(ResultSet rs, Staff staff) throws SQLException {
         staff.setIdNumber(rs.getString("id_number"));
@@ -158,7 +148,7 @@ public class StaffDao implements InfoBox, ComboBoxData {
         staff.setStartWork(rs.getDate("start_work").toLocalDate());
         staff.setJobCode(rs.getString("job_code"));
         staff.setDepartmentFacilityId(rs.getInt("department_facilities_id"));
-        staff.setPosition(rs.getInt("position"));
+        staff.setPosition(rs.getInt("position_id"));
         staff.setSpecializationId(rs.getInt("specialization_id"));
     }
 
