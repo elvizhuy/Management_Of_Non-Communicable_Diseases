@@ -5,7 +5,7 @@ import java.sql.*;
 public class DBConnection {
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mon_cda";
     private static final String DATABASE_USERNAME = "root";
-    private static final String DATABASE_PASSWORD = "Daniel@0908";
+    private static final String DATABASE_PASSWORD = "Huynn@0908";
 
     private static Connection connection = null;
 
@@ -103,14 +103,8 @@ public class DBConnection {
             preparedStatement.setString(1, phone_number);
             preparedStatement.setString(2, idNumber);
             resultSet = preparedStatement.executeQuery();
-        } finally {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            closeAll(connection, preparedStatement, resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return resultSet;
     }

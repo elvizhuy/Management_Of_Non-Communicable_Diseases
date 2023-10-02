@@ -7,7 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Staff extends SQLException {
+public class Staff {
     String userName;
     String firstName;
     String lastName;
