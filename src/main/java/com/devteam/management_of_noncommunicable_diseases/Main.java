@@ -50,6 +50,7 @@ public class Main extends Application {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 //        launch();
         ObservableList<Position> positionsList = PositionDao.getPositionList();
-        System.out.println(positionsList);
+        Position firstpos = positionsList.get(0);
+        System.out.println(firstpos.getName());
     }
 }
