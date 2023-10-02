@@ -60,36 +60,37 @@ public class JobCodeDao {
         }
     }
 
-    public static JobCode searchJobCode () throws SQLException, ClassNotFoundException {
+    public static JobCode getAllJobCode () throws SQLException, ClassNotFoundException {
         String SELECT_JOB_CODE = "SELECT * FROM job_codes";
         try {
             ResultSet rs = DBConnection.dbExecuteQuery(SELECT_JOB_CODE);
+            System.out.println(rs);
             return (JobCode) getJobCodeList(rs);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static ObservableList<JobCode> getJobCodeList(ResultSet rs) throws SQLException, ClassNotFoundException {
+    public static ObservableList<JobCode> getJobCodeList(ResultSet rs) throws SQLException, ClassNotFoundException {
         ObservableList<JobCode> jobCodesList = FXCollections.observableArrayList();
         while (rs.next()) {
             JobCode jobCode = new JobCode();
+            rs = (ResultSet) getAllJobCode();
             setJobCodeProperties(rs, jobCode);
             jobCodesList.add(jobCode);
         }
         return jobCodesList;
     }
 
-    private static void setJobCodeProperties(ResultSet rs, JobCode jobCode) throws SQLException {
+    public static void setJobCodeProperties(ResultSet rs, JobCode jobCode) throws SQLException {
         jobCode.setId(rs.getString("id"));
         jobCode.setName(rs.getString("name"));
         jobCode.setJobLevel(rs.getInt("job_level"));
         jobCode.setGrade(rs.getInt("grade"));
         jobCode.setCoefficientSalary(rs.getFloat("coefficients_salary"));
-
     }
 
-    protected <T> boolean validateEmptyFields(T dateField, String textToNotice, Window owner){
+    private  <T> boolean validateEmptyFields(T dateField, String textToNotice, Window owner){
         if(dateField == null){
             ShowAlert.showAlert(Alert.AlertType.ERROR, owner, "Error !", textToNotice);
             return false;
