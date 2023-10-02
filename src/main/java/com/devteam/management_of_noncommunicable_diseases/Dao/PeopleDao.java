@@ -13,6 +13,7 @@ import javafx.stage.Window;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,7 +45,7 @@ public class PeopleDao implements InfoBox, ComboBoxData {
         boolean checkEmptyPhoneNumber = validateEmptyFields(phone_number, "Nhập số điện thoại", owner);
         boolean checkExistingIdNumberAndLength = checkIdNumberAndLength(idNumber, "staffs", "ID đã tồn tại!", owner);
 
-        if ( checkIdNumber && checkFirstName && checkLastName && checkEmail && checkPhoneNumber && checkDOB && checkGender && checkAddress && checkEmailValid && checkEmptyIdNumber && checkEmptyPhoneNumber && checkExistingIdNumberAndLength) {
+        if (checkIdNumber && checkFirstName && checkLastName && checkEmail && checkPhoneNumber && checkDOB && checkGender && checkAddress && checkEmailValid && checkEmptyIdNumber && checkEmptyPhoneNumber && checkExistingIdNumberAndLength) {
             try {
                 connection = DBConnection.open();
                 assert connection != null;
@@ -104,14 +105,12 @@ public class PeopleDao implements InfoBox, ComboBoxData {
         return peopleList;
     }
 
-    public static ObservableList<People> searchPeople (String phone_number, String idNumber) throws SQLException, ClassNotFoundException {
-        String SELECT_ALL_PEOPLE =
-                """
+    public static ObservableList<People> searchPeople(String phone_number, String idNumber) throws SQLException, ClassNotFoundException {
+        String SELECT_ALL_PEOPLE = """
                         SELECT *
                         FROM people
                 """;
-        String SELECT_ALL_WITH_CONDITION =
-                """
+        String SELECT_ALL_WITH_CONDITION = """
                         SELECT *
                         FROM people
                         where phone_number = ? or id_number = ?
@@ -120,7 +119,7 @@ public class PeopleDao implements InfoBox, ComboBoxData {
             if (phone_number == null || idNumber == null) {
                 ResultSet rs = DBConnection.dbExecuteQuery(SELECT_ALL_PEOPLE);
                 return getPeopleList(rs);
-            }else {
+            } else {
                 ResultSet rs = DBConnection.dbPrepareStatementAndExecuteQueryForPeople(SELECT_ALL_WITH_CONDITION, phone_number, idNumber);
                 return getPeopleList(rs);
             }
@@ -130,7 +129,7 @@ public class PeopleDao implements InfoBox, ComboBoxData {
         }
     }
 
-    public static People searchPeopleByIdNumber (String idNumber) throws SQLException, ClassNotFoundException {
+    public static People searchPeopleByIdNumber(String idNumber) throws SQLException, ClassNotFoundException {
         String FIND_SPECIFIC_PEOPLE = "SELECT * FROM people WHERE id_number = " + idNumber;
         try {
             ResultSet rs = DBConnection.dbExecuteQuery(FIND_SPECIFIC_PEOPLE);
@@ -149,44 +148,44 @@ public class PeopleDao implements InfoBox, ComboBoxData {
         return people;
     }
 
-//    public void updatePeople(Window owner) throws SQLException {
-//        People people = new People();
-//        String FIND_SPECIFIC_PEOPLE = "SELECT * FROM people WHERE id_number = ?";
-//        String QUERY_UPDATE_PEOPLE = "UPDATE people SET id_number = ?, first_name = ?, last_name = ?, date_of_birth = ?, gender = ?, address = ?, phone_number = ?, email = ?, note = ? WHERE id_number = ?";
-//        try {
-//            connection = DBConnection.open();
-//            assert connection != null;
-//            preparedStatement = connection.prepareStatement(FIND_SPECIFIC_PEOPLE);
-//            preparedStatement.setString(1, people.getIdNumber());
-//            resultSet = preparedStatement.executeQuery();
-//            while (resultSet.next()) {
-//                String id_number = resultSet.getString("id_number");
-//                String first_name = resultSet.getString("first_name");
-//                String last_name = resultSet.getString("last_name");
-//                String date_of_birth = String.valueOf(resultSet.getDate("date_of_birth"));
-//                String gender = resultSet.getString("gender");
-//                String address = resultSet.getString("address");
-//                String phone_number = resultSet.getString("phone_number");
-//                String Email = resultSet.getString("email");
-//                String note = resultSet.getString("note");
-//            }
-//            preparedStatement = connection.prepareStatement(QUERY_UPDATE_PEOPLE);
-//                preparedStatement.setString(1, idNumber);
-//                preparedStatement.setString(2, firstName);
-//                preparedStatement.setString(3, lastName);
-//                preparedStatement.setString(4, String.valueOf(Date.valueOf(dateOfBirth)));
-//                preparedStatement.setString(5, gender);
-//                preparedStatement.setString(6, address);
-//                preparedStatement.setString(8, phone_number);
-//                preparedStatement.setString(7, email);
-//                preparedStatement.setString(9, note);
-//                preparedStatement.executeUpdate();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            DBConnection.closeAll(connection, preparedStatement, resultSet);
-//        }
-//    }
+    public void updatePeople(Window owner, String idNumber, String firstName, String lastName, String dateOfBirth, String gender, String address, String phone_number, String email, String note) throws SQLException {
+        People people = new People();
+        String FIND_SPECIFIC_PEOPLE = "SELECT * FROM people WHERE id_number = ?";
+        String QUERY_UPDATE_PEOPLE = "UPDATE people SET id_number = ?, first_name = ?, last_name = ?, date_of_birth = ?, gender = ?, address = ?, phone_number = ?, email = ?, note = ? WHERE id_number = ?";
+        try {
+            connection = DBConnection.open();
+            assert connection != null;
+            preparedStatement = connection.prepareStatement(FIND_SPECIFIC_PEOPLE);
+            preparedStatement.setString(1, people.getIdNumber());
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String id_number = resultSet.getString("id_number");
+                String first_name = resultSet.getString("first_name");
+                String last_name = resultSet.getString("last_name");
+                String date_of_birth = String.valueOf(resultSet.getDate("date_of_birth"));
+                String Gender = resultSet.getString("gender");
+                String Address = resultSet.getString("address");
+                String phoneNumber = resultSet.getString("phone_number");
+                String Email = resultSet.getString("email");
+                String Note = resultSet.getString("note");
+            }
+            preparedStatement = connection.prepareStatement(QUERY_UPDATE_PEOPLE);
+            preparedStatement.setString(1, idNumber);
+            preparedStatement.setString(2, firstName);
+            preparedStatement.setString(3, lastName);
+            preparedStatement.setString(4, dateOfBirth);
+            preparedStatement.setString(5, gender);
+            preparedStatement.setString(6, address);
+            preparedStatement.setString(8, phone_number);
+            preparedStatement.setString(7, email);
+            preparedStatement.setString(9, note);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBConnection.closeAll(connection, preparedStatement, resultSet);
+        }
+    }
 
     protected boolean validateEmptyFields(String dataField, String textToNotice, Window owner) {
         if (dataField.isEmpty()) {

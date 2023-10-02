@@ -29,7 +29,6 @@ public class People {
     }
 
 
-
     public String getFirstName() {
         return firstName;
     }
@@ -110,7 +109,7 @@ public class People {
 
     }
 
-    public People(String idNumber, String firstName, String lastName,LocalDate dateOfBirth, String gender, String address, String phoneNumber, String email, String note) {
+    public People(String idNumber, String firstName, String lastName, LocalDate dateOfBirth, String gender, String address, String phoneNumber, String email, String note) {
         this.idNumber = idNumber;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -122,15 +121,15 @@ public class People {
         this.note = note;
     }
 
-   /* public void add() throws SQLException {
-        peopleDao.addPeople(owner, this.idNumber, this.firstName,this.lastName, String.valueOf(this.dateOfBirth), String.valueOf(this.gender), this.address, this.phoneNumber, this.email, this.note );
-    }*/
-
-    protected void update () {
-
+    public void add() throws SQLException {
+        peopleDao.addPeople(owner, this.idNumber, this.firstName, this.lastName, String.valueOf(this.dateOfBirth), String.valueOf(this.gender), this.address, this.phoneNumber, this.email, this.note);
     }
 
-    protected void delete () {
+    public void update() throws SQLException {
+        peopleDao.updatePeople(owner, this.idNumber, this.firstName, this.lastName, String.valueOf(this.dateOfBirth), String.valueOf(this.gender), this.address, this.phoneNumber, this.email, this.note);
+    }
+
+    protected void delete() {
 
     }
 

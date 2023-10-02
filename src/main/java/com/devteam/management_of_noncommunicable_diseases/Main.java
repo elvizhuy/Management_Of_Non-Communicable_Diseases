@@ -1,7 +1,10 @@
 package com.devteam.management_of_noncommunicable_diseases;
 
+import com.devteam.management_of_noncommunicable_diseases.Dao.PositionDao;
+import com.devteam.management_of_noncommunicable_diseases.Model.Position;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,6 +12,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Main extends Application {
@@ -42,7 +47,10 @@ public class Main extends Application {
         }).start();
     }
 
-    public static void main(String[] args) {
-        launch();
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+//        launch();
+        ObservableList<Position> positionsList = PositionDao.getPositionList();
+        Position firstpos = positionsList.get(0);
+        System.out.println(firstpos.getName());
     }
 }

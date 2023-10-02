@@ -5,9 +5,10 @@ import java.sql.*;
 public class DBConnection {
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/mon_cda";
     private static final String DATABASE_USERNAME = "root";
-    private static final String DATABASE_PASSWORD = "Lamnt212";
+    private static final String DATABASE_PASSWORD = "Daniel@0908";
 
     private static Connection connection = null;
+
     public static Connection open() {
         System.out.println("Connecting database.......");
         try {
@@ -43,7 +44,7 @@ public class DBConnection {
         }
     }
 
-    public static ResultSet dbPrepareStatementAndExecuteQuery (String queryStmt,String name,String id) throws SQLException, ClassNotFoundException {
+    public static ResultSet dbPrepareStatementAndExecuteQuery(String queryStmt, String name, String id) throws SQLException, ClassNotFoundException {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
@@ -63,54 +64,54 @@ public class DBConnection {
         }
         return resultSet;
     }
+
     public static ResultSet dbExecuteQuery(String queryStmt) throws SQLException, ClassNotFoundException {
-        Statement stmt = null;
+        Statement stmt;
         ResultSet resultSet = null;
 
         try {
-            open();
+            connection = DBConnection.open();
             System.out.println("Select statement: " + queryStmt + "\n");
             stmt = connection.createStatement();
             resultSet = stmt.executeQuery(queryStmt);
         } catch (SQLException e) {
             System.out.println("Lỗi khi thực thi lệnh : " + e);
             throw e;
-        } finally {
-            if (resultSet != null) {
-                //Close resultSet
-                resultSet.close();
-            }
-            if (stmt != null) {
-                //Close Statement
-                stmt.close();
-            }
-            //Close connection
-            closeAll(connection, null, resultSet);
         }
         return resultSet;
     }
 
     //DB Execute Update (For Update/Insert/Delete) Operation
     public static void dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
-        //Declare statement as null
         Statement stmt = null;
         try {
-            //Connect to DB (Establish Oracle Connection)
             open();
-            //Create Statement
             stmt = connection.createStatement();
-            //Run executeUpdate operation with given sql statement
             stmt.executeUpdate(sqlStmt);
         } catch (SQLException e) {
             System.out.println("Lỗi khi thực thi lệnh : " + e);
             throw e;
-        } finally {
-            if (stmt != null) {
-                //Close statement
-                stmt.close();
-            }
-            //Close connection
-            closeAll(connection, null, null);
         }
+    }
+
+    public static ResultSet dbPrepareStatementAndExecuteQueryForPeople (String queryStmt, String phone_number, String idNumber) throws SQLException, ClassNotFoundException {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            open();
+            preparedStatement = connection.prepareStatement(queryStmt);
+            preparedStatement.setString(1, phone_number);
+            preparedStatement.setString(2, idNumber);
+            resultSet = preparedStatement.executeQuery();
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            closeAll(connection, preparedStatement, resultSet);
+        }
+        return resultSet;
     }
 }

@@ -51,46 +51,34 @@ public class PeopleController {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-    Window  owner;
+    Window owner;
     People people = new People();
     PeopleDao peopleDao = new PeopleDao();
 
-//    protected void checkIdNumber
+protected void getPeopleDetails () {
+    String IdNumber = id_number.getText();
+    String FirstName = first_name.getText();
+    String LastName = last_name.getText();
+    LocalDate DOB = date_of_birth.getValue();
+    String Gender = gender.getText();
+    String Address = address.getText();
+    String PhoneNumber = phone_number.getText();
+    String Email = email.getText();
+    String Note = note.getText();
+    People people = new People(IdNumber, FirstName, LastName, DOB, Gender, Address, PhoneNumber, Email, Note);
+}
 
     protected void addNewPeople(ActionEvent event) throws SQLException {
-        String IdNumber = id_number.getText();
-        String FirstName = first_name.getText();
-        String LastName = last_name.getText();
-        LocalDate DOB = date_of_birth.getValue();
-        String Gender = gender.getText();
-        String Address = address.getText();
-        String PhoneNumber = phone_number.getText();
-        String Email = email.getText();
-        String Note = note.getText();
-        People people = new People(IdNumber, FirstName, LastName, DOB, Gender, Address, PhoneNumber, Email, Note);
+        getPeopleDetails();
         people.add();
     }
 
     protected void updatePeople() throws SQLException {
-        try {
-            people.setIdNumber(id_number.getText());
-            people.setFirstName(first_name.getText());
-            people.setLastName(last_name.getText());
-            people.setDateOfBirth(date_of_birth.getValue());
-            people.setGender(gender.getText());
-            people.setAddress(address.getText());
-            people.setPhoneNumber(phone_number.getText());
-            people.setEmail(email.getText());
-            people.setNote(note.getText());
-            peopleDao.updatePeople(owner);
-        } catch (java.sql.SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            DBConnection.closeAll(connection, preparedStatement, resultSet);
-        }
+        getPeopleDetails();
+        people.update();
     }
 
-    protected void deletePeople () throws SQLException {
+    protected void deletePeople() throws SQLException {
 
     }
 }
