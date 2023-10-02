@@ -108,21 +108,9 @@ public class LoginController extends Thread implements Initializable, InfoBox, S
 
     @FXML
     void switchToRegister(ActionEvent event) throws IOException {
-        new SceneSwitch(loginView, "View/Dashboard.fxml");
+        new SceneSwitch(loginView, "View/Register.fxml");
     }
-    /*private void loadView(String fxmlFileName) {
-        try {
-            // Load FXML file
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(fxmlFileName));
-            Parent root = loader.load();
 
-        } catch (IOException e) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, e);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

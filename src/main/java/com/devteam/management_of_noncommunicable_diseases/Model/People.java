@@ -1,6 +1,6 @@
 package com.devteam.management_of_noncommunicable_diseases.Model;
 
-import com.devteam.management_of_noncommunicable_diseases.Dao.PeopleDao;
+/*import com.devteam.management_of_noncommunicable_diseases.Dao.PeopleDao;*/
 import javafx.stage.Window;
 
 import java.sql.SQLException;
@@ -104,7 +104,7 @@ public class People {
     }
 
     Window owner;
-    PeopleDao peopleDao = new PeopleDao();
+    /*PeopleDao peopleDao = new PeopleDao();*/
 
     public People() {
 
@@ -122,9 +122,9 @@ public class People {
         this.note = note;
     }
 
-    public void add() throws SQLException {
+   /* public void add() throws SQLException {
         peopleDao.addPeople(owner, this.idNumber, this.firstName,this.lastName, String.valueOf(this.dateOfBirth), String.valueOf(this.gender), this.address, this.phoneNumber, this.email, this.note );
-    }
+    }*/
 
     protected void update () {
 

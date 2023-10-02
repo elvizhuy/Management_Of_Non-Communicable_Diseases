@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="886.0" prefWidth="1320.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffManagementController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="886.0" prefWidth="1362.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devteam.management_of_noncommunicable_diseases.Controller.StaffManagementController">
    <top>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -24,7 +24,7 @@
                   <Font name="System Italic" size="32.0" />
                </font>
             </Label>
-            <JFXButton fx:id="addStaffs" layoutX="1205.0" layoutY="22.0" onAction="#addStaffs" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #D5D5D5;" styleClass="btnAddStaffs" text="Add New Staff" AnchorPane.topAnchor="22.0" />
+            <JFXButton fx:id="addStaffs" layoutX="1247.0" layoutY="22.0" onAction="#addStaffs" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #D5D5D5;" styleClass="btnAddStaffs" text="Add New Staff" AnchorPane.topAnchor="22.0" />
             <ComboBox layoutX="399.0" layoutY="174.0" prefHeight="25.0" prefWidth="220.0" promptText="Any" styleClass="ComboBox" stylesheets="@Style/ComboBoxStyle.css" />
             <ComboBox layoutX="643.0" layoutY="174.0" prefWidth="150.0" promptText="All Users" styleClass="ComboBox" stylesheets="@Style/ComboBoxStyle.css" />
             <ComboBox layoutX="810.0" layoutY="174.0" prefHeight="25.0" prefWidth="89.0" promptText="All Users" styleClass="ComboBox" stylesheets="@Style/ComboBoxStyle.css" />
@@ -46,15 +46,15 @@
       
    </center>
    <center>
-      <TableView prefHeight="666.0" prefWidth="1151.0" stylesheets="@Style/dataTableStyle.css" BorderPane.alignment="CENTER">
+      <TableView prefHeight="666.0" prefWidth="1319.0" stylesheets="@Style/dataTableStyle.css" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn prefWidth="211.0" text="Họ và Tên" />
           <TableColumn prefWidth="167.0" text="Tài Khoản" />
             <TableColumn prefWidth="186.0" text="Thời Gian Hoạt Động" />
             <TableColumn prefWidth="202.0" text="Phòng Ban " />
-            <TableColumn prefWidth="198.0" text="Chi Nhánh" />
-            <TableColumn prefWidth="244.0" text="Danh Mục" />
-            <TableColumn prefWidth="108.0" text="Chỉnh Sửa " />
+            <TableColumn prefWidth="291.0" text="Chi Nhánh" />
+            <TableColumn prefWidth="194.0" text="Danh Mục" />
+            <TableColumn prefWidth="106.0" text="Chỉnh Sửa " />
         </columns>
       </TableView>
    </center>
