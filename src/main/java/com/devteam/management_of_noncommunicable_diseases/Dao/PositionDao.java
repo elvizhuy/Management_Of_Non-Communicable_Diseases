@@ -53,8 +53,8 @@ public class PositionDao {
             }).start();
         }
     }
-    public static Position searchPosition () throws SQLException, ClassNotFoundException {
-        String SELECT_POSITION = "SELECT * FROM positions";
+    public static Position getAllPositions () throws SQLException, ClassNotFoundException {
+        String SELECT_POSITION = "SELECT id,name FROM positions";
         try {
             ResultSet rs = DBConnection.dbExecuteQuery(SELECT_POSITION);
             return (Position) getPositionList(rs);
@@ -67,8 +67,10 @@ public class PositionDao {
         ObservableList<Position> positionsList = FXCollections.observableArrayList();
         while (rs.next()) {
            Position position = new Position();
+           rs = (ResultSet) getAllPositions();
             setPositionProperties(rs, position);
             positionsList.add(position);
+            System.out.println(positionsList);
         }
         return positionsList;
     }
